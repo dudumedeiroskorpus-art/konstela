@@ -189,6 +189,84 @@
   .pf-check{ display:flex; align-items:center; gap:8px; font-size:12px; color:var(--text-dim); }
   .btn-ghost.danger{ color:var(--danger); border-color:rgba(255,107,122,0.5); }
   .btn-ghost:disabled{ opacity:0.4; cursor:not-allowed; }
+  .cs-newbtn{ margin:0 8px 8px; padding:9px; border-radius:6px; border:1px dashed var(--gold); background:transparent; color:var(--gold); font-size:12.5px; font-weight:700; cursor:pointer; }
+  .cs-newbtn:hover{ background:rgba(244,183,64,0.12); }
+  .cs-create{ color:var(--gold); font-weight:700; }
+  .cs-new{ flex-direction:column; gap:8px; padding:10px; }
+  .cs-new input{ padding:9px 11px; border-radius:6px; border:1px solid var(--border); background:rgba(255,255,255,0.05); color:var(--text); font-size:12.5px; outline:none; }
+  .cs-new p{ margin:0; font-size:11.5px; color:var(--text-mute); }
+  .cs-new-actions{ display:flex; gap:8px; justify-content:flex-end; }
+  .cat-error{ display:none; margin:6px 0 0; font-size:12px; color:var(--danger); }
+  .settings-shell{ display:flex; width:min(880px,100%); height:min(640px,92vh); background:linear-gradient(160deg,#10152a,#0a0d1a); border:1px solid var(--border-hi, rgba(255,255,255,0.14)); border-radius:18px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,0.6); }
+  .settings-nav{ width:232px; flex:none; display:flex; flex-direction:column; padding:22px 14px 16px; background:rgba(255,255,255,0.03); border-right:1px solid var(--border); }
+  .settings-user{ display:flex; align-items:center; gap:11px; padding:0 8px 18px; border-bottom:1px solid var(--border); margin-bottom:14px; }
+  .settings-user img{ width:44px; height:44px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); flex:none; }
+  .settings-user b{ display:block; font-size:13.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px; }
+  .settings-user span{ display:block; font-size:11px; color:var(--text-mute); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px; }
+  .settings-tabs{ display:flex; flex-direction:column; gap:3px; flex:1; }
+  .settings-tabs button{ text-align:left; padding:10px 12px; border-radius:9px; background:none; border:none; color:var(--text-dim); font-size:13px; font-weight:600; cursor:pointer; border-left:3px solid transparent; }
+  .settings-tabs button:hover{ background:rgba(255,255,255,0.05); color:var(--text); }
+  .settings-tabs button.active{ background:var(--gold-soft, rgba(244,183,64,0.12)); color:var(--gold); border-left-color:var(--gold); }
+  .settings-tabs button.tab-muted{ margin-top:auto; font-weight:500; font-size:12px; color:var(--text-mute); }
+  .settings-signout{ margin-top:12px; padding:10px; border-radius:9px; border:1px solid var(--border); background:none; color:var(--text-dim); font-size:12.5px; cursor:pointer; }
+  .settings-signout:hover{ border-color:var(--gold); color:var(--gold); }
+  .settings-body{ position:relative; flex:1; overflow-y:auto; padding:30px 34px 24px; }
+  .settings-close{ position:absolute; top:14px; right:16px; width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,0.05); border:1px solid var(--border); color:var(--text-dim); cursor:pointer; font-size:12px; }
+  .settings-close:hover{ color:var(--text); border-color:var(--border-hi, rgba(255,255,255,0.3)); }
+  .settings-pane{ display:none; }
+  .settings-pane.active{ display:block; }
+  .settings-pane h3{ margin:0 0 4px; font-size:22px; font-weight:800; letter-spacing:0.01em; }
+  .pane-sub{ margin:0 0 22px; font-size:13px; color:var(--text-mute); }
+  .pane-actions{ margin-top:18px; display:flex; justify-content:flex-end; }
+  .set-row{ display:flex; align-items:center; justify-content:space-between; gap:18px; padding:16px 0; border-bottom:1px solid var(--border); }
+  .set-row b{ display:block; font-size:14px; margin-bottom:4px; }
+  .set-row span{ display:block; font-size:12.5px; color:var(--text-mute); line-height:1.5; max-width:380px; }
+  .set-row-btns{ display:flex; gap:8px; flex:none; }
+  .set-row .btn-solid, .set-row .btn-ghost{ flex:none; white-space:nowrap; }
+  .tag{ font-style:normal; font-size:9.5px; letter-spacing:0.1em; font-weight:800; padding:2px 7px; border-radius:6px; background:var(--gold-soft, rgba(244,183,64,0.14)); color:var(--gold); margin-left:6px; vertical-align:middle; }
+  .priv-card{ padding:16px 18px; margin-bottom:12px; border:1px solid var(--border); border-radius:12px; background:rgba(255,255,255,0.03); }
+  .priv-card b{ display:block; font-size:13.5px; margin-bottom:5px; }
+  .priv-card span{ font-size:12.5px; color:var(--text-mute); line-height:1.55; }
+  .risk-banner{ padding:14px 16px; border-radius:12px; border:1px solid rgba(255,107,122,0.55); background:rgba(255,107,122,0.08); margin-bottom:16px; }
+  .risk-banner b{ display:block; color:var(--danger); font-size:13px; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:4px; }
+  .risk-banner span{ font-size:12.5px; color:var(--text-dim); line-height:1.55; }
+  .danger-row b{ color:var(--danger); }
+  .pf-msg{ margin:18px 0 0; min-height:16px; font-size:12.5px; }
+  .danger-card{ max-width:470px; border:1px solid rgba(255,107,122,0.5); }
+  .dz-steps{ display:flex; align-items:center; gap:6px; margin-bottom:14px; }
+  .dz-steps span{ width:26px; height:4px; border-radius:2px; background:rgba(255,255,255,0.12); }
+  .dz-steps span.done{ background:var(--danger); opacity:0.5; }
+  .dz-steps span.on{ background:var(--danger); }
+  .dz-steps em{ margin-left:auto; font-style:normal; font-size:11px; color:var(--text-mute); }
+  .dz-lead{ margin:0 0 14px; font-size:13.5px; line-height:1.6; color:var(--text-dim); }
+  .dz-counts{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:14px; }
+  .dz-counts div{ padding:10px 8px; border-radius:10px; background:rgba(255,255,255,0.04); text-align:center; }
+  .dz-counts b{ display:block; font-size:18px; color:var(--text); }
+  .dz-counts span{ font-size:10.5px; color:var(--text-mute); }
+  .dz-hint{ margin:0 0 8px; font-size:12.5px; color:var(--text-dim); }
+  .dz-backups{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:6px; }
+  .dz-note{ margin:4px 0 10px; min-height:15px; font-size:12px; }
+  .dz-check{ display:flex; align-items:flex-start; gap:9px; margin:10px 0; font-size:12.5px; color:var(--text-dim); line-height:1.5; cursor:pointer; }
+  .dz-check.strong{ color:var(--text); }
+  .dz-input{ width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--border); background:rgba(255,255,255,0.05); color:var(--text); font-size:14px; outline:none; letter-spacing:0.08em; }
+  .dz-input:focus{ border-color:var(--danger); }
+  .dz-final{ padding:18px; border-radius:12px; background:rgba(255,107,122,0.1); border:1px solid rgba(255,107,122,0.5); }
+  .dz-final b{ display:block; font-size:16px; color:var(--danger); margin-bottom:6px; }
+  .dz-final p{ margin:0; font-size:13px; color:var(--text-dim); line-height:1.55; }
+  .dz-error{ min-height:16px; margin:10px 0 0; font-size:12.5px; color:var(--danger); }
+  #dz-next.danger-solid{ background:linear-gradient(90deg,var(--danger),#c94550); color:#2a0a0a; }
+  #dz-next:disabled{ opacity:0.45; cursor:not-allowed; filter:none; }
+  @media (max-width:720px){
+    .settings-shell{ flex-direction:column; height:94vh; }
+    .settings-nav{ width:auto; flex-direction:row; align-items:center; padding:10px; gap:8px; border-right:none; border-bottom:1px solid var(--border); overflow-x:auto; }
+    .settings-user{ display:none; }
+    .settings-tabs{ flex-direction:row; flex:none; }
+    .settings-tabs button{ border-left:none; white-space:nowrap; }
+    .settings-tabs button.tab-muted{ margin-top:0; }
+    .settings-signout{ display:none; }
+    .settings-body{ padding:22px 18px; }
+    .set-row{ flex-direction:column; align-items:flex-start; }
+  }
   .account-chip{ align-self:center; max-width:170px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:11px; color:var(--text-mute); margin-right:4px; }
   .signout-btn{ display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:8px; border:1px solid var(--border); background:rgba(255,255,255,0.06); color:var(--text); font:inherit; font-size:12px; font-weight:600; cursor:pointer; }
   .signout-btn:hover{ background:rgba(244,183,64,0.15); border-color:var(--gold); color:var(--gold); }
@@ -635,6 +713,13 @@
     <h3 id="task-modal-title">Nova demanda</h3>
     <div class="field"><label>Título</label><input type="text" id="f-title" placeholder="Ex: Revisar contrato da academia"></div>
     <div class="field"><label>Descrição (opcional)</label><textarea id="f-desc" placeholder="Detalhes, contexto, próximos passos..."></textarea></div>
+    <div class="field"><label>Tipo</label>
+      <div class="segmented" id="f-kind-seg">
+        <button type="button" data-value="task">Demanda</button>
+        <button type="button" data-value="meta">Meta fixa</button>
+      </div>
+      <p id="f-kind-hint" style="display:none; font-size:11.5px; color:var(--text-mute); margin:6px 0 0;">Meta fixa não tem prazo nem conclusão: fica em destaque enquanto você a constrói.</p>
+    </div>
     <div class="field">
       <label>Frente</label>
       <div class="custom-select" id="f-cat-select">
@@ -642,15 +727,16 @@
         <div class="cs-panel" id="f-cat-panel">
           <input type="text" class="cs-search" id="f-cat-search" placeholder="Buscar frente...">
           <div class="cs-options" id="f-cat-options"></div>
+          <button type="button" class="cs-newbtn" id="f-cat-newbtn">+ Nova frente</button>
+          <div class="cs-new" id="f-cat-new" style="display:none">
+            <input type="text" id="f-newcat-name" placeholder="Nome da nova frente" maxlength="60">
+            <div class="segmented" id="f-newcat-kind"><button type="button" data-value="normal">Normal</button><button type="button" data-value="fixa">Fixa</button></div>
+            <p id="f-newcat-hint"></p>
+            <div class="cs-new-actions"><button type="button" class="btn-ghost" id="f-newcat-back">Voltar</button><button type="button" class="btn-solid" id="f-newcat-go">Criar e escolher</button></div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="field"><label>Tipo</label>
-      <div class="segmented" id="f-kind-seg">
-        <button type="button" data-value="task">Demanda</button>
-        <button type="button" data-value="meta">Meta fixa</button>
-      </div>
-      <p id="f-kind-hint" style="display:none; font-size:11.5px; color:var(--text-mute); margin:6px 0 0;">Meta fixa não tem prazo nem conclusão: fica em destaque enquanto você a constrói.</p>
+      <p class="cat-error" id="f-cat-error">Escolha uma frente ou crie uma nova para salvar.</p>
     </div>
     <div class="field" id="f-priority-field"><label>Prazo</label>
       <div class="segmented" id="f-priority-seg">
@@ -712,50 +798,87 @@
 </div>
 
 <div class="modal-backdrop" id="profile-modal">
-  <div class="modal" style="max-width:460px; max-height:92vh; overflow-y:auto">
-    <h3>Meu perfil</h3>
-    <div class="pf-top">
-      <img id="pf-avatar" class="pf-avatar" alt="Foto do perfil" src="">
-      <div class="pf-photo-actions">
-        <button type="button" class="btn-ghost" id="pf-photo-btn">Trocar foto</button>
-        <button type="button" class="btn-ghost" id="pf-photo-rm">Remover foto</button>
-        <input type="file" id="pf-file" accept="image/*" style="display:none">
+  <div class="settings-shell">
+    <aside class="settings-nav">
+      <div class="settings-user">
+        <img id="pf-nav-avatar" alt="" src="">
+        <div><b id="pf-nav-name"></b><span id="pf-nav-email"></span></div>
       </div>
-    </div>
-    <div class="field"><label>Nome</label><input type="text" id="pf-name" maxlength="40"></div>
-    <div class="field"><label>E-mail da conta</label><div id="pf-email" class="pf-static"></div></div>
-    <div class="field"><label>Conta criada em</label><div id="pf-since" class="pf-static"></div></div>
-    <p id="pf-msg" style="font-size:12px; min-height:16px; margin:0 0 10px;"></p>
-    <div class="pf-links">
-      <button type="button" class="btn-ghost" id="pf-pass-btn">Trocar senha (por e-mail)</button>
-      <button type="button" class="btn-ghost" id="pf-backup-btn">Baixar backup</button>
-      <button type="button" class="btn-ghost" id="pf-restore-btn">Restaurar backup</button>
-      <input type="file" id="pf-restore-file" accept="application/json,.json" style="display:none">
-    </div>
-    <div class="pf-danger">
-      <div class="pf-danger-title">Dados e conta</div>
-      <button type="button" class="btn-ghost" id="pf-reset-btn">Resetar conta (apagar tudo e recomeçar)</button>
-      <div id="pf-reset-box" class="pf-danger-box" style="display:none">
-        <p>Isso apaga todas as suas frentes, demandas, metas fixas e a lixeira, e deixa o Konstela vazio, como no primeiro dia. Sua conta, e-mail e senha continuam os mesmos. Não tem volta.</p>
-        <label class="pf-check"><input type="checkbox" id="pf-reset-profile"> Remover também meu nome e minha foto</label>
-        <button type="button" class="btn-ghost" id="pf-reset-backup">Baixar backup antes</button>
-        <input type="text" id="pf-reset-type" placeholder="Digite RESETAR para confirmar" autocomplete="off">
-        <button type="button" class="btn-ghost danger" id="pf-reset-confirm" disabled>Apagar tudo e recomeçar do zero</button>
+      <nav class="settings-tabs" id="settings-tabs">
+        <button type="button" data-tab="conta" class="active">Conta</button>
+        <button type="button" data-tab="seguranca">Segurança</button>
+        <button type="button" data-tab="dados">Dados e backup</button>
+        <button type="button" data-tab="privacidade">Privacidade</button>
+        <button type="button" data-tab="avancado" class="tab-muted">Avançado</button>
+      </nav>
+      <button type="button" class="settings-signout" id="pf-signout">Sair da conta</button>
+    </aside>
+    <section class="settings-body">
+      <button type="button" class="settings-close" id="pf-close" aria-label="Fechar">&#10005;</button>
+
+      <div class="settings-pane active" data-pane="conta">
+        <h3>Conta</h3>
+        <p class="pane-sub">Como você aparece no Konstela.</p>
+        <div class="pf-top">
+          <img id="pf-avatar" class="pf-avatar" alt="Foto do perfil" src="">
+          <div class="pf-photo-actions">
+            <button type="button" class="btn-ghost" id="pf-photo-btn">Trocar foto</button>
+            <button type="button" class="btn-ghost" id="pf-photo-rm">Remover foto</button>
+            <input type="file" id="pf-file" accept="image/*" style="display:none">
+          </div>
+        </div>
+        <div class="field"><label>Nome</label><input type="text" id="pf-name" maxlength="40"></div>
+        <div class="field"><label>E-mail da conta</label><div id="pf-email" class="pf-static"></div></div>
+        <div class="field"><label>Conta criada em</label><div id="pf-since" class="pf-static"></div></div>
+        <div class="pane-actions"><button class="btn-solid" id="pf-save">Salvar alterações</button></div>
       </div>
-      <button type="button" class="btn-ghost danger" id="pf-del-btn">Excluir minha conta</button>
-      <div id="pf-del-box" class="pf-danger-box" style="display:none">
-        <p>Isso exclui a sua conta e todos os seus dados de forma definitiva. Você não vai mais conseguir entrar com este e-mail, a menos que crie uma conta nova.</p>
-        <button type="button" class="btn-ghost" id="pf-del-backup">Baixar backup antes</button>
-        <input type="text" id="pf-del-type" placeholder="Digite EXCLUIR para confirmar" autocomplete="off">
-        <input type="password" id="pf-del-pass" placeholder="Sua senha" autocomplete="current-password">
-        <button type="button" class="btn-ghost danger" id="pf-del-confirm" disabled>Excluir minha conta definitivamente</button>
+
+      <div class="settings-pane" data-pane="seguranca">
+        <h3>Segurança</h3>
+        <p class="pane-sub">Proteja o acesso à sua conta.</p>
+        <div class="set-row"><div><b>Senha</b><span>Enviamos um link para o seu e-mail para você criar uma nova senha.</span></div><button type="button" class="btn-ghost" id="pf-pass-btn">Trocar senha</button></div>
+        <div class="set-row"><div><b>Sessão neste aparelho</b><span>Saia da conta ou entre com outra, sem perder nada.</span></div><button type="button" class="btn-ghost" id="pf-signout2">Sair da conta</button></div>
       </div>
-    </div>
-    <div class="modal-actions">
-      <button class="btn-ghost" id="pf-signout">Sair da conta</button>
-      <button class="btn-ghost" id="pf-close">Fechar</button>
-      <button class="btn-solid" id="pf-save">Salvar</button>
-    </div>
+
+      <div class="settings-pane" data-pane="dados">
+        <h3>Dados e backup</h3>
+        <p class="pane-sub">Leve o seu conteúdo com você, em formatos que você pode guardar.</p>
+        <div class="set-row"><div><b>Relatório de organização <i class="tag">PDF</i></b><span>Visão limpa das suas frentes, demandas em aberto e metas fixas. Ideal para ler, imprimir e compartilhar.</span></div><button type="button" class="btn-solid" id="pf-pdf-org">Gerar PDF</button></div>
+        <div class="set-row"><div><b>Backup completo <i class="tag">PDF</i></b><span>Tudo em um documento: demandas abertas e concluídas, datas, metas fixas e lixeira.</span></div><button type="button" class="btn-solid" id="pf-pdf-bkp">Gerar PDF</button></div>
+        <div class="set-row"><div><b>Backup para restaurar <i class="tag">JSON</i></b><span>Arquivo que o Konstela consegue ler de volta. Use para guardar ou migrar seus dados.</span></div><div class="set-row-btns"><button type="button" class="btn-ghost" id="pf-backup-btn">Baixar</button><button type="button" class="btn-ghost" id="pf-restore-btn">Restaurar</button><input type="file" id="pf-restore-file" accept="application/json,.json" style="display:none"></div></div>
+      </div>
+
+      <div class="settings-pane" data-pane="privacidade">
+        <h3>Privacidade</h3>
+        <p class="pane-sub">Seus dados são seus.</p>
+        <div class="priv-card"><b>Onde ficam guardados</b><span>Na nuvem do Google (Firebase), em servidores no Brasil (São Paulo), vinculados à sua conta.</span></div>
+        <div class="priv-card"><b>Quem pode ver</b><span>Somente você, ao entrar com o seu e-mail e senha. Cada conta tem o seu espaço separado.</span></div>
+        <div class="priv-card"><b>O que você controla</b><span>Baixar tudo a qualquer momento, em PDF ou JSON. Resetar ou excluir a conta fica em Avançado.</span></div>
+      </div>
+
+      <div class="settings-pane" data-pane="avancado">
+        <h3>Avançado</h3>
+        <p class="pane-sub">Opções para usuários experientes.</p>
+        <div class="risk-banner"><b>Zona de risco</b><span>As ações desta área apagam dados de forma permanente e não podem ser desfeitas. Gere um backup antes.</span></div>
+        <label class="dz-check strong"><input type="checkbox" id="pf-adv-unlock"> Entendo os riscos e quero ver as ações irreversíveis.</label>
+        <div id="pf-adv-actions" style="display:none">
+          <div class="set-row danger-row"><div><b>Resetar conta</b><span>Apaga todo o conteúdo e recomeça do zero. Sua conta continua.</span></div><button type="button" class="btn-ghost danger" id="pf-reset-open">Resetar...</button></div>
+          <div class="set-row danger-row"><div><b>Excluir conta</b><span>Remove a conta e todos os dados, para sempre.</span></div><button type="button" class="btn-ghost danger" id="pf-del-open">Excluir...</button></div>
+        </div>
+      </div>
+
+      <p id="pf-msg" class="pf-msg"></p>
+    </section>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="danger-modal" style="z-index:130">
+  <div class="modal danger-card">
+    <div class="dz-steps" id="dz-steps"></div>
+    <h3 id="dz-title"></h3>
+    <div id="dz-body"></div>
+    <p id="dz-error" class="dz-error"></p>
+    <div class="modal-actions"><button class="btn-ghost" id="dz-cancel">Cancelar</button><button class="btn-ghost" id="dz-back">Voltar</button><button class="btn-solid" id="dz-next">Continuar</button></div>
   </div>
 </div>
 
@@ -2311,7 +2434,7 @@ function renderAttachList(){
 function catColorDot(cat){ return '<span class="cs-dot" style="background:'+hueColor(cat.hue)+'"></span>'; }
 function renderCatTrigger(){
   var cat = catById(taskForm.categoryId);
-  document.getElementById("f-cat-trigger").innerHTML = cat ? (catColorDot(cat)+"<span>"+escapeHtml(cat.name)+"</span>") : "Selecionar frente";
+  document.getElementById("f-cat-trigger").innerHTML = cat ? (catColorDot(cat)+"<span>"+escapeHtml(cat.name)+"</span>") : "Escolher frente ou criar uma nova...";
   updateModalFieldsVisibility();
 }
 function updateModalFieldsVisibility(){
@@ -2335,9 +2458,49 @@ function renderCatOptions(query){
     opt.addEventListener("click", function(){ taskForm.categoryId = cat.id; renderCatTrigger(); closeCatPanel(); });
     wrap.appendChild(opt);
   });
+  var qRaw = (query||"").trim();
+  if(qRaw && !activeCategories().some(function(c){ return c.name.toLowerCase()===qRaw.toLowerCase(); })){
+    var mk = document.createElement("div");
+    mk.className = "cs-option cs-create";
+    mk.innerHTML = "<span>+ Criar frente \""+escapeHtml(qRaw)+"\"</span>";
+    mk.addEventListener("click", function(){ showNewCatForm(qRaw); });
+    wrap.appendChild(mk);
+  }
+}
+var newCatKind = "normal";
+function showNewCatForm(prefill){
+  document.getElementById("f-cat-options").style.display = "none";
+  document.getElementById("f-cat-search").style.display = "none";
+  document.getElementById("f-cat-newbtn").style.display = "none";
+  document.getElementById("f-cat-new").style.display = "flex";
+  var inp = document.getElementById("f-newcat-name"); inp.value = prefill || ""; inp.focus();
+  newCatKind = taskForm.kind==="meta" ? "fixa" : "normal";
+  renderNewCatKind();
+}
+function hideNewCatForm(){
+  document.getElementById("f-cat-new").style.display = "none";
+  document.getElementById("f-cat-options").style.display = "";
+  document.getElementById("f-cat-search").style.display = "";
+  document.getElementById("f-cat-newbtn").style.display = "";
+}
+function renderNewCatKind(){
+  document.querySelectorAll("#f-newcat-kind button").forEach(function(b){ b.classList.toggle("active", b.dataset.value===newCatKind); });
+  document.getElementById("f-newcat-hint").textContent = newCatKind==="fixa" ? "Fixa: permanente, fora da órbita, sem prazos." : "Normal: entra na órbita, com prazos curto, médio e longo.";
+}
+function createCatInline(){
+  var name = document.getElementById("f-newcat-name").value.trim();
+  if(!name){ document.getElementById("f-newcat-name").focus(); return; }
+  var existing = activeCategories().find(function(c){ return c.name.toLowerCase()===name.toLowerCase(); });
+  var cat = existing || makeCategory(name, newCatKind);
+  if(!cat) return;
+  taskForm.categoryId = cat.id;
+  document.getElementById("f-cat-error").style.display = "none";
+  hideNewCatForm(); renderCatTrigger(); closeCatPanel();
+  refreshAfterChange();
 }
 function openCatPanel(){
   document.getElementById("f-cat-panel").classList.add("open");
+  hideNewCatForm();
   document.getElementById("f-cat-search").value = "";
   renderCatOptions("");
   document.getElementById("f-cat-search").focus();
@@ -2354,7 +2517,8 @@ function openTaskModal(task, kind){
   editingTaskId = task ? task.id : null;
   taskForm.kind = task ? (task.type==="meta" ? "meta" : "task") : (kind || "task");
   document.getElementById("task-modal-title").textContent = task ? "Editar demanda" : "Nova demanda";
-  taskForm.categoryId = task ? task.categoryId : (activeCategoryId || (activeCategories()[0]&&activeCategories()[0].id) || null);
+  taskForm.categoryId = task ? task.categoryId : (activeCategoryId || (taskForm.kind==="meta" ? null : ((activeCategories()[0]&&activeCategories()[0].id) || null)));
+  document.getElementById("f-cat-error").style.display = "none";
   taskForm.priority = task ? task.priority : "curto";
   taskForm.status = task ? task.status : "pendente";
   taskForm.attachments = task && task.attachments ? task.attachments.slice() : [];
@@ -2365,11 +2529,17 @@ function openTaskModal(task, kind){
   renderAttachList();
   document.getElementById("task-modal").classList.add("visible");
   document.getElementById("f-title").focus();
+  if(!activeCategories().length){ setTimeout(function(){ openCatPanel(); showNewCatForm(""); }, 0); }
 }
 function closeTaskModal(){ document.getElementById("task-modal").classList.remove("visible"); closeCatPanel(); }
 function saveTask(){
   var title = document.getElementById("f-title").value.trim();
   if(!title){ document.getElementById("f-title").focus(); return; }
+  if(!taskForm.categoryId || !catById(taskForm.categoryId) || catById(taskForm.categoryId).deletedAt){
+    document.getElementById("f-cat-error").style.display = "block";
+    setTimeout(openCatPanel, 0);
+    return;
+  }
   var wasConcluida = editingTaskId ? (data.tasks.find(function(x){return x.id===editingTaskId;})||{}).status==="concluida" : false;
   var payload = {
     title:title, desc:document.getElementById("f-desc").value.trim(),
@@ -2406,19 +2576,25 @@ var catKind = "normal";
 function renderCatKind(){ document.querySelectorAll("#c-kind-seg button").forEach(function(b){ b.classList.toggle("active", b.dataset.value===catKind); }); document.getElementById("c-kind-hint").textContent = catKind==="fixa" ? "Frente fixa: permanente, fica fora da órbita, sem prazos. Ideal para o que você constrói ao longo da vida." : "Frente normal: entra na órbita e organiza demandas por prazo (curto, médio, longo)."; }
 function openCatModal(){ catKind="normal"; renderCatKind(); document.getElementById("c-name").value=""; document.getElementById("cat-modal").classList.add("visible"); document.getElementById("c-name").focus(); }
 function closeCatModal(){ document.getElementById("cat-modal").classList.remove("visible"); }
-function saveCategory(){
-  var name = document.getElementById("c-name").value.trim();
-  if(!name){ document.getElementById("c-name").focus(); return; }
+function makeCategory(name, kind){
   var hue = Math.round((data.categories.length * 137.508) % 360);
   var cat = { id: uid(), name:name, hue:hue };
-  if(catKind==="fixa"){
+  if(kind==="fixa"){
     var nExtra = data.categories.filter(function(c){ return c.satellite==="extra" && !c.deletedAt; }).length;
-    if(nExtra>=14){ alert("Você já tem o máximo de frentes fixas (14). Exclua alguma para criar outra."); return; }
+    if(nExtra>=14){ alert("Você já tem o máximo de frentes fixas (14). Exclua alguma para criar outra."); return null; }
     cat.satellite = "extra";
     cat.hue = [42,190,300,150,20,260,80,330,110,225,60,170,0,285][nExtra%14];
   }
   data.categories.push(cat);
-  saveData(); closeCatModal();
+  saveData();
+  return cat;
+}
+function saveCategory(){
+  var name = document.getElementById("c-name").value.trim();
+  if(!name){ document.getElementById("c-name").focus(); return; }
+  var cat = makeCategory(name, catKind);
+  if(!cat) return;
+  closeCatModal();
   renderAll();
   openFrente(cat.id);
 }
@@ -2530,19 +2706,27 @@ function resizePhoto(file, cb){
   reader.readAsDataURL(file);
 }
 var pfPhoto = "";
+function showProfileTab(tab){
+  document.querySelectorAll("#settings-tabs button").forEach(function(b){ b.classList.toggle("active", b.dataset.tab===tab); });
+  document.querySelectorAll(".settings-pane").forEach(function(p){ p.classList.toggle("active", p.dataset.pane===tab); });
+  document.getElementById("pf-msg").textContent = "";
+}
+function refreshProfileNav(){
+  var src = photoSrc() || document.querySelector("#brand-home .brand-k img").getAttribute("src");
+  document.getElementById("pf-nav-avatar").setAttribute("src", src);
+  document.getElementById("pf-nav-name").textContent = displayName();
+  document.getElementById("pf-nav-email").textContent = currentEmail;
+}
 function openProfile(){
   if(guestMode || !profile) return;
   pfPhoto = profile.photo || "";
   document.getElementById("pf-name").value = profile.name || displayName();
   document.getElementById("pf-email").textContent = currentEmail;
   document.getElementById("pf-since").textContent = profile.createdAt ? formatDateBR(profile.createdAt) : "";
-  document.getElementById("pf-msg").textContent = "";
-  ["pf-del-box","pf-reset-box"].forEach(function(id){ document.getElementById(id).style.display = "none"; });
-  ["pf-reset-type","pf-del-type","pf-del-pass"].forEach(function(id){ document.getElementById(id).value = ""; });
-  document.getElementById("pf-reset-profile").checked = false;
-  document.getElementById("pf-reset-confirm").disabled = true;
-  document.getElementById("pf-del-confirm").disabled = true;
-  refreshPfAvatar();
+  document.getElementById("pf-adv-unlock").checked = false;
+  document.getElementById("pf-adv-actions").style.display = "none";
+  showProfileTab("conta");
+  refreshPfAvatar(); refreshProfileNav();
   document.getElementById("profile-modal").classList.add("visible");
 }
 function closeProfile(){ document.getElementById("profile-modal").classList.remove("visible"); }
@@ -2556,7 +2740,7 @@ function saveProfileFromForm(){
   var nm = document.getElementById("pf-name").value.trim();
   if(!nm){ pfMsg("Digite um nome.", false); return; }
   profile.name = nm; profile.photo = pfPhoto; profile.onboarded = true;
-  saveProfile().then(function(){ applyIdentity(); renderConstellation(); pfMsg("Perfil atualizado.", true); });
+  saveProfile().then(function(){ applyIdentity(); renderConstellation(); refreshProfileNav(); pfMsg("Perfil atualizado.", true); });
 }
 function downloadBackup(){
   var blob = new Blob([JSON.stringify({ app:"konstela", exportedAt: Date.now(), profile:{ name:profile.name }, data:data }, null, 2)], {type:"application/json"});
@@ -2582,9 +2766,143 @@ function sendPasswordChange(){
     .then(function(){ pfMsg("Enviamos um e-mail para " + currentEmail + " com o link para criar uma nova senha.", true); })
     .catch(function(){ pfMsg("Não deu para enviar o e-mail agora. Tente novamente.", false); });
 }
-function resetAccount(){
-  if(document.getElementById("pf-reset-type").value.trim().toUpperCase()!=="RESETAR") return;
-  var wipeProfile = document.getElementById("pf-reset-profile").checked;
+
+// ---------------- Relatórios em PDF ----------------
+function avatarForPdf(){
+  return new Promise(function(res){
+    try{
+      var src = photoSrc() || document.querySelector("#brand-home .brand-k img").getAttribute("src");
+      var img = new Image();
+      img.onload = function(){
+        var S = 300, cv = document.createElement("canvas"); cv.width = S; cv.height = S;
+        var cx = cv.getContext("2d");
+        cx.fillStyle = "#0B1020"; cx.fillRect(0,0,S,S);
+        cx.save(); cx.beginPath(); cx.arc(S/2,S/2,S/2,0,Math.PI*2); cx.clip();
+        var m = Math.min(img.width, img.height);
+        cx.drawImage(img, (img.width-m)/2, (img.height-m)/2, m, m, 0, 0, S, S);
+        cx.restore();
+        try{ res({ bin: atob(cv.toDataURL("image/jpeg",0.92).split(",")[1]), w:S, h:S }); }catch(e){ res(null); }
+      };
+      img.onerror = function(){ res(null); };
+      img.src = src;
+    }catch(e){ res(null); }
+  });
+}
+function todayISO(){
+  try{ var p = new Intl.DateTimeFormat("en-CA",{timeZone:"America/Sao_Paulo",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date()); return p; }catch(e){ return new Date().toISOString().slice(0,10); }
+}
+function generateReport(kind, notify){
+  if(!data) return;
+  notify("Gerando o PDF...", true);
+  avatarForPdf().then(function(av){
+    var bytes = buildReportPdf(kind, { data:data, name:displayName(), email:currentEmail, avatar:av, nowTs:Date.now() });
+    var blob = new Blob([bytes], {type:"application/pdf"});
+    var u = URL.createObjectURL(blob), l = document.createElement("a");
+    l.href = u; l.download = "konstela-" + (kind==="backup" ? "backup-completo" : "organizacao") + "-" + todayISO() + ".pdf";
+    document.body.appendChild(l); l.click(); l.remove(); setTimeout(function(){ URL.revokeObjectURL(u); }, 4000);
+    notify("PDF gerado. Confira seus downloads.", true);
+  }).catch(function(e){ console.error("PDF failed", e); notify("Não deu para gerar o PDF agora. Tente novamente.", false); });
+}
+
+// ---------------- Ações irreversíveis (assistente em etapas) ----------------
+var dz = null;
+function dzCounts(){
+  return {
+    frentes: activeCategories().length,
+    demandas: data.tasks.filter(function(t){ return !t.deletedAt && t.type==="task"; }).length,
+    metas: data.tasks.filter(function(t){ return !t.deletedAt && t.type==="meta"; }).length,
+    lixeira: data.tasks.filter(function(t){ return t.deletedAt; }).length
+  };
+}
+function openDanger(kind){
+  dz = { kind:kind, step:0, wipe:false, timer:null, steps: kind==="reset" ? ["intro","type","final"] : ["intro","type","password","final"] };
+  document.getElementById("danger-modal").classList.add("visible");
+  renderDz();
+}
+function closeDanger(){
+  if(dz) clearInterval(dz.timer);
+  dz = null;
+  document.getElementById("danger-modal").classList.remove("visible");
+}
+function dzNote(t, ok){ var n = document.getElementById("dz-note"); if(n){ n.textContent = t; n.style.color = ok ? "var(--cyan, #45e0c8)" : "var(--danger)"; } }
+function renderDz(){
+  clearInterval(dz.timer);
+  var step = dz.steps[dz.step], isReset = dz.kind==="reset", total = dz.steps.length;
+  var body = document.getElementById("dz-body"), next = document.getElementById("dz-next"), err = document.getElementById("dz-error");
+  err.textContent = "";
+  document.getElementById("dz-steps").innerHTML = dz.steps.map(function(s,i){ return '<span class="'+(i<dz.step?'done':(i===dz.step?'on':''))+'"></span>'; }).join("") + '<em>Etapa '+(dz.step+1)+' de '+total+'</em>';
+  document.getElementById("dz-back").style.display = dz.step>0 && step!=="final" ? "" : (step==="final" ? "" : "none");
+  next.classList.add("danger-solid");
+  var word = isReset ? "RESETAR" : "EXCLUIR";
+  if(step==="intro"){
+    var c = dzCounts();
+    document.getElementById("dz-title").textContent = isReset ? "Resetar a conta" : "Excluir a conta";
+    body.innerHTML =
+      '<p class="dz-lead">' + (isReset
+        ? 'Você está prestes a <b>apagar todo o conteúdo</b> do seu Konstela e começar do zero. Sua conta, e-mail e senha continuam os mesmos.'
+        : 'Você está prestes a <b>excluir a sua conta de forma definitiva</b>. Você não vai mais conseguir entrar com este e-mail, a menos que crie uma conta nova.') + '</p>' +
+      '<div class="dz-counts"><div><b>'+c.frentes+'</b><span>frentes</span></div><div><b>'+c.demandas+'</b><span>demandas</span></div><div><b>'+c.metas+'</b><span>metas fixas</span></div><div><b>'+c.lixeira+'</b><span>na lixeira</span></div></div>' +
+      '<p class="dz-hint">Antes de continuar, guarde uma cópia. Depois não há como recuperar.</p>' +
+      '<div class="dz-backups"><button type="button" class="btn-ghost" id="dz-bk-pdf">Backup completo (PDF)</button><button type="button" class="btn-ghost" id="dz-bk-json">Backup para restaurar (JSON)</button></div>' +
+      '<p id="dz-note" class="dz-note"></p>' +
+      (isReset ? '<label class="dz-check"><input type="checkbox" id="dz-wipe"> Remover também meu nome e minha foto</label>' : '') +
+      '<label class="dz-check strong"><input type="checkbox" id="dz-ack"> Entendo que esta ação é irreversível e que meus dados serão perdidos.</label>';
+    next.textContent = "Continuar"; next.disabled = true;
+    document.getElementById("dz-bk-pdf").addEventListener("click", function(){ generateReport("backup", dzNote); });
+    document.getElementById("dz-bk-json").addEventListener("click", function(){ downloadBackup(); dzNote("Backup JSON baixado.", true); });
+    document.getElementById("dz-ack").addEventListener("change", function(e){ next.disabled = !e.target.checked; });
+    var w = document.getElementById("dz-wipe"); if(w) w.addEventListener("change", function(e){ dz.wipe = e.target.checked; });
+  } else if(step==="type"){
+    document.getElementById("dz-title").textContent = "Confirme digitando";
+    body.innerHTML = '<p class="dz-lead">Para continuar, digite <b>'+word+'</b> (em maiúsculas ou minúsculas) no campo abaixo.</p><input type="text" id="dz-type" class="dz-input" placeholder="'+word+'" autocomplete="off">';
+    next.textContent = "Continuar"; next.disabled = true;
+    var inp = document.getElementById("dz-type"); inp.focus();
+    inp.addEventListener("input", function(e){ next.disabled = e.target.value.trim().toUpperCase()!==word; });
+    inp.addEventListener("keydown", function(e){ if(e.key==="Enter" && !next.disabled) next.click(); });
+  } else if(step==="password"){
+    document.getElementById("dz-title").textContent = "Confirme a sua senha";
+    body.innerHTML = '<p class="dz-lead">Por segurança, digite a senha da conta <b>'+escapeHtml(currentEmail)+'</b>.</p><input type="password" id="dz-pass" class="dz-input" placeholder="Sua senha" autocomplete="current-password">';
+    next.textContent = "Verificar senha"; next.disabled = true;
+    var pi = document.getElementById("dz-pass"); pi.focus();
+    pi.addEventListener("input", function(e){ next.disabled = !e.target.value; });
+    pi.addEventListener("keydown", function(e){ if(e.key==="Enter" && !next.disabled) next.click(); });
+  } else {
+    var secs = isReset ? 5 : 8;
+    document.getElementById("dz-title").textContent = "Última chance";
+    body.innerHTML = '<div class="dz-final"><b>' + (isReset ? 'Tudo será apagado agora.' : 'Sua conta será excluída agora.') + '</b><p>' + (isReset ? 'Frentes, demandas, metas fixas e lixeira desaparecem. Esta é a última etapa.' : 'Conta, dados e perfil serão removidos para sempre. Esta é a última etapa.') + '</p></div>';
+    var label = isReset ? "Apagar tudo e recomeçar" : "Excluir definitivamente";
+    next.disabled = true; next.textContent = label + " (" + secs + ")";
+    dz.timer = setInterval(function(){
+      secs--;
+      if(secs<=0){ clearInterval(dz.timer); next.disabled = false; next.textContent = label; }
+      else next.textContent = label + " (" + secs + ")";
+    }, 1000);
+  }
+}
+function dzNext(){
+  var step = dz.steps[dz.step], isReset = dz.kind==="reset";
+  var next = document.getElementById("dz-next"), err = document.getElementById("dz-error");
+  if(step==="password"){
+    var pw = document.getElementById("dz-pass").value;
+    var fb = window.__firebase, user = fb.auth.currentUser;
+    next.disabled = true; next.textContent = "Verificando...";
+    fb.reauthenticateWithCredential(user, fb.EmailAuthProvider.credential(currentEmail, pw)).then(function(){
+      dz.step++; renderDz();
+    }).catch(function(e){
+      renderDz();
+      document.getElementById("dz-error").textContent = (e && (e.code==="auth/wrong-password" || e.code==="auth/invalid-credential")) ? "Senha incorreta." : "Não deu para verificar a senha agora. Tente novamente.";
+    });
+    return;
+  }
+  if(step==="final"){
+    next.disabled = true;
+    if(isReset) resetAccountNow(dz.wipe); else deleteAccountNow();
+    return;
+  }
+  dz.step++; renderDz();
+}
+function dzBack(){ if(dz && dz.step>0){ dz.step--; renderDz(); } else closeDanger(); }
+function resetAccountNow(wipeProfile){
   data = emptySeed();
   activeCategoryId = null; globalQuery = ""; frenteQuery = "";
   saveData();
@@ -2592,22 +2910,494 @@ function resetAccount(){
     profile = { name:"", photo:"", createdAt: profile.createdAt || Date.now(), onboarded:false };
     saveProfile();
   }
-  closeProfile();
+  closeDanger(); closeProfile();
   showView("view-home");
   applyIdentity(); renderAll();
   if(wipeProfile) openOnboarding();
 }
-function deleteAccount(){
-  if(document.getElementById("pf-del-type").value.trim().toUpperCase()!=="EXCLUIR") return;
-  var pw = document.getElementById("pf-del-pass").value;
-  if(!pw){ pfMsg("Digite sua senha para confirmar.", false); return; }
+function deleteAccountNow(){
   var fb = window.__firebase, user = fb.auth.currentUser;
-  var cred = fb.EmailAuthProvider.credential(currentEmail, pw);
-  fb.reauthenticateWithCredential(user, cred).then(function(){
-    return Promise.all([ fb.deleteDoc(dataDocRef()), fb.deleteDoc(profileDocRef()) ]);
-  }).then(function(){ return fb.deleteUser(user); })
-  .then(function(){ location.reload(); })
-  .catch(function(e){ pfMsg((e && (e.code==="auth/wrong-password" || e.code==="auth/invalid-credential")) ? "Senha incorreta." : "Não deu para excluir agora. Tente novamente.", false); });
+  Promise.all([ fb.deleteDoc(dataDocRef()), fb.deleteDoc(profileDocRef()) ])
+    .then(function(){ return fb.deleteUser(user); })
+    .then(function(){ location.reload(); })
+    .catch(function(e){
+      document.getElementById("dz-error").textContent = "Não deu para excluir agora. Tente novamente em instantes.";
+      document.getElementById("dz-next").disabled = false;
+    });
+}
+
+// ---------------- PDF (gerador próprio, sem bibliotecas externas) ----------------
+var PDF_W_REG = [278,278,355,556,556,889,667,191,333,333,389,584,278,333,278,278,556,556,556,556,556,556,556,556,556,556,278,278,584,584,584,556,1015,667,667,722,722,667,611,778,722,278,500,667,556,833,722,778,667,778,722,667,611,722,667,944,667,667,611,278,278,278,469,556,333,556,556,500,556,556,278,556,556,222,222,500,222,833,556,556,556,556,333,500,278,556,500,722,500,500,500,334,260,334,584];
+var PDF_W_BOLD = [278,333,474,556,556,889,722,238,333,333,389,584,278,333,278,278,556,556,556,556,556,556,556,556,556,556,333,333,584,584,584,611,975,722,722,722,722,667,611,778,722,278,556,722,611,833,722,778,667,778,722,667,611,722,667,944,667,667,611,333,278,333,584,556,333,556,611,556,611,556,333,611,611,278,278,556,278,889,611,611,611,611,389,556,333,611,556,778,556,556,500,389,280,389,584];
+
+function pdfSafe(s){
+  s = String(s==null?"":s);
+  var map = { "\u2018":"'", "\u2019":"'", "\u201C":'"', "\u201D":'"', "\u2026":"...", "\u2265":">=", "\u2264":"<=", "\u2192":"->", "\u2022":"-", "\u00A0":" ", "\u2013":"-", "\u2014":",", "\u2713":"", "\u2605":"" };
+  var out = "";
+  for(var i=0;i<s.length;i++){
+    var ch = s.charAt(i), c = s.charCodeAt(i);
+    if(map[ch]!==undefined){ out += map[ch]; continue; }
+    if(c===10 || c===13 || c===9){ out += " "; continue; }
+    if(c<32){ continue; }
+    if(c<=255){ out += ch; continue; }
+    var base = ch.normalize ? ch.normalize("NFD").charAt(0) : "";
+    if(base && base.charCodeAt(0)<=255 && base.charCodeAt(0)>=32) out += base;
+  }
+  return out;
+}
+function pdfCharW(ch, bold){
+  var c = ch.charCodeAt(0), t = bold ? PDF_W_BOLD : PDF_W_REG;
+  if(c>=32 && c<=126) return t[c-32];
+  var base = ch.normalize ? ch.normalize("NFD").charAt(0) : "";
+  var bc = base ? base.charCodeAt(0) : 0;
+  if(bc>=32 && bc<=126) return t[bc-32];
+  return 556;
+}
+function pdfStr(s){
+  var o = "";
+  for(var i=0;i<s.length;i++){
+    var c = s.charCodeAt(i), ch = s.charAt(i);
+    if(c>255) { o += "?"; continue; }
+    if(ch==="(" || ch===")" || ch==="\\") o += "\\" + ch; else o += ch;
+  }
+  return "(" + o + ")";
+}
+function pf(n){ return (Math.round(n*100)/100).toString(); }
+function pcol(c){ return pf(c[0]/255)+" "+pf(c[1]/255)+" "+pf(c[2]/255); }
+
+function PdfDoc(){
+  this.pages = []; this.cur = null; this.alphas = []; this.images = [];
+  this.K = 72/25.4; this.PW = 595.28; this.PH = 841.89;
+}
+PdfDoc.prototype.addPage = function(){ this.cur = []; this.pages.push(this.cur); };
+PdfDoc.prototype.X = function(mm){ return mm*this.K; };
+PdfDoc.prototype.Y = function(mm){ return this.PH - mm*this.K; };
+PdfDoc.prototype._gs = function(a){
+  if(a==null || a>=1) return "";
+  var key = pf(a), idx = this.alphas.indexOf(key);
+  if(idx<0){ this.alphas.push(key); idx = this.alphas.length-1; }
+  return "/GS"+idx+" gs ";
+};
+PdfDoc.prototype._paint = function(o, closeOp){
+  if(o.fill && o.stroke) return "B";
+  if(o.fill) return "f";
+  return "S";
+};
+PdfDoc.prototype._style = function(o){
+  var s = this._gs(o.alpha);
+  if(o.fill) s += pcol(o.fill)+" rg ";
+  if(o.stroke){ s += pcol(o.stroke)+" RG "+pf((o.lw||0.3)*this.K)+" w "; if(o.dash) s += "["+pf(o.dash[0]*this.K)+" "+pf(o.dash[1]*this.K)+"] 0 d "; }
+  return s;
+};
+PdfDoc.prototype.rect = function(x,y,w,h,o){
+  o = o||{};
+  this.cur.push("q "+this._style(o)+pf(this.X(x))+" "+pf(this.Y(y+h))+" "+pf(w*this.K)+" "+pf(h*this.K)+" re "+this._paint(o)+" Q");
+};
+PdfDoc.prototype.rrect = function(x,y,w,h,r,o){
+  o = o||{}; r = Math.min(r, w/2, h/2);
+  var k = 0.5523*r, X = this.X.bind(this), Y = this.Y.bind(this);
+  var p = [];
+  p.push(pf(X(x+r))+" "+pf(Y(y))+" m");
+  p.push(pf(X(x+w-r))+" "+pf(Y(y))+" l");
+  p.push(pf(X(x+w-r+k))+" "+pf(Y(y))+" "+pf(X(x+w))+" "+pf(Y(y+r-k))+" "+pf(X(x+w))+" "+pf(Y(y+r))+" c");
+  p.push(pf(X(x+w))+" "+pf(Y(y+h-r))+" l");
+  p.push(pf(X(x+w))+" "+pf(Y(y+h-r+k))+" "+pf(X(x+w-r+k))+" "+pf(Y(y+h))+" "+pf(X(x+w-r))+" "+pf(Y(y+h))+" c");
+  p.push(pf(X(x+r))+" "+pf(Y(y+h))+" l");
+  p.push(pf(X(x+r-k))+" "+pf(Y(y+h))+" "+pf(X(x))+" "+pf(Y(y+h-r+k))+" "+pf(X(x))+" "+pf(Y(y+h-r))+" c");
+  p.push(pf(X(x))+" "+pf(Y(y+r))+" l");
+  p.push(pf(X(x))+" "+pf(Y(y+r-k))+" "+pf(X(x+r-k))+" "+pf(Y(y))+" "+pf(X(x+r))+" "+pf(Y(y))+" c h");
+  this.cur.push("q "+this._style(o)+p.join(" ")+" "+this._paint(o)+" Q");
+};
+PdfDoc.prototype.circle = function(cx,cy,r,o){
+  o = o||{};
+  var k = 0.5523*r, X = this.X.bind(this), Y = this.Y.bind(this), p = [];
+  p.push(pf(X(cx+r))+" "+pf(Y(cy))+" m");
+  p.push(pf(X(cx+r))+" "+pf(Y(cy-k))+" "+pf(X(cx+k))+" "+pf(Y(cy-r))+" "+pf(X(cx))+" "+pf(Y(cy-r))+" c");
+  p.push(pf(X(cx-k))+" "+pf(Y(cy-r))+" "+pf(X(cx-r))+" "+pf(Y(cy-k))+" "+pf(X(cx-r))+" "+pf(Y(cy))+" c");
+  p.push(pf(X(cx-r))+" "+pf(Y(cy+k))+" "+pf(X(cx-k))+" "+pf(Y(cy+r))+" "+pf(X(cx))+" "+pf(Y(cy+r))+" c");
+  p.push(pf(X(cx+k))+" "+pf(Y(cy+r))+" "+pf(X(cx+r))+" "+pf(Y(cy+k))+" "+pf(X(cx+r))+" "+pf(Y(cy))+" c h");
+  this.cur.push("q "+this._style(o)+p.join(" ")+" "+this._paint(o)+" Q");
+};
+PdfDoc.prototype.line = function(x1,y1,x2,y2,o){
+  o = o||{};
+  var st = { stroke:o.color||[0,0,0], lw:o.lw||0.3, dash:o.dash, alpha:o.alpha };
+  this.cur.push("q "+this._style(st)+pf(this.X(x1))+" "+pf(this.Y(y1))+" m "+pf(this.X(x2))+" "+pf(this.Y(y2))+" l S Q");
+};
+PdfDoc.prototype.textWidth = function(s,size,bold,cs){
+  s = pdfSafe(s); var w = 0;
+  for(var i=0;i<s.length;i++) w += pdfCharW(s.charAt(i), bold);
+  var pt = w*size/1000 + (cs||0)*s.length;
+  return pt/this.K; // mm
+};
+PdfDoc.prototype.text = function(s,x,y,o){
+  o = o||{}; s = pdfSafe(s);
+  if(!s) return;
+  var size = o.size||10, font = o.bold ? "F2" : (o.italic ? "F3" : "F1");
+  var w = this.textWidth(s,size,o.bold,o.cs);
+  if(o.align==="right") x = x - w; else if(o.align==="center") x = x - w/2;
+  var cs = o.cs ? pf(o.cs)+" Tc " : "";
+  this.cur.push("q "+this._gs(o.alpha)+"BT /"+font+" "+pf(size)+" Tf "+pcol(o.color||[0,0,0])+" rg "+cs+pf(this.X(x))+" "+pf(this.Y(y))+" Td "+pdfStr(s)+" Tj ET Q");
+};
+PdfDoc.prototype.wrap = function(s,maxW,size,bold){
+  s = pdfSafe(s).replace(/\s+/g," ").trim();
+  if(!s) return [];
+  var words = s.split(" "), lines = [], line = "";
+  var self = this;
+  words.forEach(function(wd){
+    // break very long words
+    while(self.textWidth(wd,size,bold) > maxW){
+      var cut = wd.length-1;
+      while(cut>1 && self.textWidth(wd.slice(0,cut),size,bold) > maxW) cut--;
+      if(line){ lines.push(line); line = ""; }
+      lines.push(wd.slice(0,cut)); wd = wd.slice(cut);
+    }
+    var test = line ? line+" "+wd : wd;
+    if(self.textWidth(test,size,bold) <= maxW) line = test;
+    else { if(line) lines.push(line); line = wd; }
+  });
+  if(line) lines.push(line);
+  return lines;
+};
+PdfDoc.prototype.image = function(bin,pw,ph,x,y,w,h){
+  var idx = this.images.length; this.images.push({ bin:bin, w:pw, h:ph });
+  this.cur.push("q "+pf(w*this.K)+" 0 0 "+pf(h*this.K)+" "+pf(this.X(x))+" "+pf(this.Y(y+h))+" cm /Im"+idx+" Do Q");
+};
+PdfDoc.prototype.build = function(meta){
+  var self = this, objs = [], out = "%PDF-1.4\n%\xE2\xE3\xCF\xD3\n", offsets = [];
+  function add(body){ objs.push(body); return objs.length; }
+  // reserve: 1 catalog, 2 pages, 3..5 fonts
+  add(""); add("");
+  var f1 = add("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>");
+  var f2 = add("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>");
+  var f3 = add("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding >>");
+  var gsIds = this.alphas.map(function(a){ return add("<< /Type /ExtGState /ca "+a+" /CA "+a+" >>"); });
+  var imIds = this.images.map(function(im){
+    return add({ dict:"<< /Type /XObject /Subtype /Image /Width "+im.w+" /Height "+im.h+" /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length "+im.bin.length+" >>", stream:im.bin });
+  });
+  var res = "<< /Font << /F1 "+f1+" 0 R /F2 "+f2+" 0 R /F3 "+f3+" 0 R >>";
+  if(gsIds.length) res += " /ExtGState << " + gsIds.map(function(id,i){ return "/GS"+i+" "+id+" 0 R"; }).join(" ") + " >>";
+  if(imIds.length) res += " /XObject << " + imIds.map(function(id,i){ return "/Im"+i+" "+id+" 0 R"; }).join(" ") + " >>";
+  res += " >>";
+  var pageIds = [];
+  this.pages.forEach(function(ops){
+    var content = ops.join("\n");
+    var cid = add({ dict:"<< /Length "+content.length+" >>", stream:content });
+    var pid = add("<< /Type /Page /Parent 2 0 R /MediaBox [0 0 "+pf(self.PW)+" "+pf(self.PH)+"] /Resources "+res+" /Contents "+cid+" 0 R >>");
+    pageIds.push(pid);
+  });
+  objs[0] = "<< /Type /Catalog /Pages 2 0 R /PageMode /UseNone >>";
+  objs[1] = "<< /Type /Pages /Kids [" + pageIds.map(function(i){ return i+" 0 R"; }).join(" ") + "] /Count " + pageIds.length + " >>";
+  var d = new Date(meta.ts||Date.now());
+  function z(n){ return (n<10?"0":"")+n; }
+  var dstr = "D:"+d.getUTCFullYear()+z(d.getUTCMonth()+1)+z(d.getUTCDate())+z(d.getUTCHours())+z(d.getUTCMinutes())+z(d.getUTCSeconds())+"Z";
+  var infoId = add("<< /Title "+pdfStr(pdfSafe(meta.title||""))+" /Author "+pdfStr(pdfSafe(meta.author||""))+" /Creator (Konstela) /Producer (Konstela) /CreationDate ("+dstr+") >>");
+  objs.forEach(function(o,i){
+    offsets[i] = out.length;
+    out += (i+1)+" 0 obj\n";
+    if(typeof o==="string") out += o+"\nendobj\n";
+    else out += o.dict+"\nstream\n"+o.stream+"\nendstream\nendobj\n";
+  });
+  var xref = out.length;
+  out += "xref\n0 "+(objs.length+1)+"\n0000000000 65535 f \n";
+  offsets.forEach(function(off){ out += ("0000000000"+off).slice(-10)+" 00000 n \n"; });
+  out += "trailer\n<< /Size "+(objs.length+1)+" /Root 1 0 R /Info "+infoId+" 0 R >>\nstartxref\n"+xref+"\n%%EOF";
+  var u = new Uint8Array(out.length);
+  for(var i=0;i<out.length;i++) u[i] = out.charCodeAt(i) & 255;
+  return u;
+};
+
+// ---------------- Relatórios ----------------
+function pdfRgbFromHue(h, s, l){
+  s/=100; l/=100;
+  var k = function(n){ return (n + h/30) % 12; };
+  var a = s*Math.min(l,1-l);
+  var f = function(n){ return l - a*Math.max(-1, Math.min(k(n)-3, Math.min(9-k(n),1))); };
+  return [Math.round(255*f(0)), Math.round(255*f(8)), Math.round(255*f(4))];
+}
+function buildReportPdf(kind, ctx){
+  var d = ctx.data, isBackup = (kind==="backup");
+  var doc = new PdfDoc();
+  var NAVY=[11,16,32], NAVY2=[22,29,52], GOLD=[244,183,64], GOLDD=[176,122,18], INK=[26,31,48], MUTE=[106,113,134], LINE=[222,226,236], SOFT=[244,246,250], WHITE=[255,255,255], GOLDBG=[255,248,232];
+  var M=18, PW=210, PH=297, CW=174, TOP=30, BOT=PH-24;
+  var y = TOP;
+  var title = isBackup ? "Backup completo" : "Relatório de organização";
+  var stamp = formatDateBR(ctx.nowTs, true).replace(",", " às");
+  var name = ctx.name || "Minha conta";
+
+  var cats = d.categories.filter(function(c){ return !c.deletedAt; });
+  var tasksOf = function(cid){ return d.tasks.filter(function(t){ return t.categoryId===cid && !t.deletedAt; }); };
+  var openOf = function(cid){ return tasksOf(cid).filter(function(t){ return t.type==="task" && t.status!=="concluida"; }); };
+  var doneOf = function(cid){ return tasksOf(cid).filter(function(t){ return t.type==="task" && t.status==="concluida"; }); };
+  var catById2 = function(id){ return d.categories.find(function(c){ return c.id===id; }); };
+  var catRgb = function(c){ return pdfRgbFromHue(c.hue||40, 70, 46); };
+
+  var allTasks = d.tasks.filter(function(t){ return !t.deletedAt && t.type==="task" && !(catById2(t.categoryId)||{}).deletedAt; });
+  var nOpen = allTasks.filter(function(t){ return t.status!=="concluida"; }).length;
+  var nDone = allTasks.length - nOpen;
+  var pct = allTasks.length ? Math.round(nDone/allTasks.length*100) : 0;
+  var metas = d.tasks.filter(function(t){ return t.type==="meta" && !t.deletedAt && !(catById2(t.categoryId)||{}).deletedAt; }).sort(function(a,b){ return (a.createdAt||0)-(b.createdAt||0); });
+
+  function newPage(){ doc.addPage(); y = TOP; }
+  function need(h){ if(y+h > BOT) newPage(); }
+
+  // ---------- Capa ----------
+  doc.addPage();
+  doc.rect(0,0,PW,PH,{fill:NAVY});
+  // motivo de constelação
+  var ccx = 148, ccy = 78;
+  [18,34,52].forEach(function(r,i){ doc.circle(ccx,ccy,r,{stroke:GOLD,lw:0.25,alpha:0.28-i*0.06,dash: i===1?[0.6,1.8]:null}); });
+  var sats = [[-30,-26,3.2],[34,-18,2.4],[40,30,3.6],[-8,46,2.2],[-44,18,2.8],[10,-50,2]];
+  sats.forEach(function(s,i){
+    doc.line(ccx,ccy,ccx+s[0],ccy+s[1],{color:GOLD,lw:0.25,alpha:0.3});
+    doc.circle(ccx+s[0],ccy+s[1],s[2],{fill: i%2? [90,200,230] : GOLD, alpha:0.85});
+  });
+  doc.circle(ccx,ccy,7.5,{fill:GOLD,alpha:0.95});
+  doc.circle(ccx,ccy,11,{stroke:GOLD,lw:0.5,alpha:0.6});
+  doc.text("KONSTELA", M, 40, {size:13, bold:true, color:GOLD, cs:5});
+  doc.rect(M, 46, 22, 0.9, {fill:GOLD});
+  var tl = isBackup ? ["Backup","completo"] : ["Relatório de","organização"];
+  doc.text(tl[0], M, 128, {size:40, bold:true, color:WHITE});
+  doc.text(tl[1], M, 144, {size:40, bold:true, color:GOLD});
+  var sub = isBackup
+    ? "Tudo o que está guardado na sua conta: frentes, demandas, metas fixas, datas, histórico e a lixeira."
+    : "Uma visão limpa e organizada das suas frentes, demandas em aberto e metas fixas, pronta para ler, imprimir ou compartilhar.";
+  doc.wrap(sub, 120, 11.5, false).forEach(function(ln,i){ doc.text(ln, M, 160+i*6, {size:11.5, color:[190,197,216]}); });
+  // identidade
+  var idy = 212;
+  var tx = M;
+  if(ctx.avatar){
+    doc.image(ctx.avatar.bin, ctx.avatar.w, ctx.avatar.h, M, idy-8, 22, 22);
+    doc.circle(M+11, idy+3, 11.4, {stroke:GOLD, lw:0.6});
+    tx = M+29;
+  }
+  doc.text(name, tx, idy, {size:16, bold:true, color:WHITE});
+  if(ctx.email) doc.text(ctx.email, tx, idy+6.5, {size:9, color:[160,168,190]});
+  doc.text("Gerado em "+stamp+" (horário de Brasília)", tx, idy+12.5, {size:8.5, color:[160,168,190]});
+  // KPIs da capa
+  var kp = [[String(cats.length),"Frentes"],[String(allTasks.length),"Demandas"],[String(nOpen),"Em aberto"],[String(metas.length),"Metas fixas"]];
+  var kw = (CW-3*4)/4;
+  kp.forEach(function(k,i){
+    var kx = M + i*(kw+4);
+    doc.rrect(kx, 244, kw, 24, 2.5, {fill:WHITE, alpha:0.07});
+    doc.text(k[0], kx+5, 256, {size:19, bold:true, color:GOLD});
+    doc.text(k[1].toUpperCase(), kx+5, 263, {size:6.8, bold:true, color:WHITE, cs:1.2, alpha:0.75});
+  });
+  doc.rect(0, PH-3, PW, 3, {fill:GOLD});
+
+  // ---------- helpers de seção ----------
+  function section(label, sub){
+    need(24);
+    doc.rect(M, y-5.5, 1.6, 8, {fill:GOLD});
+    doc.text(label, M+5, y, {size:19, bold:true, color:NAVY});
+    y += 5;
+    if(sub){ doc.text(sub, M+5, y+1.2, {size:9, color:MUTE}); y += 5; }
+    y += 5;
+  }
+  function pill(txt, x, yy, bg, fg){
+    var w = doc.textWidth(txt,6.8,true,0.6)+5.4;
+    doc.rrect(x-w, yy-3.6, w, 5.2, 2.6, {fill:bg});
+    doc.text(txt, x-w+2.7, yy, {size:6.8, bold:true, color:fg, cs:0.6});
+    return w;
+  }
+  function check(x, yy, done, col){
+    doc.rrect(x, yy-3, 3.3, 3.3, 0.8, done ? {fill:col} : {stroke:col, lw:0.35});
+    if(done){ doc.line(x+0.8,yy-1.3,x+1.5,yy-0.5,{color:WHITE,lw:0.45}); doc.line(x+1.5,yy-0.5,x+2.6,yy-2.3,{color:WHITE,lw:0.45}); }
+  }
+  function drawTask(t, col, full){
+    var pillTxt = (t.status==="andamento") ? "EM ANDAMENTO" : null;
+    var tw = CW-9-(pillTxt?32:0);
+    var tl2 = doc.wrap(t.title, tw, 9.8, true);
+    var dl = doc.wrap(t.desc||"", CW-9, 8.6, false);
+    if(!full && dl.length>5){ dl = dl.slice(0,5); dl[4] = dl[4].replace(/\s*\S{0,3}$/,"") + "..."; }
+    var meta = [];
+    if(full){
+      if(t.createdAt) meta.push("Criada em "+formatDateBR(t.createdAt,true));
+      if(t.completedAt) meta.push("Concluída em "+formatDateBR(t.completedAt,true));
+      if(t.attachments && t.attachments.length) meta.push(t.attachments.length+" anexo"+(t.attachments.length>1?"s":"")+" (veja no app)");
+    }
+    var h = tl2.length*4.5 + dl.length*3.9 + (meta.length?4.2:0) + 3.4;
+    need(h);
+    check(M+0.5, y, t.status==="concluida", col);
+    tl2.forEach(function(ln,i){ doc.text(ln, M+8, y+i*4.5, {size:9.8, bold:true, color:INK}); });
+    if(pillTxt) pill(pillTxt, M+CW, y, GOLDBG, GOLDD);
+    var yy = y + (tl2.length-1)*4.5 + 4.2;
+    dl.forEach(function(ln){ doc.text(ln, M+8, yy, {size:8.6, color:MUTE}); yy += 3.9; });
+    if(meta.length){ doc.text(meta.join("   |   "), M+8, yy+0.2, {size:7.4, italic:true, color:[140,146,166]}); yy += 4.2; }
+    y = yy + (dl.length||meta.length ? 0 : 0) + 1.2;
+  }
+  function subhead(txt, col, count){
+    need(12);
+    doc.circle(M+1.6, y-1.2, 1.1, {fill:col});
+    doc.text(txt, M+5, y, {size:7.4, bold:true, color:MUTE, cs:1.3});
+    if(count!=null) doc.text(String(count), M+5+doc.textWidth(txt,7.4,true,1.3)+3, y, {size:7.4, bold:true, color:col});
+    y += 5.6;
+  }
+
+  // ---------- Visão geral ----------
+  newPage();
+  section("Visão geral", "Seu retrato em "+stamp.split(" às")[0]);
+  var cards = [[String(cats.length),"Frentes ativas"],[String(allTasks.length),"Demandas"],[String(nOpen),"Em aberto"],[pct+"%","Concluído"],[String(metas.length),"Metas fixas"]];
+  var cw5 = (CW-4*3.5)/5;
+  cards.forEach(function(c,i){
+    var cx0 = M + i*(cw5+3.5);
+    doc.rrect(cx0, y, cw5, 21, 2.5, {fill: i===4 ? GOLDBG : SOFT});
+    doc.text(c[0], cx0+4.5, y+11.5, {size:17, bold:true, color: i===4 ? GOLDD : NAVY});
+    doc.text(c[1].toUpperCase(), cx0+4.5, y+17, {size:6, bold:true, color:MUTE, cs:0.8});
+  });
+  y += 32;
+
+  var normal = cats.filter(function(c){ return !c.satellite; }).sort(function(a,b){ return openOf(b.id).length-openOf(a.id).length || a.name.localeCompare(b.name); });
+  var fixas = cats.filter(function(c){ return !!c.satellite; });
+  var ordered = normal.concat(fixas);
+
+  need(14);
+  doc.text("DISTRIBUIÇÃO POR FRENTE", M, y, {size:7.6, bold:true, color:MUTE, cs:1.4});
+  y += 6;
+  var maxTot = Math.max.apply(null, ordered.map(function(c){ return tasksOf(c.id).filter(function(t){return t.type==="task";}).length; }).concat([1]));
+  ordered.forEach(function(c){
+    need(8);
+    var col = catRgb(c);
+    var tot = tasksOf(c.id).filter(function(t){ return t.type==="task"; }).length, op = openOf(c.id).length;
+    doc.circle(M+1.8, y-1.1, 1.5, {fill:col});
+    var nm = doc.wrap(c.name, 62, 9, false)[0] || c.name;
+    doc.text(nm + (c.satellite ? "  (fixa)" : ""), M+6, y, {size:9, color:INK});
+    var bx = M+78, bw = 62;
+    doc.rrect(bx, y-3, bw, 3.2, 1.6, {fill:LINE});
+    if(tot>0) doc.rrect(bx, y-3, Math.max(3.2, bw*tot/maxTot), 3.2, 1.6, {fill:col, alpha:0.3});
+    if(tot>0 && op>0) doc.rrect(bx, y-3, Math.max(3.2, bw*op/maxTot), 3.2, 1.6, {fill:col});
+    doc.text(op+" em aberto de "+tot, M+CW, y, {size:8, color:MUTE, align:"right"});
+    y += 7.2;
+  });
+  y += 6;
+
+  // ---------- Metas fixas ----------
+  if(metas.length){
+    need(40);
+    section("Metas fixas", "O que você constrói ao longo da vida: sem prazo, sempre em destaque.");
+    metas.forEach(function(m){
+      var c = catById2(m.categoryId);
+      var tl3 = doc.wrap(m.title, CW-18, 11.5, true);
+      var dl = doc.wrap(m.desc||"", CW-18, 9, false);
+      var h = 7 + tl3.length*5.4 + dl.length*4.1 + 8;
+      need(h+3);
+      doc.rrect(M, y, CW, h, 2.5, {fill:GOLDBG});
+      doc.rrect(M, y, 2, h, 1, {fill:GOLD});
+      // estrela
+      var sx = M+9, sy = y+8.2, pts = [];
+      for(var k=0;k<10;k++){ var ang = -Math.PI/2 + k*Math.PI/5, rad = k%2===0 ? 2.8 : 1.15; pts.push([sx+rad*Math.cos(ang), sy+rad*Math.sin(ang)]); }
+      for(var k2=0;k2<10;k2++){ var p1 = pts[k2], p2 = pts[(k2+1)%10]; doc.line(p1[0],p1[1],p2[0],p2[1],{color:GOLD,lw:0.9}); }
+      doc.circle(sx,sy,1.2,{fill:GOLD});
+      var yy = y+9;
+      tl3.forEach(function(ln){ doc.text(ln, M+16, yy, {size:11.5, bold:true, color:NAVY}); yy += 5.4; });
+      dl.forEach(function(ln){ doc.text(ln, M+16, yy, {size:9, color:[92,98,118]}); yy += 4.1; });
+      var metaTxt = (c ? c.name : "") + (c ? "   |   " : "") + sinceText(m.createdAt);
+      doc.text(metaTxt, M+16, yy+1.2, {size:7.8, bold:true, color:GOLDD});
+      y += h + 4;
+    });
+    y += 4;
+  }
+
+  // ---------- Frentes ----------
+  need(70);
+  section("Frentes e demandas", isBackup ? "Todas as demandas, abertas e concluídas, com datas e anexos." : "Demandas em aberto, organizadas por prazo.");
+  ordered.forEach(function(c){
+    var col = catRgb(c);
+    var ops = openOf(c.id), dns = doneOf(c.id);
+    var infos = tasksOf(c.id).filter(function(t){ return t.type==="info"; });
+    need(30);
+    doc.rrect(M, y-6, 2.6, 10.5, 1.3, {fill:col});
+    doc.text(c.name, M+6.5, y+0.6, {size:14, bold:true, color:NAVY});
+    var cnt = ops.length+" em aberto"+(dns.length ? "   |   "+dns.length+" concluída"+(dns.length>1?"s":"") : "")+(c.satellite?"   |   frente fixa":"");
+    doc.text(cnt, M+CW, y+0.6, {size:8.2, color:MUTE, align:"right"});
+    y += 6.2;
+    doc.line(M, y, M+CW, y, {color:LINE, lw:0.3});
+    y += 6.5;
+    if(infos.length){
+      infos.forEach(function(inf){
+        var il = doc.wrap(inf.desc||"", CW-10, 8.4, false), tl4 = doc.wrap(inf.title, CW-10, 9, true);
+        var h = 6 + tl4.length*4.3 + il.length*3.8;
+        need(h+2);
+        doc.rrect(M, y-3.5, CW, h, 2, {fill:SOFT});
+        var yy = y+1;
+        tl4.forEach(function(ln){ doc.text(ln, M+5, yy, {size:9, bold:true, color:INK}); yy += 4.3; });
+        il.forEach(function(ln){ doc.text(ln, M+5, yy, {size:8.4, color:MUTE}); yy += 3.8; });
+        y += h + 1.5;
+      });
+      y += 2;
+    }
+    if(!ops.length && !dns.length && !infos.length){
+      doc.text("Nenhuma demanda nesta frente ainda.", M+1, y, {size:8.8, italic:true, color:MUTE});
+      y += 8;
+    } else if(c.satellite){
+      if(ops.length){ subhead("ITENS", col, ops.length); ops.forEach(function(t){ drawTask(t, col, isBackup); }); }
+    } else {
+      [["curto","CURTO PRAZO"],["medio","MÉDIO PRAZO"],["longo","LONGO PRAZO"]].forEach(function(g){
+        var list = ops.filter(function(t){ return (t.priority||"curto")===g[0]; });
+        if(!list.length) return;
+        subhead(g[1], col, list.length);
+        list.forEach(function(t){ drawTask(t, col, isBackup); });
+        y += 1.5;
+      });
+    }
+    if(dns.length){
+      if(isBackup){
+        subhead("CONCLUÍDAS", col, dns.length);
+        dns.forEach(function(t){ drawTask(t, col, true); });
+      } else {
+        need(8);
+        doc.text(dns.length+" demanda"+(dns.length>1?"s":"")+" concluída"+(dns.length>1?"s":"")+" (veja no backup completo).", M+1, y, {size:8.4, italic:true, color:MUTE});
+        y += 7;
+      }
+    }
+    y += 9;
+  });
+
+  // ---------- Extras do backup ----------
+  if(isBackup){
+    var trashedTasks = d.tasks.filter(function(t){ return t.deletedAt; }).sort(function(a,b){ return (b.deletedAt||0)-(a.deletedAt||0); });
+    var trashedCats = d.categories.filter(function(c){ return c.deletedAt; });
+    newPage();
+    section("Lixeira", "O que foi excluído e ainda pode ser restaurado no app.");
+    if(!trashedTasks.length && !trashedCats.length){
+      doc.text("A lixeira está vazia.", M+1, y, {size:9, italic:true, color:MUTE}); y += 8;
+    }
+    if(trashedCats.length){
+      subhead("FRENTES EXCLUÍDAS", MUTE, trashedCats.length);
+      trashedCats.forEach(function(c){ need(7); doc.text(c.name, M+8, y, {size:9.4, bold:true, color:INK}); doc.text("excluída em "+formatDateBR(c.deletedAt,true), M+CW, y, {size:7.6, color:MUTE, align:"right"}); y += 6; });
+      y += 3;
+    }
+    if(trashedTasks.length){
+      subhead("DEMANDAS EXCLUÍDAS", MUTE, trashedTasks.length);
+      trashedTasks.forEach(function(t){
+        var tl5 = doc.wrap(t.title, CW-62, 9, true);
+        need(tl5.length*4.4+3);
+        tl5.forEach(function(ln,i){ doc.text(ln, M+8, y+i*4.4, {size:9, bold:true, color:INK}); });
+        var cn = (catById2(t.categoryId)||{}).name || "";
+        doc.text((cn ? cn+"   |   " : "")+formatDateBR(t.deletedAt,true), M+CW, y, {size:7.4, color:MUTE, align:"right"});
+        y += tl5.length*4.4 + 1.8;
+      });
+    }
+    y += 8;
+    need(48);
+    doc.rrect(M, y, CW, 40, 3, {fill:SOFT});
+    doc.rect(M, y, 2, 40, {fill:GOLD});
+    doc.text("Sobre este backup", M+8, y+9, {size:11, bold:true, color:NAVY});
+    var about = "Este PDF é uma cópia de leitura e arquivo da sua conta em "+stamp.split(" às")[0]+". Para restaurar os dados dentro do Konstela, use o backup em JSON: Perfil, Dados e backup, Baixar backup (JSON). Guarde os dois em um lugar seguro.";
+    doc.wrap(about, CW-16, 9, false).forEach(function(ln,i){ doc.text(ln, M+8, y+16+i*4.6, {size:9, color:[80,86,106]}); });
+  }
+
+  // ---------- Cabeçalho e rodapé ----------
+  var total = doc.pages.length;
+  for(var p=1;p<total;p++){
+    doc.cur = doc.pages[p];
+    doc.text("KONSTELA", M, 15, {size:8, bold:true, color:GOLDD, cs:2.6});
+    doc.text(title.toUpperCase(), M+CW, 15, {size:7, bold:true, color:MUTE, cs:1.2, align:"right"});
+    doc.line(M, 19, M+CW, 19, {color:LINE, lw:0.3});
+    doc.line(M, PH-17, M+CW, PH-17, {color:LINE, lw:0.3});
+    doc.text(name+"   |   "+stamp, M, PH-11.5, {size:7.4, color:MUTE});
+    doc.text("Página "+(p+1)+" de "+total, M+CW, PH-11.5, {size:7.4, color:MUTE, align:"right"});
+  }
+  return doc.build({ title:"Konstela: "+title, author:name, ts:ctx.nowTs });
 }
 
 // ---------------- Primeiro acesso ----------------
@@ -2652,14 +3442,16 @@ function bootUI(){
   document.getElementById("pf-backup-btn").addEventListener("click", downloadBackup);
   document.getElementById("pf-restore-btn").addEventListener("click", function(){ document.getElementById("pf-restore-file").click(); });
   document.getElementById("pf-restore-file").addEventListener("change", function(e){ var f=e.target.files[0]; e.target.value=""; if(f) restoreBackup(f); });
-  document.getElementById("pf-del-btn").addEventListener("click", function(){ document.getElementById("pf-reset-box").style.display = "none"; document.getElementById("pf-del-box").style.display = "flex"; });
-  document.getElementById("pf-reset-btn").addEventListener("click", function(){ document.getElementById("pf-del-box").style.display = "none"; document.getElementById("pf-reset-box").style.display = "flex"; });
-  document.getElementById("pf-reset-type").addEventListener("input", function(e){ document.getElementById("pf-reset-confirm").disabled = e.target.value.trim().toUpperCase()!=="RESETAR"; });
-  document.getElementById("pf-del-type").addEventListener("input", function(e){ document.getElementById("pf-del-confirm").disabled = e.target.value.trim().toUpperCase()!=="EXCLUIR"; });
-  document.getElementById("pf-reset-confirm").addEventListener("click", resetAccount);
-  document.getElementById("pf-reset-backup").addEventListener("click", downloadBackup);
-  document.getElementById("pf-del-backup").addEventListener("click", downloadBackup);
-  document.getElementById("pf-del-confirm").addEventListener("click", deleteAccount);
+  document.querySelectorAll("#settings-tabs button").forEach(function(b){ b.addEventListener("click", function(){ showProfileTab(b.dataset.tab); }); });
+  document.getElementById("pf-adv-unlock").addEventListener("change", function(e){ document.getElementById("pf-adv-actions").style.display = e.target.checked ? "block" : "none"; });
+  document.getElementById("pf-reset-open").addEventListener("click", function(){ openDanger("reset"); });
+  document.getElementById("pf-del-open").addEventListener("click", function(){ openDanger("delete"); });
+  document.getElementById("dz-cancel").addEventListener("click", closeDanger);
+  document.getElementById("dz-back").addEventListener("click", dzBack);
+  document.getElementById("dz-next").addEventListener("click", dzNext);
+  document.getElementById("pf-pdf-org").addEventListener("click", function(){ generateReport("organizacao", pfMsg); });
+  document.getElementById("pf-pdf-bkp").addEventListener("click", function(){ generateReport("backup", pfMsg); });
+  document.getElementById("pf-signout2").addEventListener("click", function(){ closeProfile(); document.getElementById("sign-out-btn").click(); });
   document.getElementById("pf-signout").addEventListener("click", function(){ closeProfile(); document.getElementById("sign-out-btn").click(); });
   document.getElementById("ob-name").addEventListener("input", refreshObAvatar);
   document.getElementById("ob-photo-btn").addEventListener("click", function(){ document.getElementById("ob-file").click(); });
@@ -2701,6 +3493,11 @@ function bootUI(){
   document.querySelectorAll("#f-kind-seg button").forEach(function(b){ b.addEventListener("click", function(){ taskForm.kind = b.dataset.value; updateModalFieldsVisibility(); }); });
   document.getElementById("new-goal-btn").addEventListener("click", function(){ openTaskModal(null, "meta"); });
   document.getElementById("new-goal-btn-frente").addEventListener("click", function(){ openTaskModal(null, "meta"); });
+  document.getElementById("f-cat-newbtn").addEventListener("click", function(){ showNewCatForm(document.getElementById("f-cat-search").value.trim()); });
+  document.getElementById("f-newcat-back").addEventListener("click", hideNewCatForm);
+  document.getElementById("f-newcat-go").addEventListener("click", createCatInline);
+  document.getElementById("f-newcat-name").addEventListener("keydown", function(e){ if(e.key==="Enter"){ e.preventDefault(); createCatInline(); } });
+  document.querySelectorAll("#f-newcat-kind button").forEach(function(b){ b.addEventListener("click", function(){ newCatKind = b.dataset.value; renderNewCatKind(); }); });
   document.getElementById("cat-cancel").addEventListener("click", closeCatModal);
   document.getElementById("cat-save").addEventListener("click", saveCategory);
   document.getElementById("cat-modal").addEventListener("click", function(e){ if(e.target.id==="cat-modal") closeCatModal(); });
