@@ -273,6 +273,18 @@
   #brand-home p.profile-hit::after{ content:""; width:5px; height:5px; border-right:1.6px solid currentColor; border-bottom:1.6px solid currentColor; transform:rotate(45deg) translateY(-2px); opacity:0.7; }
   #brand-home p.profile-hit:hover{ background:rgba(244,183,64,0.14); color:var(--gold); }
   .brand-k:hover{ filter:brightness(1.2); }
+  .pdf-box{ padding:16px; border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,0.025); margin-bottom:6px; }
+  .pdf-box-title{ font-size:14px; font-weight:700; margin-bottom:12px; }
+  .pdf-options{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .pdf-opt{ text-align:left; padding:13px 12px; border-radius:11px; border:1px solid var(--border); background:rgba(255,255,255,0.03); color:var(--text-dim); cursor:pointer; display:flex; flex-direction:column; gap:6px; }
+  .pdf-opt b{ font-size:13px; color:var(--text); }
+  .pdf-opt span{ font-size:11.5px; line-height:1.5; color:var(--text-mute); }
+  .pdf-opt:hover{ border-color:var(--border-hi, rgba(255,255,255,0.3)); }
+  .pdf-opt.active{ border-color:var(--gold); background:rgba(244,183,64,0.1); box-shadow:0 0 0 1px var(--gold) inset; }
+  .pdf-opt.active b{ color:var(--gold); }
+  .pdf-box-foot{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:14px; }
+  .pdf-box-foot span{ font-size:12px; color:var(--text-mute); }
+  @media (max-width:720px){ .pdf-options{ grid-template-columns:1fr; } }
   .account-chip{ align-self:center; max-width:170px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:11px; color:var(--text-mute); margin-right:4px; }
   .signout-btn{ display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:8px; border:1px solid var(--border); background:rgba(255,255,255,0.06); color:var(--text); font:inherit; font-size:12px; font-weight:600; cursor:pointer; }
   .signout-btn:hover{ background:rgba(244,183,64,0.15); border-color:var(--gold); color:var(--gold); }
@@ -849,8 +861,15 @@
       <div class="settings-pane" data-pane="dados">
         <h3>Dados e backup</h3>
         <p class="pane-sub">Leve o seu conteúdo com você, em formatos que você pode guardar.</p>
-        <div class="set-row"><div><b>Relatório de organização <i class="tag">PDF</i></b><span>Visão limpa das suas frentes, demandas em aberto e metas fixas. Ideal para ler, imprimir e compartilhar.</span></div><button type="button" class="btn-solid" id="pf-pdf-org">Gerar PDF</button></div>
-        <div class="set-row"><div><b>Backup completo <i class="tag">PDF</i></b><span>Tudo em um documento: demandas abertas e concluídas, datas, metas fixas e lixeira.</span></div><button type="button" class="btn-solid" id="pf-pdf-bkp">Gerar PDF</button></div>
+        <div class="pdf-box">
+          <div class="pdf-box-title">Gerar PDF <i class="tag">PDF</i></div>
+          <div class="pdf-options" id="pf-pdf-options">
+            <button type="button" class="pdf-opt" data-kind="resumo"><b>Resumido</b><span>2 páginas: números, metas fixas, o que está em andamento e o que está parado há mais tempo.</span></button>
+            <button type="button" class="pdf-opt active" data-kind="organizacao"><b>Organização</b><span>Resumo no início, depois todas as frentes com as demandas em aberto por prazo.</span></button>
+            <button type="button" class="pdf-opt" data-kind="backup"><b>Backup completo</b><span>Resumo no início e tudo o que existe: concluídas, datas, anexos e lixeira.</span></button>
+          </div>
+          <div class="pdf-box-foot"><span>Todos começam com um resumo executivo.</span><button type="button" class="btn-solid" id="pf-pdf-go">Gerar PDF</button></div>
+        </div>
         <div class="set-row"><div><b>Backup para restaurar <i class="tag">JSON</i></b><span>Arquivo que o Konstela consegue ler de volta. Use para guardar ou migrar seus dados.</span></div><div class="set-row-btns"><button type="button" class="btn-ghost" id="pf-backup-btn">Baixar</button><button type="button" class="btn-ghost" id="pf-restore-btn">Restaurar</button><input type="file" id="pf-restore-file" accept="application/json,.json" style="display:none"></div></div>
       </div>
 
@@ -2729,6 +2748,7 @@ function openProfile(){
   document.getElementById("pf-name").value = profile.name || displayName();
   document.getElementById("pf-email").textContent = currentEmail;
   document.getElementById("pf-since").textContent = profile.createdAt ? formatDateBR(profile.createdAt) : "";
+  renderPdfOptions();
   document.getElementById("pf-adv-unlock").checked = false;
   document.getElementById("pf-adv-actions").style.display = "none";
   showProfileTab("conta");
@@ -2816,6 +2836,10 @@ function logoForPdf(){
 function todayISO(){
   try{ var p = new Intl.DateTimeFormat("en-CA",{timeZone:"America/Sao_Paulo",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date()); return p; }catch(e){ return new Date().toISOString().slice(0,10); }
 }
+var pdfKind = "organizacao";
+function renderPdfOptions(){
+  document.querySelectorAll("#pf-pdf-options .pdf-opt").forEach(function(b){ b.classList.toggle("active", b.dataset.kind===pdfKind); });
+}
 function generateReport(kind, notify){
   if(!data) return;
   notify("Gerando o PDF...", true);
@@ -2823,7 +2847,7 @@ function generateReport(kind, notify){
     var bytes = buildReportPdf(kind, { data:data, name:displayName(), email:currentEmail, avatar:r[0], logo:r[1], nowTs:Date.now() });
     var blob = new Blob([bytes], {type:"application/pdf"});
     var u = URL.createObjectURL(blob), l = document.createElement("a");
-    l.href = u; l.download = "konstela-" + (kind==="backup" ? "backup-completo" : "organizacao") + "-" + todayISO() + ".pdf";
+    l.href = u; l.download = "konstela-" + (kind==="backup" ? "backup-completo" : (kind==="resumo" ? "resumo" : "organizacao")) + "-" + todayISO() + ".pdf";
     document.body.appendChild(l); l.click(); l.remove(); setTimeout(function(){ URL.revokeObjectURL(u); }, 4000);
     notify("PDF gerado. Confira seus downloads.", true);
   }).catch(function(e){ console.error("PDF failed", e); notify("Não deu para gerar o PDF agora. Tente novamente.", false); });
@@ -3147,7 +3171,8 @@ function buildReportPdf(kind, ctx){
   var NAVY=[11,16,32], NAVY2=[22,29,52], GOLD=[244,183,64], GOLDD=[176,122,18], INK=[26,31,48], MUTE=[106,113,134], LINE=[222,226,236], SOFT=[244,246,250], WHITE=[255,255,255], GOLDBG=[255,248,232];
   var M=18, PW=210, PH=297, CW=174, TOP=35, BOT=PH-24;
   var y = TOP;
-  var title = isBackup ? "Backup completo" : "Relatório de organização";
+  var isShort = (kind==="resumo");
+  var title = isShort ? "Relatório resumido" : (isBackup ? "Backup completo" : "Relatório de organização");
   var stamp = formatDateBR(ctx.nowTs, true).replace(",", " às");
   var name = ctx.name || "Minha conta";
 
@@ -3186,10 +3211,12 @@ function buildReportPdf(kind, ctx){
     doc.text("KONSTELA", M, 40, {size:13, bold:true, color:GOLD, cs:5});
   }
   doc.rect(M, 66, 22, 0.9, {fill:GOLD});
-  var tl = isBackup ? ["Backup","completo"] : ["Relatório de","organização"];
+  var tl = isShort ? ["Relatório","resumido"] : (isBackup ? ["Backup","completo"] : ["Relatório de","organização"]);
   doc.text(tl[0], M, 128, {size:40, bold:true, color:WHITE});
   doc.text(tl[1], M, 144, {size:40, bold:true, color:GOLD});
-  var sub = isBackup
+  var sub = isShort
+    ? "O essencial da sua organização em duas páginas: números, metas fixas, o que está em andamento e o que está parado há mais tempo."
+    : isBackup
     ? "Tudo o que está guardado na sua conta: frentes, demandas, metas fixas, datas, histórico e a lixeira."
     : "Uma visão limpa e organizada das suas frentes, demandas em aberto e metas fixas, pronta para ler, imprimir ou compartilhar.";
   doc.wrap(sub, 120, 11.5, false).forEach(function(ln,i){ doc.text(ln, M, 160+i*6, {size:11.5, color:[190,197,216]}); });
@@ -3264,9 +3291,25 @@ function buildReportPdf(kind, ctx){
     y += 5.6;
   }
 
-  // ---------- Visão geral ----------
+  // ---------- Resumo executivo ----------
+  var marks = {};
+  var normal = cats.filter(function(c){ return !c.satellite; }).sort(function(a,b){ return openOf(b.id).length-openOf(a.id).length || a.name.localeCompare(b.name); });
+  var fixas = cats.filter(function(c){ return !!c.satellite; });
+  var ordered = normal.concat(fixas);
+  var NOW = ctx.nowTs || Date.now(), DAY = 86400000;
+  var openTasks = allTasks.filter(function(t){ return t.status!=="concluida"; });
+  var andamento = openTasks.filter(function(t){ return t.status==="andamento"; }).sort(function(a,b){ return (a.createdAt||0)-(b.createdAt||0); });
+  var oldest = openTasks.filter(function(t){ return t.createdAt; }).sort(function(a,b){ return a.createdAt-b.createdAt; });
+  var done30 = allTasks.filter(function(t){ return t.status==="concluida" && t.completedAt && NOW-t.completedAt < 30*DAY; }).length;
+  var pl = function(n,s,p){ return n+" "+(n===1?s:p); };
+  function fit(s, w, size, bold){
+    s = pdfSafe(s).replace(/\s+/g," ").trim();
+    if(doc.textWidth(s,size,bold) <= w) return s;
+    while(s.length>1 && doc.textWidth(s+"...",size,bold) > w) s = s.slice(0,-1);
+    return s.trim()+"...";
+  }
   newPage();
-  section("Visão geral", "Seu retrato em "+stamp.split(" às")[0]);
+  section("Resumo executivo", isShort ? "O essencial da sua organização, em uma página." : "O essencial em uma página, antes do detalhe.");
   var cards = [[String(cats.length),"Frentes ativas"],[String(allTasks.length),"Demandas"],[String(nOpen),"Em aberto"],[pct+"%","Concluído"],[String(metas.length),"Metas fixas"]];
   var cw5 = (CW-4*3.5)/5;
   cards.forEach(function(c,i){
@@ -3275,15 +3318,74 @@ function buildReportPdf(kind, ctx){
     doc.text(c[0], cx0+4.5, y+11.5, {size:17, bold:true, color: i===4 ? GOLDD : NAVY});
     doc.text(c[1].toUpperCase(), cx0+4.5, y+17, {size:6, bold:true, color:MUTE, cs:0.8});
   });
-  y += 32;
+  y += 29;
+  // texto-resumo
+  var narr;
+  if(!allTasks.length && !metas.length){
+    narr = "Seu Konstela está vazio por enquanto. Crie frentes, demandas e metas fixas para começar a organizar.";
+  } else {
+    var fa = normal.filter(function(c){ return openOf(c.id).length>0; });
+    narr = "Você tem "+pl(nOpen,"demanda em aberto","demandas em aberto")+" em "+pl(fa.length || 0,"frente","frentes")+".";
+    if(fa.length) narr += " A frente com mais demandas em aberto é "+fa[0].name+" ("+openOf(fa[0].id).length+").";
+    narr += andamento.length ? " "+(andamento.length===1 ? "1 está em andamento agora." : andamento.length+" estão em andamento agora.") : " Nenhuma está em andamento no momento.";
+    if(done30) narr += " Nos últimos 30 dias, "+pl(done30,"foi concluída","foram concluídas")+".";
+    if(metas.length) narr += " "+(metas.length===1 ? "Sua meta fixa guia" : "Suas "+metas.length+" metas fixas guiam")+" o longo prazo.";
+  }
+  var nl = doc.wrap(narr, CW-14, 10, false);
+  var nh = nl.length*5.2 + 10;
+  doc.rrect(M, y, CW, nh, 2.5, {fill:SOFT});
+  doc.rect(M, y, 2, nh, {fill:GOLD});
+  nl.forEach(function(ln,i){ doc.text(ln, M+8, y+7.5+i*5.2, {size:10, color:INK}); });
+  y += nh + 6;
+  // caixas
+  var BW = (CW-6)/2;
+  function box(x, yy, heading, rows, empty, BH){
+    doc.rrect(x, yy, BW, BH, 2.5, {fill:WHITE, stroke:LINE, lw:0.3});
+    doc.circle(x+5, yy+6.3, 1.2, {fill:GOLD});
+    doc.text(heading, x+8.5, yy+7.4, {size:7, bold:true, color:MUTE, cs:1.2});
+    doc.line(x+4, yy+11, x+BW-4, yy+11, {color:LINE, lw:0.25});
+    if(!rows.length){ doc.text(empty, x+5, yy+19, {size:8.4, italic:true, color:MUTE}); return; }
+    rows.slice(0,6).forEach(function(r,i){
+      var ry = yy+18 + i*5.8;
+      var rw = doc.textWidth(r.right||"",7.4,false);
+      doc.text(fit(r.left, BW-12-rw-3, 8.6, false), x+5, ry, {size:8.6, color:INK});
+      if(r.right) doc.text(r.right, x+BW-5, ry, {size:7.4, color:MUTE, align:"right"});
+    });
+  }
+  var catName = function(id){ return (catById2(id)||{}).name || ""; };
+  var rowsA = andamento.slice(0,6).map(function(t){ return { left:t.title, right:fit(catName(t.categoryId),26,7.4,false) }; });
+  var rowsM = metas.slice(0,6).map(function(m){ return { left:m.title, right:sinceText(m.createdAt).replace(/^construindo /,"") }; });
+  var rowsF = normal.filter(function(c){ return openOf(c.id).length>0; }).slice(0,6).map(function(c){ return { left:c.name, right:openOf(c.id).length+" em aberto" }; });
+  var rowsO = oldest.slice(0,6).map(function(t){ var dd = Math.max(0, Math.floor((NOW-t.createdAt)/DAY)); return { left:t.title, right: dd<1 ? "hoje" : "há "+dd+(dd===1?" dia":" dias") }; });
+  var BH1 = 16 + Math.max(1, Math.min(6, Math.max(rowsA.length, rowsM.length))) * 5.8 + 3;
+  var BH2 = 16 + Math.max(1, Math.min(6, Math.max(rowsF.length, rowsO.length))) * 5.8 + 3;
+  box(M, y, "EM ANDAMENTO AGORA", rowsA, "Nada em andamento no momento.", BH1);
+  box(M+BW+6, y, "METAS FIXAS", rowsM, "Nenhuma meta fixa ainda.", BH1);
+  y += BH1 + 5;
+  box(M, y, "FRENTES COM MAIS DEMANDAS", rowsF, "Nenhuma demanda em aberto.", BH2);
+  box(M+BW+6, y, "ABERTAS HÁ MAIS TEMPO", rowsO, "Nenhuma demanda em aberto.", BH2);
+  y += BH2 + 9;
+  // índice
+  var idx = [];
+  if(isShort){
+    need(14);
+    doc.text("Quer o detalhe? Gere o Relatório de organização ou o Backup completo em Perfil, Dados e backup.", M, y, {size:8.6, italic:true, color:MUTE});
+  } else {
+    var ents = [["visao","Distribuição por frente"]];
+    if(metas.length) ents.push(["metas","Metas fixas"]);
+    ents.push(["frentes","Frentes e demandas"]);
+    if(isBackup){ ents.push(["lixeira","Lixeira"]); ents.push(["sobre","Sobre este backup"]); }
+    need(ents.length*6.4+12);
+    doc.text("NESTE RELATÓRIO", M, y, {size:7, bold:true, color:MUTE, cs:1.4});
+    y += 6;
+    ents.forEach(function(e){ idx.push({ key:e[0], label:e[1], y:y }); doc.text(e[1], M+1, y, {size:9, color:INK}); y += 6.2; });
+  }
+  var summaryPage = doc.pages.length-1;
 
-  var normal = cats.filter(function(c){ return !c.satellite; }).sort(function(a,b){ return openOf(b.id).length-openOf(a.id).length || a.name.localeCompare(b.name); });
-  var fixas = cats.filter(function(c){ return !!c.satellite; });
-  var ordered = normal.concat(fixas);
-
-  need(14);
-  doc.text("DISTRIBUIÇÃO POR FRENTE", M, y, {size:7.6, bold:true, color:MUTE, cs:1.4});
-  y += 6;
+  function fullBody(){
+  newPage();
+  section("Distribuição por frente", "Quanto há em aberto em cada frente.");
+  marks.visao = doc.pages.length;
   var maxTot = Math.max.apply(null, ordered.map(function(c){ return tasksOf(c.id).filter(function(t){return t.type==="task";}).length; }).concat([1]));
   ordered.forEach(function(c){
     need(8);
@@ -3305,6 +3407,7 @@ function buildReportPdf(kind, ctx){
   if(metas.length){
     need(40);
     section("Metas fixas", "O que você constrói ao longo da vida: sem prazo, sempre em destaque.");
+    marks.metas = doc.pages.length;
     metas.forEach(function(m){
       var c = catById2(m.categoryId);
       var tl3 = doc.wrap(m.title, CW-18, 11.5, true);
@@ -3331,6 +3434,7 @@ function buildReportPdf(kind, ctx){
   // ---------- Frentes ----------
   need(70);
   section("Frentes e demandas", isBackup ? "Todas as demandas, abertas e concluídas, com datas e anexos." : "Demandas em aberto, organizadas por prazo.");
+  marks.frentes = doc.pages.length;
   ordered.forEach(function(c){
     var col = catRgb(c);
     var ops = openOf(c.id), dns = doneOf(c.id);
@@ -3389,6 +3493,7 @@ function buildReportPdf(kind, ctx){
     var trashedCats = d.categories.filter(function(c){ return c.deletedAt; });
     newPage();
     section("Lixeira", "O que foi excluído e ainda pode ser restaurado no app.");
+    marks.lixeira = doc.pages.length;
     if(!trashedTasks.length && !trashedCats.length){
       doc.text("A lixeira está vazia.", M+1, y, {size:9, italic:true, color:MUTE}); y += 8;
     }
@@ -3412,10 +3517,25 @@ function buildReportPdf(kind, ctx){
     need(48);
     doc.rrect(M, y, CW, 40, 3, {fill:SOFT});
     doc.rect(M, y, 2, 40, {fill:GOLD});
+    marks.sobre = doc.pages.length;
     doc.text("Sobre este backup", M+8, y+9, {size:11, bold:true, color:NAVY});
     var about = "Este PDF é uma cópia de leitura e arquivo da sua conta em "+stamp.split(" às")[0]+". Para restaurar os dados dentro do Konstela, use o backup em JSON: Perfil, Dados e backup, Baixar backup (JSON). Guarde os dois em um lugar seguro.";
     doc.wrap(about, CW-16, 9, false).forEach(function(ln,i){ doc.text(ln, M+8, y+16+i*4.6, {size:9, color:[80,86,106]}); });
   }
+
+
+  }
+  if(!isShort) fullBody();
+  // números de página do índice
+  doc.cur = doc.pages[summaryPage];
+  idx.forEach(function(e){
+    var pgNum = marks[e.key];
+    if(!pgNum) return;
+    var lw = doc.textWidth(e.label,9,false), num = String(pgNum);
+    var nw = doc.textWidth(num,9,true);
+    doc.line(M+1+lw+2, e.y-0.9, M+CW-nw-2, e.y-0.9, {color:LINE, lw:0.3, dash:[0.4,1.1]});
+    doc.text(num, M+CW, e.y, {size:9, bold:true, color:GOLDD, align:"right"});
+  });
 
   // ---------- Cabeçalho e rodapé ----------
   var total = doc.pages.length;
@@ -3487,8 +3607,8 @@ function bootUI(){
   document.getElementById("dz-cancel").addEventListener("click", closeDanger);
   document.getElementById("dz-back").addEventListener("click", dzBack);
   document.getElementById("dz-next").addEventListener("click", dzNext);
-  document.getElementById("pf-pdf-org").addEventListener("click", function(){ generateReport("organizacao", pfMsg); });
-  document.getElementById("pf-pdf-bkp").addEventListener("click", function(){ generateReport("backup", pfMsg); });
+  document.querySelectorAll("#pf-pdf-options .pdf-opt").forEach(function(b){ b.addEventListener("click", function(){ pdfKind = b.dataset.kind; renderPdfOptions(); }); });
+  document.getElementById("pf-pdf-go").addEventListener("click", function(){ generateReport(pdfKind, pfMsg); });
   document.getElementById("pf-signout2").addEventListener("click", function(){ closeProfile(); document.getElementById("sign-out-btn").click(); });
   document.getElementById("pf-signout").addEventListener("click", function(){ closeProfile(); document.getElementById("sign-out-btn").click(); });
   document.getElementById("ob-name").addEventListener("input", refreshObAvatar);
