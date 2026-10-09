@@ -2,7 +2,11 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="description" content="Konstela: central de comando pessoal de Dudu Medeiros: frentes, demandas e prioridades num só lugar.">
 <meta name="theme-color" content="#0A0A0F">
 <meta name="color-scheme" content="dark">
@@ -180,6 +184,17 @@
   .goal-card.masked .goal-title{ letter-spacing:0.18em; color:var(--text-dim); user-select:none; }
   .goal-card.masked .goal-star{ opacity:0.55; }
   .btn-filter-frente{ padding:9px 14px; }
+
+  .pdf-period{ margin-top:14px; padding-top:14px; border-top:1px solid var(--border); }
+  .pdf-period-title{ font-size:11px; color:var(--text-mute); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; }
+  .pdf-period .field{ margin:10px 0 0; }
+  .pdf-period-hint{ margin:8px 0 0; font-size:11.5px; color:var(--text-mute); line-height:1.5; }
+  .pdf-period.disabled{ opacity:0.5; }
+  .pdf-period.disabled button{ cursor:not-allowed; }
+  /* menus suspensos escuros */
+  select{ color-scheme:dark; }
+  select option, select optgroup{ background:#12151f; color:#e8eaf3; }
+  select option:checked{ background:#2a2f45; color:#F4B740; }
   .pdf-check{ display:flex; align-items:center; gap:9px; margin:12px 0 2px; font-size:12.5px; color:var(--text-dim); cursor:pointer; }
   .pdf-check input{ accent-color:var(--gold); width:16px; height:16px; }
   .pdf-check em{ font-style:normal; color:var(--text-mute); }
@@ -188,8 +203,15 @@
   .flt-presets{ display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; }
   .flt-preset{ background:var(--surface); border:1px solid var(--border); color:var(--text-dim); padding:7px 13px; border-radius:999px; font-size:12px; font-weight:600; cursor:pointer; }
   .flt-preset:hover{ border-color:var(--gold); color:var(--gold); }
-  .flt-panel{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px 16px; padding:18px; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); margin-bottom:18px; }
+  .flt-panel{ display:block; padding:18px; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); margin-bottom:18px; }
+  .flt-simple, .flt-adv{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px 16px; }
+  .flt-adv{ margin-top:14px; padding-top:16px; border-top:1px solid var(--border); }
+  .flt-panel.adv-closed .flt-adv{ display:none; }
+  .flt-adv-toggle{ display:flex; align-items:center; gap:8px; margin-top:14px; background:none; border:none; color:var(--gold); font-size:12.5px; font-weight:700; padding:6px 0; cursor:pointer; }
+  .flt-adv-toggle::after{ content:""; width:7px; height:7px; border-right:2px solid currentColor; border-bottom:2px solid currentColor; transform:rotate(45deg) translateY(-2px); transition:transform .2s; }
+  .flt-panel:not(.adv-closed) .flt-adv-toggle::after{ transform:rotate(225deg) translateY(-2px); }
   .flt-panel .field{ margin:0; }
+  .flt-chips button{ min-height:40px; }
   .flt-wide{ grid-column:1 / -1; }
   .flt-panel input[type=text], .flt-panel input[type=date]{ width:100%; padding:10px 12px; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:var(--radius-sm); color:var(--text); font-size:13.5px; outline:none; color-scheme:dark; }
   .flt-panel input:focus{ border-color:var(--gold); }
@@ -219,7 +241,7 @@
   .flt-empty{ text-align:center; padding:50px 20px; color:var(--text-dim); border:1px dashed var(--border); border-radius:var(--radius); }
   .flt-empty span{ font-size:12px; color:var(--text-mute); }
   .flt-more{ display:block; margin:12px auto 0; }
-  @media (max-width:700px){ .flt-panel{ grid-template-columns:1fr; } .flt-chips button{ padding:9px 6px; } }
+  @media (max-width:700px){ .flt-chips button{ padding:9px 6px; } }
   .goals-banner-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
   .goals-heading{ font-size:12px; letter-spacing:0.16em; text-transform:uppercase; font-weight:800; color:var(--gold); }
   .goals-heading span{ color:var(--text-mute); margin-left:6px; }
@@ -635,6 +657,83 @@
     main.stage{ padding:6px 14px 50px; }
   }
 
+
+  /* ===== Mobile ===== */
+  .fh-break{ display:none; }
+  html{ -webkit-text-size-adjust:100%; }
+  button, a, .card, .front-card, .flt-row{ -webkit-tap-highlight-color:transparent; }
+  button, select, input{ touch-action:manipulation; }
+  .card.drag-armed{ transform:scale(1.02); border-color:var(--gold); box-shadow:0 0 0 1px var(--gold), 0 14px 30px -10px rgba(0,0,0,0.7); }
+  @media (hover:none){
+    .goal-actions{ opacity:1; }
+  }
+  @media (pointer:coarse){
+    .card{ touch-action:pan-x pan-y; -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
+    .icon-btn{ width:38px; height:38px; font-size:16px; }
+    .icon-btn svg{ width:17px; height:17px; }
+    .status-btn{ position:relative; }
+    .status-btn::before{ content:""; position:absolute; inset:-11px; }
+    .back-btn{ min-width:44px; min-height:44px; }
+    .btn-new, .btn-ghost, .btn-solid{ min-height:44px; }
+  }
+  @media (max-width:640px){
+    body{ padding-left:env(safe-area-inset-left); padding-right:env(safe-area-inset-right); }
+    header.top{ padding:calc(10px + env(safe-area-inset-top)) 14px 10px; gap:8px 10px; }
+    .brand{ order:1; flex:0 0 auto; gap:9px; }
+    .top-search{ order:2; flex:1 1 150px; min-width:150px; max-width:none; }
+    .header-icons{ order:3; flex:0 0 auto; gap:0; align-items:center; }
+    .stats{ order:4; margin-left:auto; gap:8px; }
+    .stat{ text-align:center; }
+    .stat .num{ font-size:15px; }
+    .stat .lbl{ font-size:7.5px; letter-spacing:0.03em; }
+    .bsb-clock{ order:5; width:100%; font-size:10px; margin:-2px 0 0; }
+    .icon-btn-header{ width:36px; height:36px; }
+    .signout-btn{ font-size:0; gap:0; padding:0; width:36px; height:36px; justify-content:center; background:none; border-color:transparent; color:var(--text-mute); }
+    .signout-btn svg{ width:16px; height:16px; }
+    main.stage{ padding:6px 14px calc(60px + env(safe-area-inset-bottom)); }
+    .tagline{ font-size:13.5px; }
+    .frente-header{ gap:10px; margin:6px 0 14px; }
+    .frente-header .frente-title-wrap{ flex:1 1 0; min-width:0; }
+    .fh-break{ display:block; flex:0 0 100%; height:0; margin:-5px 0; }
+    .frente-header h2{ font-size:18px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .frente-search{ flex:1 1 140px; min-width:140px; max-width:none; }
+    .frente-search input{ width:100%; }
+    .frente-header .btn-new{ flex:1 1 40%; text-align:center; }
+    .frente-header .btn-filter-frente{ flex:0 0 auto; }
+    .goals-banner{ padding:14px; }
+    .goals-banner-head{ gap:10px; }
+    .goal-card .goal-title{ font-size:15px; }
+    .grid-heading{ flex-wrap:wrap; gap:8px; }
+    .column{ flex:0 0 86vw; }
+    .columns{ gap:12px; margin:0 -14px; padding:0 14px 8px; scroll-padding-left:14px; scroll-snap-type:x mandatory; }
+    .card{ padding:15px 14px 13px; }
+    .card-title{ font-size:15px; }
+    input[type=text], input[type=email], input[type=password], input[type=date], input[type=search], textarea, select{ font-size:16px !important; }
+    .modal-backdrop{ align-items:flex-end; padding:0; }
+    .modal{ max-width:none; max-height:92vh; max-height:92dvh; overflow-y:auto; -webkit-overflow-scrolling:touch; border-radius:22px 22px 0 0; padding:22px 18px calc(22px + env(safe-area-inset-bottom)); }
+    .modal::before{ content:""; display:block; width:38px; height:4px; border-radius:2px; background:rgba(255,255,255,0.22); margin:-8px auto 14px; }
+    .settings-shell{ height:94vh; height:94dvh; border-radius:22px 22px 0 0; width:100%; }
+    .settings-body{ padding:18px 16px calc(24px + env(safe-area-inset-bottom)); }
+    .btn-row, .modal-actions{ gap:10px; }
+    .pdf-box-foot{ flex-wrap:wrap; }
+    .btn-solid{ white-space:nowrap; }
+    .pdf-box-foot .btn-solid{ margin-left:auto; }
+    .flt-presets{ flex-wrap:nowrap; overflow-x:auto; margin:0 -14px 12px; padding:0 14px 2px; scrollbar-width:none; }
+    .flt-presets::-webkit-scrollbar{ display:none; }
+    .flt-preset{ flex:none; padding:10px 14px; }
+    .flt-panel{ padding:14px; }
+    .flt-simple, .flt-adv{ grid-template-columns:1fr 1fr; gap:12px; }
+    .flt-wide{ grid-column:1 / -1; }
+    .flt-adv-toggle{ min-height:44px; width:100%; justify-content:center; border:1px solid var(--border); border-radius:var(--radius-sm); margin-top:12px; }
+    .flt-row{ padding:14px 12px; }
+    .flt-chips button{ min-height:42px; }
+    .stats-cards{ gap:10px; }
+  }
+  @media (max-width:380px){
+    .stats{ flex:1 1 100%; justify-content:space-between; margin-left:0; }
+    .header-icons{ flex:1 1 100%; justify-content:space-between; }
+  }
+
   @media print{
     html, body, #app, main.stage, #view-home, #view-frente, #view-done, #view-stats, #view-trash{
       background-color:#000 !important;
@@ -729,8 +828,10 @@
         <button type="button" class="icon-btn-header" id="delete-frente-btn" title="Excluir esta frente">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg>
         </button>
+        <span class="fh-break"></span>
         <div class="frente-search"><input type="text" id="frente-search" placeholder="Buscar nesta frente..."></div>
         <button type="button" class="btn-ghost btn-filter-frente" id="frente-filter-btn">Filtrar</button>
+        <span class="fh-break"></span>
         <button class="btn-new btn-goal" id="new-goal-btn-frente">+ Meta fixa</button>
         <button class="btn-new" id="new-task-btn">+ Nova demanda</button>
       </div>
@@ -794,20 +895,26 @@
         <span class="done-total mono" id="flt-count">0</span>
       </div>
       <div class="flt-presets" id="flt-presets"></div>
-      <div class="flt-panel">
-        <div class="field flt-wide"><label for="flt-q">Buscar no texto</label><input type="text" id="flt-q" placeholder="Título ou descrição"></div>
-        <div class="field"><label for="flt-cat">Frente</label><select id="flt-cat"></select></div>
-        <div class="field"><label for="flt-kind">Tipo</label><select id="flt-kind"></select></div>
-        <div class="field"><label for="flt-scope">Onde</label><select id="flt-scope"><option value="ativas">Ativas</option><option value="lixeira">Na lixeira</option><option value="todas">Todas</option></select></div>
-        <div class="field"><label for="flt-att">Anexos</label><select id="flt-att"><option value="all">Tanto faz</option><option value="with">Com anexos</option><option value="without">Sem anexos</option></select></div>
-        <div class="field"><label>Status</label><div class="flt-chips" id="flt-status"><button type="button" data-v="pendente">Pendente</button><button type="button" data-v="andamento">Em andamento</button><button type="button" data-v="concluida">Concluída</button></div></div>
-        <div class="field"><label>Prazo</label><div class="flt-chips" id="flt-pri"><button type="button" data-v="curto">Curto</button><button type="button" data-v="medio">Médio</button><button type="button" data-v="longo">Longo</button></div></div>
-        <div class="field"><label for="flt-datefield">Filtrar pela data de</label><select id="flt-datefield"></select></div>
-        <div class="field"><label for="flt-range">Período</label><select id="flt-range"></select></div>
-        <div class="field flt-wide flt-custom" id="flt-custom" style="display:none"><div><label for="flt-from">De</label><input type="date" id="flt-from"></div><div><label for="flt-to">Até</label><input type="date" id="flt-to"></div></div>
-        <div class="field"><label for="flt-sort">Ordenar por</label><select id="flt-sort"></select></div>
-        <div class="field"><label>Ordem</label><button type="button" class="btn-ghost flt-dir" id="flt-dir"></button></div>
-        <p class="flt-hint" id="flt-hint" style="display:none"></p>
+      <div class="flt-panel" id="flt-panel">
+        <div class="flt-simple">
+          <div class="field flt-wide"><label for="flt-q">Buscar</label><input type="text" id="flt-q" placeholder="Título ou descrição"></div>
+          <div class="field"><label for="flt-cat">Frente</label><select id="flt-cat"></select></div>
+          <div class="field"><label for="flt-when" id="flt-when-label">Quando</label><select id="flt-when"></select></div>
+          <div class="field flt-wide"><label>Status</label><div class="flt-chips" id="flt-status"><button type="button" data-v="pendente">Pendente</button><button type="button" data-v="andamento">Em andamento</button><button type="button" data-v="concluida">Concluída</button></div></div>
+        </div>
+        <button type="button" class="flt-adv-toggle" id="flt-adv-toggle">Filtros avançados</button>
+        <div class="flt-adv">
+          <div class="field"><label for="flt-kind">Tipo</label><select id="flt-kind"></select></div>
+          <div class="field"><label for="flt-scope">Onde</label><select id="flt-scope"><option value="ativas">Ativas</option><option value="lixeira">Na lixeira</option><option value="todas">Todas</option></select></div>
+          <div class="field"><label for="flt-att">Anexos</label><select id="flt-att"><option value="all">Tanto faz</option><option value="with">Com anexos</option><option value="without">Sem anexos</option></select></div>
+          <div class="field"><label>Prazo</label><div class="flt-chips" id="flt-pri"><button type="button" data-v="curto">Curto</button><button type="button" data-v="medio">Médio</button><button type="button" data-v="longo">Longo</button></div></div>
+          <div class="field"><label for="flt-datefield">Filtrar pela data de</label><select id="flt-datefield"></select></div>
+          <div class="field"><label for="flt-range">Período</label><select id="flt-range"></select></div>
+          <div class="field flt-wide flt-custom" id="flt-custom" style="display:none"><div><label for="flt-from">De</label><input type="date" id="flt-from"></div><div><label for="flt-to">Até</label><input type="date" id="flt-to"></div></div>
+          <div class="field"><label for="flt-sort">Ordenar por</label><select id="flt-sort"></select></div>
+          <div class="field"><label>Ordem</label><button type="button" class="btn-ghost flt-dir" id="flt-dir"></button></div>
+          <p class="flt-hint" id="flt-hint" style="display:none"></p>
+        </div>
       </div>
       <div id="flt-list"></div>
     </div>
@@ -955,6 +1062,12 @@
             <button type="button" class="pdf-opt" data-kind="resumo"><b>Resumido</b><span>3 páginas: números, andamento da semana, do mês e do ano, atrasos e o que está parado há mais tempo.</span></button>
             <button type="button" class="pdf-opt active" data-kind="organizacao"><b>Organização</b><span>Resumo e andamento no início, atrasos por prazo e todas as frentes com as demandas em aberto.</span></button>
             <button type="button" class="pdf-opt" data-kind="backup"><b>Backup completo</b><span>Resumo e andamento no início e tudo o que existe: concluídas, datas, anexos e lixeira.</span></button>
+          </div>
+          <div class="pdf-period" id="pf-period">
+            <div class="pdf-period-title">Período do relatório</div>
+            <div class="segmented" id="pf-period-seg"><button type="button" data-p="all" class="active">Tudo</button><button type="button" data-p="week">Uma semana</button><button type="button" data-p="month">Um mês</button></div>
+            <div class="field" id="pf-period-pick" style="display:none"><select id="pf-period-sel"></select></div>
+            <p class="pdf-period-hint" id="pf-period-hint"></p>
           </div>
           <label class="pdf-check"><input type="checkbox" id="pf-pdf-metas" checked><span>Ocultar as metas fixas no PDF <em>(aparecem como asteriscos)</em></span></label>
           <div class="pdf-box-foot"><span>Todos começam com um resumo executivo.</span><button type="button" class="btn-solid" id="pf-pdf-go">Gerar PDF</button></div>
@@ -1203,6 +1316,7 @@ function demoSeed(){
   return d;
 }
 function enterGuest(){
+  resetPrivacyState();
   guestMode = true; currentUid = null; currentEmail = "";
   document.getElementById("lock-screen").style.display = "none";
   document.getElementById("app").classList.add("visible");
@@ -1418,6 +1532,12 @@ function setMetasRevealed(v){
   if(metasRevealed) metasHideTimer = setTimeout(function(){ setMetasRevealed(false); }, 60000);
   if(data) refreshAfterChange();
 }
+function resetPrivacyState(){
+  metasRevealed = false;
+  if(metasHideTimer){ clearTimeout(metasHideTimer); metasHideTimer = null; }
+  try{ flt = FLT_DEFAULT(); }catch(e){}
+}
+document.addEventListener("visibilitychange", function(){ if(document.hidden && metasRevealed) setMetasRevealed(false); });
 function setMetasCollapsed(v){
   metasCollapsed = !!v;
   try{ localStorage.setItem("konstela_metas_collapsed", metasCollapsed ? "1" : "0"); }catch(e){}
@@ -1765,8 +1885,9 @@ function attachNodeDrag(g, nd, svg){
 }
 
 // ---------------- Bar mode ----------------
-function setVizMode(mode){
+function setVizMode(mode, userChoice){
   vizMode = mode;
+  if(userChoice){ try{ localStorage.setItem("konstela_viz", mode); }catch(e){} }
   document.getElementById("constellation-wrap").style.display = mode==="orbit" ? "block" : "none";
   document.getElementById("bar-mode").style.display = mode==="bar" ? "block" : "none";
   document.querySelectorAll(".viz-toggle button").forEach(function(b){ b.classList.toggle("active", b.dataset.mode===mode); });
@@ -1969,7 +2090,8 @@ function openStats(){ showView("view-stats"); renderStatsView(); }
 function openTrash(){ showView("view-trash"); renderTrash(); }
 
 // ---------------- Filtros ----------------
-var FLT_DEFAULT = function(){ return { q:"", cat:"", kind:"all", scope:"ativas", att:"all", status:[], pri:[], dateField:"createdAt", range:"any", from:"", to:"", sort:"createdAt", dir:"desc" }; };
+var FLT_DEFAULT = function(){ return { q:"", cat:"", kind:"all", scope:"ativas", att:"all", status:[], pri:[], dateField:"modified", range:"any", from:"", to:"", sort:"modified", dir:"desc" }; };
+var FLT_WHEN_BASE = [["any","Qualquer data"],["today","Hoje"],["7d","Últimos 7 dias"],["30d","Últimos 30 dias"]];
 var flt = FLT_DEFAULT();
 var fltLimit = 100;
 var FLT_DATE_FIELDS = [
@@ -2077,6 +2199,12 @@ function renderFilterControls(){
   document.getElementById("flt-att").value = flt.att;
   document.getElementById("flt-datefield").value = flt.dateField;
   document.getElementById("flt-range").value = flt.range;
+  var wsel = document.getElementById("flt-when"), wopts = FLT_WHEN_BASE.slice();
+  if(!wopts.some(function(o){ return o[0]===flt.range; })){ var ex = FLT_RANGES.filter(function(o){ return o[0]===flt.range; })[0]; if(ex) wopts.push([ex[0], ex[1]]); }
+  wsel.innerHTML = wopts.map(function(o){ return '<option value="'+o[0]+'">'+o[1]+'</option>'; }).join("");
+  wsel.value = flt.range;
+  var dfl = FLT_DATE_FIELDS.filter(function(o){ return o[0]===flt.dateField; })[0];
+  document.getElementById("flt-when-label").textContent = flt.dateField==="modified" ? "Quando" : "Quando (" + (dfl ? dfl[1].toLowerCase() : "") + ")";
   document.getElementById("flt-sort").value = flt.sort;
   document.getElementById("flt-from").value = flt.from;
   document.getElementById("flt-to").value = flt.to;
@@ -2090,6 +2218,8 @@ function renderFilterControls(){
   hint.textContent = flt.dateField==="startedAt" ? "O início da execução é registrado quando uma demanda passa para Em andamento. Demandas anteriores a esta versão não têm essa data." : "";
   hint.style.display = hint.textContent ? "block" : "none";
   var n = fltActiveCount();
+  var tg = document.getElementById("flt-adv-toggle");
+  if(tg){ var closed = document.getElementById("flt-panel").classList.contains("adv-closed"); var nAdv = (flt.kind!=="all"?1:0) + (flt.scope!=="ativas"?1:0) + (flt.att!=="all"?1:0) + (flt.pri.length?1:0); tg.textContent = (closed ? "Filtros avançados" : "Ocultar avançados") + (nAdv && closed ? " (" + nAdv + " ativos)" : ""); }
   var clr = document.getElementById("flt-clear"); clr.style.visibility = n ? "visible" : "hidden";
 }
 function fltChip(txt, cls){ return '<span class="flt-pill '+(cls||"")+'">'+escapeHtml(txt)+'</span>'; }
@@ -2122,7 +2252,7 @@ function renderFilterResults(){
     function dpush(label, field, ts){ if(ts) dates.push('<span class="'+(flt.dateField===field && flt.range!=="any" ? "hl" : "")+'">'+label+' '+fltDateFmt(ts)+'</span>'); }
     dpush("Adicionada","createdAt",t.createdAt);
     if(modTs(t) && modTs(t)!==t.createdAt) dpush("Modificada","modified",modTs(t));
-    if(t.type==="task") dpush("Iniciada","startedAt",t.startedAt);
+    if(t.type==="task" && flt.dateField==="startedAt") dpush("Iniciada","startedAt",t.startedAt);
     if(t.type==="task") dpush("Concluída","completedAt",t.completedAt);
     if(t.deletedAt) dpush("Excluída","deletedAt",t.deletedAt);
     row.innerHTML = '<span class="flt-dot" style="background:'+color+'"></span><div class="flt-main"><div class="flt-title">'+escapeHtml(t.title)+'</div>'
@@ -2156,8 +2286,7 @@ var FLT_PRESETS = [
   { id:"hoje", label:"Mexidas hoje", set:function(f){ f.dateField="modified"; f.range="today"; } },
   { id:"semana", label:"Concluídas na semana", set:function(f){ f.status=["concluida"]; f.dateField="completedAt"; f.range="7d"; f.sort="completedAt"; } },
   { id:"paradas", label:"Paradas há 30 dias ou mais", set:function(f){ f.status=["pendente","andamento"]; f.kind="task"; f.dateField="modified"; f.range="older30"; f.sort="modified"; f.dir="asc"; } },
-  { id:"anexos", label:"Com anexos", set:function(f){ f.att="with"; } },
-  { id:"lixeira", label:"Na lixeira", set:function(f){ f.scope="lixeira"; f.sort="deletedAt"; } }
+  { id:"paradas2", label:"Todas as concluídas", set:function(f){ f.status=["concluida"]; f.kind="task"; f.sort="completedAt"; } }
 ];
 function initFilter(){
   var pw = document.getElementById("flt-presets");
@@ -2173,6 +2302,7 @@ function initFilter(){
   document.getElementById("flt-q").addEventListener("input", function(e){ flt.q = e.target.value; fltLimit = 100; document.getElementById("flt-clear").style.visibility = fltActiveCount() ? "visible" : "hidden"; renderFilterResults(); });
   bind("flt-cat","cat"); bind("flt-kind","kind"); bind("flt-att","att"); bind("flt-datefield","dateField"); bind("flt-sort","sort");
   document.getElementById("flt-scope").addEventListener("change", function(e){ flt.scope = e.target.value; fltRefresh(); });
+  document.getElementById("flt-when").addEventListener("change", function(e){ flt.range = e.target.value; fltRefresh(); });
   document.getElementById("flt-range").addEventListener("change", function(e){ flt.range = e.target.value; if(flt.range==="custom" && !flt.from){ flt.from = todayISO(); flt.to = todayISO(); } fltRefresh(); });
   document.getElementById("flt-from").addEventListener("change", function(e){ flt.from = e.target.value; fltRefresh(); });
   document.getElementById("flt-to").addEventListener("change", function(e){ flt.to = e.target.value; fltRefresh(); });
@@ -2184,6 +2314,9 @@ function initFilter(){
   }
   chips("flt-status","status"); chips("flt-pri","pri");
   document.getElementById("flt-clear").addEventListener("click", function(){ flt = FLT_DEFAULT(); fltRefresh(); });
+  var fp = document.getElementById("flt-panel");
+  fp.classList.add("adv-closed");
+  document.getElementById("flt-adv-toggle").addEventListener("click", function(){ fp.classList.toggle("adv-closed"); renderFilterControls(); });
   document.getElementById("back-btn-filter").addEventListener("click", closeFrente);
   document.getElementById("open-filter-btn").addEventListener("click", function(){ openFilter(); });
   document.getElementById("frente-filter-btn").addEventListener("click", function(){ openFilter(activeCategoryId); });
@@ -2643,27 +2776,66 @@ function renderCard(task){
 }
 
 function attachDrag(card, task){
-  var pointerId=null, startX=0, startY=0, dragging=false, ghost=null;
+  var pointerId=null, startX=0, startY=0, dragging=false, ghost=null, armed=false, lpTimer=null, lastX=0, lastY=0, scrollTimer=null;
+  function clearLP(){ if(lpTimer){ clearTimeout(lpTimer); lpTimer=null; } }
+  function stopAutoScroll(){ if(scrollTimer){ clearInterval(scrollTimer); scrollTimer=null; } }
+  function startAutoScroll(){
+    if(scrollTimer) return;
+    scrollTimer = setInterval(function(){
+      var bc = document.getElementById("board-container"); if(!bc) return;
+      var edge = 56, step = 14;
+      if(lastX < edge) bc.scrollLeft -= step; else if(lastX > window.innerWidth-edge) bc.scrollLeft += step;
+    }, 16);
+  }
+  function beginDrag(){
+    dragging = true;
+    card.classList.add("dragging-source");
+    var rect = card.getBoundingClientRect();
+    ghost = card.cloneNode(true);
+    ghost.classList.add("drag-ghost");
+    ghost.style.width = rect.width+"px";
+    ghost.style.left = rect.left+"px";
+    ghost.style.top = rect.top+"px";
+    document.body.appendChild(ghost);
+    var bc0 = document.getElementById("board-container"); if(bc0) bc0.style.scrollSnapType = "none";
+    startAutoScroll();
+  }
+  function reset(){
+    clearLP(); stopAutoScroll();
+    var bc1 = document.getElementById("board-container"); if(bc1) bc1.style.scrollSnapType = "";
+    if(ghost){ ghost.remove(); ghost=null; }
+    card.classList.remove("dragging-source"); card.classList.remove("drag-armed");
+    document.querySelectorAll(".drop-zone").forEach(function(z){ z.classList.remove("drag-over"); });
+    pointerId=null; dragging=false; armed=false;
+  }
+  card.addEventListener("touchmove", function(e){ if(armed || dragging) e.preventDefault(); }, { passive:false });
+  card.addEventListener("contextmenu", function(e){ if(armed || dragging) e.preventDefault(); });
   card.addEventListener("pointerdown", function(e){
     if(e.target.closest("button")) return;
     if(e.pointerType==="mouse" && e.button!==0) return;
-    pointerId = e.pointerId; startX=e.clientX; startY=e.clientY; dragging=false;
-    try{ card.setPointerCapture(pointerId); }catch(err){}
+    pointerId = e.pointerId; startX=lastX=e.clientX; startY=lastY=e.clientY; dragging=false; armed=false;
+    if(e.pointerType==="touch"){
+      clearLP();
+      lpTimer = setTimeout(function(){
+        lpTimer = null; armed = true; card.classList.add("drag-armed");
+        try{ if(navigator.vibrate) navigator.vibrate(12); }catch(err){}
+        try{ card.setPointerCapture(pointerId); }catch(err){}
+      }, 320);
+    } else {
+      try{ card.setPointerCapture(pointerId); }catch(err){}
+    }
   });
   card.addEventListener("pointermove", function(e){
     if(pointerId===null || e.pointerId!==pointerId) return;
+    lastX = e.clientX; lastY = e.clientY;
     var dx=e.clientX-startX, dy=e.clientY-startY;
+    if(e.pointerType==="touch" && !armed){
+      if(Math.abs(dx)>8 || Math.abs(dy)>8){ clearLP(); pointerId=null; }
+      return;
+    }
     if(!dragging){
       if(Math.abs(dx)<10 && Math.abs(dy)<10) return;
-      dragging = true;
-      card.classList.add("dragging-source");
-      var rect = card.getBoundingClientRect();
-      ghost = card.cloneNode(true);
-      ghost.classList.add("drag-ghost");
-      ghost.style.width = rect.width+"px";
-      ghost.style.left = rect.left+"px";
-      ghost.style.top = rect.top+"px";
-      document.body.appendChild(ghost);
+      beginDrag();
     }
     if(dragging){
       e.preventDefault();
@@ -2680,25 +2852,19 @@ function attachDrag(card, task){
     if(dragging){
       var el = document.elementFromPoint(e.clientX, e.clientY);
       var zone = el && el.closest ? el.closest(".drop-zone") : null;
-      document.querySelectorAll(".drop-zone").forEach(function(z){ z.classList.remove("drag-over"); });
-      if(ghost){ ghost.remove(); ghost=null; }
-      card.classList.remove("dragging-source");
-      if(zone && zone.dataset.priority && zone.dataset.priority!==task.priority){
-        task.priority = zone.dataset.priority; task.updatedAt = Date.now();
+      var target = zone && zone.dataset.priority;
+      reset();
+      if(target && target!==task.priority){
+        task.priority = target; task.updatedAt = Date.now();
         saveData(); refreshAfterChange();
       }
     } else if(!e.target.closest("button")){
+      reset();
       openTaskModal(task);
-    }
-    pointerId=null; dragging=false;
+    } else { reset(); }
   }
   card.addEventListener("pointerup", endDrag);
-  card.addEventListener("pointercancel", function(){
-    if(ghost){ ghost.remove(); ghost=null; }
-    card.classList.remove("dragging-source");
-    document.querySelectorAll(".drop-zone").forEach(function(z){ z.classList.remove("drag-over"); });
-    pointerId=null; dragging=false;
-  });
+  card.addEventListener("pointercancel", reset);
 }
 
 var confirmCallback = null;
@@ -3010,6 +3176,7 @@ function renderAll(){
 }
 
 function boot(){
+  resetPrivacyState();
   loadDataFromCloud().then(function(d){
     data = d;
     saveData();
@@ -3196,18 +3363,85 @@ function logoForPdf(){
 function todayISO(){
   try{ var p = new Intl.DateTimeFormat("en-CA",{timeZone:"America/Sao_Paulo",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date()); return p; }catch(e){ return new Date().toISOString().slice(0,10); }
 }
-var pdfKind = "organizacao";
+var pdfKind = "organizacao", pdfPeriodKind = "all";
+function pdfEarliest(){
+  var m = Date.now();
+  data.tasks.forEach(function(t){ if(t.createdAt && t.createdAt < m) m = t.createdAt; });
+  return m;
+}
+function shortRange(a, b){
+  var x = brL(a), y = brL(b), mm = function(d){ return PT_MON3[d.getUTCMonth()].toLowerCase(); };
+  if(x.getUTCMonth()===y.getUTCMonth()) return x.getUTCDate()+" a "+y.getUTCDate()+" "+mm(x);
+  return x.getUTCDate()+" "+mm(x)+" a "+y.getUTCDate()+" "+mm(y);
+}
+function pdfPeriodList(kind){
+  var out = [], now = Date.now(), first = pdfEarliest();
+  if(kind==="week"){
+    var w = weekStartOf(now), stop = weekStartOf(first), n = 0;
+    while(w >= stop && n < 104){
+      var cur = (n===0);
+      out.push({ value:String(w), kind:"week", from:w, to:w+7*DAY_MS-1,
+        label:"Semana "+isoWeekOf(w)+", "+rangeLabel(w, w+6*DAY_MS),
+        text:"Semana "+isoWeekOf(w)+", "+shortRange(w, w+6*DAY_MS)+(brL(w).getUTCFullYear()!==brL(now).getUTCFullYear() ? " "+brL(w).getUTCFullYear() : "")+(cur?" (atual)":"") });
+      w = weekStartOf(w-1); n++;
+    }
+  } else if(kind==="month"){
+    var x = brL(now), y = x.getUTCFullYear(), m = x.getUTCMonth(), fx = brL(first), fy = fx.getUTCFullYear(), fm = fx.getUTCMonth(), k = 0;
+    while((y > fy || (y===fy && m >= fm)) && k < 60){
+      var f = brStart(y,m,1), nm = PT_MONTH[m].charAt(0).toUpperCase()+PT_MONTH[m].slice(1)+" de "+y;
+      out.push({ value:String(f), kind:"month", from:f, to:brStart(y,m+1,1)-1, label:nm, text:nm+(k===0?" (atual)":"") });
+      m--; if(m<0){ m=11; y--; } k++;
+    }
+  }
+  return out;
+}
+function renderPdfPeriod(){
+  var seg = document.querySelectorAll("#pf-period-seg button");
+  seg.forEach(function(b){ b.classList.toggle("active", b.dataset.p===pdfPeriodKind); });
+  var box = document.getElementById("pf-period"), pick = document.getElementById("pf-period-pick"), sel = document.getElementById("pf-period-sel"), hint = document.getElementById("pf-period-hint");
+  var isBackup = pdfKind==="backup";
+  box.classList.toggle("disabled", isBackup);
+  seg.forEach(function(b){ b.disabled = isBackup; });
+  if(isBackup){ pick.style.display = "none"; hint.textContent = "O backup completo sempre guarda tudo, sem recorte de período."; return; }
+  if(pdfPeriodKind==="all"){ pick.style.display = "none"; hint.textContent = "Mostra a conta como está hoje."; return; }
+  var list = pdfPeriodList(pdfPeriodKind), keep = sel.value;
+  sel.innerHTML = list.map(function(o){ return '<option value="'+o.value+'">'+escapeHtml(o.text)+'</option>'; }).join("");
+  if(keep && list.some(function(o){ return o.value===keep; })) sel.value = keep;
+  pick.style.display = "block";
+  hint.textContent = "Mostra a conta como estava no fim do período, com o que foi adicionado e concluído dentro dele.";
+}
+function currentPdfPeriod(){
+  if(pdfKind==="backup" || pdfPeriodKind==="all") return null;
+  var list = pdfPeriodList(pdfPeriodKind), v = document.getElementById("pf-period-sel").value;
+  for(var i=0;i<list.length;i++) if(list[i].value===v) return list[i];
+  return list[0] || null;
+}
+function snapshotAt(ref){
+  var copy = JSON.parse(JSON.stringify({ categories:data.categories, tasks:data.tasks }));
+  copy.tasks = copy.tasks.filter(function(t){ return !t.createdAt || t.createdAt <= ref; }).map(function(t){
+    if(t.completedAt && t.completedAt > ref){ t.completedAt = null; if(t.status==="concluida") t.status = "pendente"; }
+    if(t.startedAt && t.startedAt > ref){ t.startedAt = null; if(t.status==="andamento") t.status = "pendente"; }
+    if(t.deletedAt && t.deletedAt > ref) t.deletedAt = null;
+    return t;
+  });
+  copy.categories.forEach(function(c){ if(c.deletedAt && c.deletedAt > ref) c.deletedAt = null; });
+  return copy;
+}
 function renderPdfOptions(){
   document.querySelectorAll("#pf-pdf-options .pdf-opt").forEach(function(b){ b.classList.toggle("active", b.dataset.kind===pdfKind); });
+  renderPdfPeriod();
 }
 function generateReport(kind, notify, opts){
   if(!data) return;
   notify("Gerando o PDF...", true);
   Promise.all([avatarForPdf(), logoForPdf()]).then(function(r){
-    var bytes = buildReportPdf(kind, { data:data, name:displayName(), email:currentEmail, avatar:r[0], logo:r[1], nowTs:Date.now(), maskMetas: !!(opts && opts.maskMetas) });
+    var per = (opts && opts.period) || null, now0 = Date.now();
+    var ref = per ? Math.min(per.to, now0) : now0;
+    var bytes = buildReportPdf(kind, { data: per ? snapshotAt(ref) : data, name:displayName(), email:currentEmail, avatar:r[0], logo:r[1], nowTs:now0, refTs: per ? ref : null, period: per ? { kind:per.kind, from:per.from, to:per.to, label:per.label } : null, maskMetas: !!(opts && opts.maskMetas) });
     var blob = new Blob([bytes], {type:"application/pdf"});
     var u = URL.createObjectURL(blob), l = document.createElement("a");
-    l.href = u; l.download = "konstela-" + (kind==="backup" ? "backup-completo" : (kind==="resumo" ? "resumo" : "organizacao")) + "-" + todayISO() + ".pdf";
+    var suf = per ? "-" + (per.kind==="week" ? "semana" : "mes") + "-" + new Date(per.from + BR_OFF).toISOString().slice(0,10) : "";
+    l.href = u; l.download = "konstela-" + (kind==="backup" ? "backup-completo" : (kind==="resumo" ? "resumo" : "organizacao")) + suf + "-" + todayISO() + ".pdf";
     document.body.appendChild(l); l.click(); l.remove(); setTimeout(function(){ URL.revokeObjectURL(u); }, 4000);
     notify("PDF gerado. Confira seus downloads.", true);
   }).catch(function(e){ console.error("PDF failed", e); notify("Não deu para gerar o PDF agora. Tente novamente.", false); });
@@ -3579,7 +3813,9 @@ function buildReportPdf(kind, ctx){
   var doneOf = function(cid){ return tasksOf(cid).filter(function(t){ return t.type==="task" && t.status==="concluida"; }); };
   var catById2 = function(id){ return d.categories.find(function(c){ return c.id===id; }); };
   var catRgb = function(c){ return pdfRgbFromHue(c.hue||40, 70, 46); };
-  var NOWTS = ctx.nowTs || Date.now();
+  var NOWTS = ctx.refTs || ctx.nowTs || Date.now();
+  var period = ctx.period || null;
+  var refIsNow = !period || NOWTS >= (ctx.nowTs || Date.now());
   var overdueDays = function(t){
     if(!t.createdAt || t.status==="concluida") return 0;
     var age = Math.floor((NOWTS - t.createdAt)/DAY_MS);
@@ -3625,6 +3861,11 @@ function buildReportPdf(kind, ctx){
     ? "Tudo o que está guardado na sua conta: frentes, demandas, metas fixas, datas, histórico e a lixeira."
     : "Uma visão limpa e organizada das suas frentes, demandas em aberto e metas fixas, pronta para ler, imprimir ou compartilhar.";
   doc.wrap(sub, 120, 11.5, false).forEach(function(ln,i){ doc.text(ln, M, 160+i*6, {size:11.5, color:[190,197,216]}); });
+  if(period){
+    var plab = "PERÍODO: "+period.label.toUpperCase();
+    doc.rrect(M, 187, doc.textWidth(plab,8.6,true,0.9)+10, 9, 4.5, {stroke:GOLD, lw:0.5});
+    doc.text(plab, M+5, 193, {size:8.6, bold:true, color:GOLD, cs:0.9});
+  }
   // identidade
   var idy = 212;
   var tx = M;
@@ -3707,7 +3948,7 @@ function buildReportPdf(kind, ctx){
   var normal = cats.filter(function(c){ return !c.satellite; }).sort(function(a,b){ return openOf(b.id).length-openOf(a.id).length || a.name.localeCompare(b.name); });
   var fixas = cats.filter(function(c){ return !!c.satellite; });
   var ordered = normal.concat(fixas);
-  var NOW = ctx.nowTs || Date.now(), DAY = 86400000;
+  var NOW = NOWTS, DAY = 86400000;
   var overdueCount = openTasks0().filter(function(t){ return !(catById2(t.categoryId)||{}).satellite && overdueDays(t)>0; }).length;
   var openTasks = allTasks.filter(function(t){ return t.status!=="concluida"; });
   var andamento = openTasks.filter(function(t){ return t.status==="andamento"; }).sort(function(a,b){ return (a.createdAt||0)-(b.createdAt||0); });
@@ -3738,11 +3979,16 @@ function buildReportPdf(kind, ctx){
     narr = "Seu Konstela está vazio por enquanto. Crie frentes, demandas e metas fixas para começar a organizar.";
   } else {
     var fa = normal.filter(function(c){ return openOf(c.id).length>0; });
-    narr = "Você tem "+pl(nOpen,"demanda em aberto","demandas em aberto")+" em "+pl(fa.length || 0,"frente","frentes")+".";
+    narr = (period && !refIsNow ? "Ao fim do período você tinha " : "Você tem ")+pl(nOpen,"demanda em aberto","demandas em aberto")+" em "+pl(fa.length || 0,"frente","frentes")+".";
     if(fa.length) narr += " A frente com mais demandas em aberto é "+fa[0].name+" ("+openOf(fa[0].id).length+").";
-    narr += andamento.length ? " "+(andamento.length===1 ? "1 está em andamento agora." : andamento.length+" estão em andamento agora.") : " Nenhuma está em andamento no momento.";
+    if(refIsNow) narr += andamento.length ? " "+(andamento.length===1 ? "1 está em andamento agora." : andamento.length+" estão em andamento agora.") : " Nenhuma está em andamento no momento.";
+    else narr += andamento.length ? " "+(andamento.length===1 ? "1 estava em andamento nesse momento." : andamento.length+" estavam em andamento nesse momento.") : " Nenhuma estava em andamento nesse momento.";
     if(typeof overdueCount!=="undefined" && overdueCount>0) narr += " "+pl(overdueCount,"está atrasada","estão atrasadas")+" em relação ao prazo de referência.";
-    if(done30) narr += " Nos últimos 30 dias, "+pl(done30,"foi concluída","foram concluídas")+".";
+    if(period){
+      var pAdd = allTasks.filter(function(t){ return t.createdAt>=period.from && t.createdAt<=period.to; }).length;
+      var pDone = allTasks.filter(function(t){ return t.completedAt && t.completedAt>=period.from && t.completedAt<=period.to; }).length;
+      narr += " Dentro do período ("+period.label+"), "+pl(pAdd,"demanda foi adicionada","demandas foram adicionadas")+" e "+pl(pDone,"foi concluída","foram concluídas")+".";
+    } else if(done30) narr += " Nos últimos 30 dias, "+pl(done30,"foi concluída","foram concluídas")+".";
     if(metas.length) narr += " "+(metas.length===1 ? "Sua meta fixa guia" : "Suas "+metas.length+" metas fixas guiam")+" o longo prazo.";
   }
   var nl = doc.wrap(narr, CW-14, 10, false);
@@ -3774,11 +4020,11 @@ function buildReportPdf(kind, ctx){
   var rowsO = overdueList.slice(0,6).map(function(t){ return { left:t.title, right:"+"+overdueDays(t)+" dias", rc:[190,40,60] }; });
   var BH1 = 16 + Math.max(1, Math.min(6, Math.max(rowsA.length, rowsM.length))) * 5.8 + 3;
   var BH2 = 16 + Math.max(1, Math.min(6, Math.max(rowsF.length, rowsO.length))) * 5.8 + 3;
-  box(M, y, "EM ANDAMENTO AGORA", rowsA, "Nada em andamento no momento.", BH1);
+  box(M, y, refIsNow ? "EM ANDAMENTO AGORA" : "EM ANDAMENTO NO FIM DO PERÍODO", rowsA, refIsNow ? "Nada em andamento no momento." : "Nada em andamento nesse momento.", BH1);
   box(M+BW+6, y, "METAS FIXAS", rowsM, "Nenhuma meta fixa ainda.", BH1);
   y += BH1 + 5;
   box(M, y, "FRENTES COM MAIS DEMANDAS", rowsF, "Nenhuma demanda em aberto.", BH2);
-  box(M+BW+6, y, "MAIS ATRASADAS", rowsO, "Nada atrasado no momento.", BH2);
+  box(M+BW+6, y, "MAIS ATRASADAS", rowsO, refIsNow ? "Nada atrasado no momento." : "Nada atrasado nesse momento.", BH2);
   y += BH2 + 9;
   // índice
   var idx = [];
@@ -3820,8 +4066,8 @@ function buildReportPdf(kind, ctx){
     doc.rrect(M, y, CW, 20, 3, {fill:NAVY});
     doc.text("SEMANA "+wk, M+7, y+9.2, {size:16, bold:true, color:GOLD, cs:1});
     doc.text(rangeLabel(ws, ws+6*DAY_MS), M+7, y+15.4, {size:8.8, color:[190,197,216]});
-    doc.text("HOJE: "+PT_DOW[nx.getUTCDay()].toUpperCase()+", "+dmLabel(NOWTS), M+CW-7, y+9, {size:9.5, bold:true, color:WHITE, align:"right", cs:0.5});
-    doc.text("dia "+(dow+1)+" de 7 da semana", M+CW-7, y+15.4, {size:8.4, color:[190,197,216], align:"right"});
+    doc.text((refIsNow ? "HOJE: " : "FIM DO PERÍODO: ")+PT_DOW[nx.getUTCDay()].toUpperCase()+", "+dmLabel(NOWTS), M+CW-7, y+9, {size:9.5, bold:true, color:WHITE, align:"right", cs:0.5});
+    doc.text(refIsNow ? "dia "+(dow+1)+" de 7 da semana" : (period && period.kind==="month" ? "última semana do mês" : "semana completa"), M+CW-7, y+15.4, {size:8.4, color:[190,197,216], align:"right"});
     y += 24;
     var cw7 = (CW-6*2)/7;
     for(var i=0;i<7;i++){
@@ -3834,7 +4080,7 @@ function buildReportPdf(kind, ctx){
       var dcol = isToday ? GOLDD : (past ? INK : [150,156,174]);
       doc.text(PT_DOW3[(i+1)%7], cx0+cw7/2, y+6, {size:7.2, bold:true, color:isToday?GOLDD:MUTE, align:"center", cs:1});
       doc.text(String(brL(ds).getUTCDate()), cx0+cw7/2, y+14.5, {size:16, bold:true, color:dcol, align:"center"});
-      if(isToday) doc.text("HOJE", cx0+cw7/2, y+18.8, {size:6.2, bold:true, color:GOLDD, align:"center", cs:0.8});
+      if(isToday) doc.text(refIsNow ? "HOJE" : "FIM", cx0+cw7/2, y+18.8, {size:6.2, bold:true, color:GOLDD, align:"center", cs:0.8});
       if(!(ds>todayStart)){
         doc.text(dd+" feita"+(dd===1?"":"s"), cx0+cw7/2, y+22.6, {size:6.9, bold:true, color:dd? GREEN : [160,166,184], align:"center"});
         doc.text(ad+" nova"+(ad===1?"":"s"), cx0+cw7/2, y+26.3, {size:6.9, color:MUTE, align:"center"});
@@ -3866,7 +4112,7 @@ function buildReportPdf(kind, ctx){
       else doc.rrect(cx0, y, cwW, 39, 2.5, {stroke:[200,205,218], lw:0.4, dash:[0.8,1]});
       doc.text("SEMANA "+(i+1), cx0+4, y+6.2, {size:7.4, bold:true, color:current?GOLDD:INK, cs:0.6});
       doc.text(w.d1===w.d2 ? "dia "+w.d1 : w.d1+" a "+w.d2, cx0+4, y+11, {size:8, color:MUTE});
-      var tag = current ? "ATUAL" : (closed ? "ENCERRADA" : "A VIR");
+      var tag = current ? (refIsNow ? "ATUAL" : (period && period.kind==="week" ? "SELECIONADA" : "FINAL")) : (closed ? "ENCERRADA" : "A VIR");
       var tagCol = current ? GOLDD : (closed ? MUTE : [160,166,184]);
       doc.text(tag, cx0+4, y+15.6, {size:6.4, bold:true, color:tagCol, cs:0.9});
       var bw = cwW-8;
@@ -3913,7 +4159,7 @@ function buildReportPdf(kind, ctx){
       if(o.p>0){ doc.rrect(mid+0.4, base-hp, bwid, hp, 0.8, {fill:RED}); doc.text(String(o.p), mid+bwid/2+0.4, base-hp-1, {size:6.2, bold:true, color:RED, align:"center"}); }
       if(o.d===0 && o.p===0) doc.line(mid-3.5, base-0.3, mid+3.5, base-0.3, {color:LINE, lw:0.5});
       doc.text(PT_MON3[q], mid, base+4.6, {size:6.8, bold:true, color: current?GOLDD:(o.fut?[170,176,192]:MUTE), align:"center", cs:0.3});
-      if(current) doc.text("HOJE", mid, base+8.2, {size:5.6, bold:true, color:GOLDD, align:"center", cs:0.5});
+      if(current) doc.text(refIsNow ? "HOJE" : "FIM", mid, base+8.2, {size:5.6, bold:true, color:GOLDD, align:"center", cs:0.5});
     });
     y = base + 14;
     lx = M;
@@ -4151,7 +4397,7 @@ function buildReportPdf(kind, ctx){
     }
     doc.text(title.toUpperCase(), M+CW, 12.6, {size:7, bold:true, color:[200,206,224], cs:1.3, align:"right"});
     doc.line(M, PH-17, M+CW, PH-17, {color:LINE, lw:0.3});
-    doc.text(name+"   |   "+stamp+"   |   Semana "+isoWeekOf(NOWTS), M, PH-11.5, {size:7.4, color:MUTE});
+    doc.text(name+"   |   "+stamp+"   |   "+(period ? period.label : "Semana "+isoWeekOf(NOWTS)), M, PH-11.5, {size:7.4, color:MUTE});
     doc.text("Página "+(p+1)+" de "+total, M+CW, PH-11.5, {size:7.4, color:MUTE, align:"right"});
   }
   return doc.build({ title:"Konstela: "+title, author:name, ts:ctx.nowTs });
@@ -4208,7 +4454,7 @@ function bootUI(){
   document.getElementById("dz-back").addEventListener("click", dzBack);
   document.getElementById("dz-next").addEventListener("click", dzNext);
   document.querySelectorAll("#pf-pdf-options .pdf-opt").forEach(function(b){ b.addEventListener("click", function(){ pdfKind = b.dataset.kind; renderPdfOptions(); }); });
-  document.getElementById("pf-pdf-go").addEventListener("click", function(){ var mk = document.getElementById("pf-pdf-metas"); generateReport(pdfKind, pfMsg, { maskMetas: !!(mk && mk.checked) }); });
+  document.getElementById("pf-pdf-go").addEventListener("click", function(){ var mk = document.getElementById("pf-pdf-metas"); generateReport(pdfKind, pfMsg, { maskMetas: !!(mk && mk.checked), period: currentPdfPeriod() }); });
   document.getElementById("pf-signout2").addEventListener("click", function(){ closeProfile(); document.getElementById("sign-out-btn").click(); });
   document.getElementById("pf-signout").addEventListener("click", function(){ closeProfile(); document.getElementById("sign-out-btn").click(); });
   document.getElementById("ob-name").addEventListener("input", refreshObAvatar);
@@ -4220,6 +4466,7 @@ function bootUI(){
   document.getElementById("back-btn-stats").addEventListener("click", closeFrente);
   document.getElementById("back-btn-trash").addEventListener("click", closeFrente);
   initFilter();
+  document.querySelectorAll("#pf-period-seg button").forEach(function(b){ b.addEventListener("click", function(){ pdfPeriodKind = b.dataset.p; renderPdfPeriod(); }); });
   document.getElementById("goals-collapse-btn").addEventListener("click", function(){ setMetasCollapsed(!metasCollapsed); });
   document.getElementById("open-done-btn").addEventListener("click", openDone);
   document.getElementById("open-stats-btn").addEventListener("click", openStats);
@@ -4304,10 +4551,11 @@ function bootUI(){
   gridHeading.appendChild(addBtn);
 
   document.querySelectorAll(".viz-toggle button").forEach(function(b){
-    b.addEventListener("click", function(){ setVizMode(b.dataset.mode); });
+    b.addEventListener("click", function(){ setVizMode(b.dataset.mode, true); });
   });
-  attachSwipe(document.getElementById("constellation-wrap"), function(){ setVizMode("bar"); }, null);
-  attachSwipe(document.getElementById("bar-mode"), null, function(){ setVizMode("orbit"); });
+  attachSwipe(document.getElementById("constellation-wrap"), function(){ setVizMode("bar", true); }, null);
+  attachSwipe(document.getElementById("bar-mode"), null, function(){ setVizMode("orbit", true); });
+  (function(){ var saved = null; try{ saved = localStorage.getItem("konstela_viz"); }catch(e){} var narrow = window.matchMedia && window.matchMedia("(max-width:640px)").matches; var m = saved || (narrow ? "bar" : "orbit"); if(m!=="orbit") setVizMode(m); })();
 
   renderAll();
   startOrbitLoop();
