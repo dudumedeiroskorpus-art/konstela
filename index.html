@@ -162,6 +162,26 @@
   .ob-suggest{ display:flex; flex-wrap:wrap; gap:8px; }
   .ob-chip{ display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border:1px solid var(--border); border-radius:999px; font-size:12.5px; color:var(--text-dim); cursor:pointer; }
   .brand-k:hover{ filter:brightness(1.15); }
+  .goals-banner{ width:100%; max-width:1180px; margin:0 auto 22px; background:linear-gradient(180deg, rgba(244,183,64,0.14), rgba(244,183,64,0.03)); border:1px solid rgba(244,183,64,0.5); border-radius:var(--radius); padding:16px 18px; box-shadow:0 0 28px rgba(244,183,64,0.12); }
+  .goals-banner-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+  .goals-heading{ font-size:12px; letter-spacing:0.16em; text-transform:uppercase; font-weight:800; color:var(--gold); }
+  .goals-heading span{ color:var(--text-mute); margin-left:6px; }
+  .goals-list{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px; }
+  .goals-empty{ margin:0; font-size:12.5px; color:var(--text-mute); line-height:1.6; }
+  .goals-section{ margin:0 0 18px; padding:14px 16px; border:1px solid rgba(244,183,64,0.5); border-radius:var(--radius); background:linear-gradient(180deg, rgba(244,183,64,0.12), rgba(244,183,64,0.02)); }
+  .goals-section .goals-heading{ margin-bottom:10px; }
+  .goal-card{ position:relative; padding:14px 14px 12px; border-radius:12px; border:1px solid var(--goal-accent, var(--gold)); border-left-width:4px; background:rgba(10,12,22,0.75); box-shadow:0 0 18px -6px var(--goal-accent, var(--gold)); }
+  .goal-head{ display:flex; align-items:flex-start; gap:10px; }
+  .goal-star{ color:var(--gold); flex:none; margin-top:2px; filter:drop-shadow(0 0 6px rgba(244,183,64,0.7)); }
+  .goal-title{ font-size:15px; font-weight:700; line-height:1.35; flex:1; }
+  .goal-actions{ opacity:0.6; }
+  .goal-card:hover .goal-actions{ opacity:1; }
+  .goal-desc{ margin:8px 0 0 28px; font-size:12.5px; color:var(--text-dim); line-height:1.55; }
+  .goal-meta{ margin:10px 0 0 28px; font-size:11px; color:var(--text-mute); display:flex; flex-wrap:wrap; gap:4px; align-items:center; }
+  .goal-cat{ display:inline-flex; align-items:center; gap:5px; color:var(--text-dim); }
+  .goal-cat i{ width:8px; height:8px; border-radius:50%; display:inline-block; }
+  .btn-goal{ background:transparent; border:1px solid var(--gold); color:var(--gold); }
+  .btn-goal:hover{ background:rgba(244,183,64,0.15); }
   .account-chip{ align-self:center; max-width:170px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:11px; color:var(--text-mute); margin-right:4px; }
   .signout-btn{ display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:8px; border:1px solid var(--border); background:rgba(255,255,255,0.06); color:var(--text); font:inherit; font-size:12px; font-weight:600; cursor:pointer; }
   .signout-btn:hover{ background:rgba(244,183,64,0.15); border-color:var(--gold); color:var(--gold); }
@@ -522,6 +542,11 @@
         <div id="bar-list"></div>
       </div>
       <p class="tagline">Um único centro de comando para todas as suas frentes. Toque num nó — ou numa frente abaixo — <b>pra abrir o que precisa da sua atenção.</b></p>
+      <div class="goals-banner" id="goals-banner">
+        <div class="goals-banner-head"><div class="goals-heading">Metas fixas</div><button type="button" class="btn-new btn-goal" id="new-goal-btn">+ Meta fixa</button></div>
+        <div class="goals-list" id="goals-banner-list"></div>
+        <p class="goals-empty" id="goals-banner-empty">Metas fixas são o que você constrói ao longo da vida: sem prazo, sempre em destaque. Toque em "+ Meta fixa" para criar a primeira.</p>
+      </div>
       <div class="stale-banner" id="stale-banner" style="display:none">
         <div class="stale-heading">Demandas esquecidas</div>
         <div class="stale-list" id="stale-list"></div>
@@ -541,8 +566,10 @@
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg>
         </button>
         <div class="frente-search"><input type="text" id="frente-search" placeholder="Buscar nesta frente..."></div>
+        <button class="btn-new btn-goal" id="new-goal-btn-frente">+ Meta fixa</button>
         <button class="btn-new" id="new-task-btn">+ Nova demanda</button>
       </div>
+      <div id="goals-container"></div>
       <div id="ref-container"></div>
       <div class="columns" id="board-container">
         <div class="column col-curto"><div class="column-head"><span class="col-ring"></span><h3>Curto prazo</h3><span class="count mono" id="count-curto">0</span></div><div class="drop-zone" id="zone-curto" data-priority="curto"></div></div>
@@ -610,6 +637,13 @@
           <div class="cs-options" id="f-cat-options"></div>
         </div>
       </div>
+    </div>
+    <div class="field"><label>Tipo</label>
+      <div class="segmented" id="f-kind-seg">
+        <button type="button" data-value="task">Demanda</button>
+        <button type="button" data-value="meta">Meta fixa</button>
+      </div>
+      <p id="f-kind-hint" style="display:none; font-size:11.5px; color:var(--text-mute); margin:6px 0 0;">Meta fixa não tem prazo nem conclusão: fica em destaque enquanto você a constrói.</p>
     </div>
     <div class="field" id="f-priority-field"><label>Prazo</label>
       <div class="segmented" id="f-priority-seg">
@@ -727,6 +761,10 @@
   <div class="modal">
     <h3>Nova frente</h3>
     <div class="field"><label>Nome</label><input type="text" id="c-name" placeholder="Ex: Financeiro pessoal"></div>
+    <div class="field"><label>Tipo de frente</label>
+      <div class="segmented" id="c-kind-seg"><button type="button" data-value="normal">Normal</button><button type="button" data-value="fixa">Fixa</button></div>
+      <p id="c-kind-hint" style="font-size:11.5px; color:var(--text-mute); margin:6px 0 0;"></p>
+    </div>
     <div class="modal-actions"><button class="btn-ghost" id="cat-cancel">Cancelar</button><button class="btn-solid" id="cat-save">Criar</button></div>
   </div>
 </div>
@@ -895,6 +933,8 @@ function demoSeed(){
         createdAt: Date.now(), completedAt: t[2]==="concluida" ? Date.now() : null, deletedAt:null });
     });
   });
+  d.tasks.push({ id: uid(), categoryId:d.categories[2].id, title:"Cuidar da saúde ao longo da vida", desc:"Uma meta sem prazo: movimento, sono e acompanhamento médico.", type:"meta", priority:"longo", status:"pendente", createdAt: Date.now()-86400000*800, completedAt:null, deletedAt:null });
+  d.tasks.push({ id: uid(), categoryId:d.categories[3].id, title:"Construir uma carreira com propósito", desc:"", type:"meta", priority:"longo", status:"pendente", createdAt: Date.now()-86400000*90, completedAt:null, deletedAt:null });
   return d;
 }
 function enterGuest(){
@@ -1102,13 +1142,36 @@ function renderConstellation(){
     console.error("renderConstellation failed, keeping previous view intact:", err);
   }
 }
+function metasFor(catId){ return data.tasks.filter(function(t){ return t.type==="meta" && t.categoryId===catId && !t.deletedAt; }); }
+function activeMetas(){
+  var ids = {}; activeCategories().forEach(function(c){ ids[c.id]=true; });
+  return data.tasks.filter(function(t){ return t.type==="meta" && !t.deletedAt && ids[t.categoryId]; })
+    .sort(function(x,y){ return (x.createdAt||0)-(y.createdAt||0); });
+}
+function sinceText(ts){
+  if(!ts) return "";
+  var days = Math.floor((Date.now()-ts)/86400000);
+  if(days<1) return "começou hoje";
+  if(days<60) return "construindo há " + days + (days===1?" dia":" dias");
+  var months = Math.floor(days/30.44);
+  if(months<24) return "construindo há " + months + " meses";
+  var y = Math.floor(months/12), m = months%12;
+  return "construindo há " + y + " anos" + (m ? " e "+m+(m===1?" mês":" meses") : "");
+}
+function starBadge(r){
+  var s = document.createElementNS(SVGNS,"polygon");
+  var pts = [], R = 8, rr = 3.4, ox = r*0.72, oy = -r*0.72;
+  for(var k=0;k<10;k++){ var ang = -Math.PI/2 + k*Math.PI/5, rad = k%2===0 ? R : rr; pts.push((ox+rad*Math.cos(ang)).toFixed(1)+","+(oy+rad*Math.sin(ang)).toFixed(1)); }
+  s.setAttribute("points", pts.join(" ")); s.setAttribute("fill","#F4B740"); s.setAttribute("stroke","#1a1204"); s.setAttribute("stroke-width","1"); s.setAttribute("pointer-events","none");
+  return s;
+}
 function renderConstellationInner(){
   var svg = document.getElementById("constellation-svg");
   var cx=700, cy=460;
   constellationCenter = {cx:cx, cy:cy};
   var GAP = 20;
 
-  var satellites = activeCategories().filter(function(c){ return c.satellite==="left" || c.satellite==="right" || c.satellite==="bottom-left" || c.satellite==="bottom-right"; });
+  var satellites = activeCategories().filter(function(c){ return c.satellite==="left" || c.satellite==="right" || c.satellite==="bottom-left" || c.satellite==="bottom-right" || c.satellite==="extra"; });
   var withCounts = activeCategories().filter(function(c){ return !c.satellite; }).map(function(c){ return { cat:c, open: openCount(c.id) }; });
   // stable sort: most demands first; ties keep a fixed order by category id so they never shuffle between renders
   withCounts.sort(function(a,b){ return (b.open - a.open) || (a.cat.id < b.cat.id ? -1 : 1); });
@@ -1136,8 +1199,14 @@ function renderConstellationInner(){
   // later visually sits on top wherever the two paths happen to cross — the moons stay
   // fully wired to the core and to each other without ever looking like they "hit" a planet.
   var moonOffsetX = 590, moonY = 60, moonYBottom = cy*2 - moonY;
+  var EXTRA_SLOTS = [[-1,460],[1,460],[-1,260],[1,260],[-1,660],[1,660],[-1,160],[1,160],[-1,360],[1,360],[-1,560],[1,560],[-1,760],[1,760]];
+  var extraIdx = 0;
   var moonPositions = satellites.map(function(cat){
     var mx, my;
+    if(cat.satellite==="extra"){
+      var sl = EXTRA_SLOTS[Math.min(extraIdx, EXTRA_SLOTS.length-1)]; extraIdx++;
+      return { cat:cat, mx: cx + sl[0]*moonOffsetX, my: sl[1], extra:true };
+    }
     if(cat.satellite==="right"){ mx = cx + moonOffsetX; my = moonY; }
     else if(cat.satellite==="bottom-left"){ mx = cx - moonOffsetX; my = moonYBottom; }
     else if(cat.satellite==="bottom-right"){ mx = cx + moonOffsetX; my = moonYBottom; }
@@ -1160,15 +1229,16 @@ function renderConstellationInner(){
   });
   // link every satellite to the next one; with two that's a single connector, with three
   // or more it closes into a ring tying them all together
-  if(moonPositions.length===2){
+  var linkPositions = moonPositions.filter(function(m){ return !m.extra; });
+  if(linkPositions.length===2){
     var soleLink = document.createElementNS(SVGNS,"line");
-    soleLink.setAttribute("x1",moonPositions[0].mx); soleLink.setAttribute("y1",moonPositions[0].my);
-    soleLink.setAttribute("x2",moonPositions[1].mx); soleLink.setAttribute("y2",moonPositions[1].my);
+    soleLink.setAttribute("x1",linkPositions[0].mx); soleLink.setAttribute("y1",linkPositions[0].my);
+    soleLink.setAttribute("x2",linkPositions[1].mx); soleLink.setAttribute("y2",linkPositions[1].my);
     soleLink.setAttribute("stroke","#F4B740"); soleLink.setAttribute("stroke-width","1.2"); soleLink.setAttribute("stroke-opacity","0.3"); soleLink.setAttribute("stroke-dasharray","1 5");
     frag.appendChild(soleLink);
-  } else if(moonPositions.length>=3){
-    moonPositions.forEach(function(mp, mi){
-      var next = moonPositions[(mi+1) % moonPositions.length];
+  } else if(linkPositions.length>=3){
+    linkPositions.forEach(function(mp, mi){
+      var next = linkPositions[(mi+1) % linkPositions.length];
       var moonLink = document.createElementNS(SVGNS,"line");
       moonLink.setAttribute("x1",mp.mx); moonLink.setAttribute("y1",mp.my);
       moonLink.setAttribute("x2",next.mx); moonLink.setAttribute("y2",next.my);
@@ -1218,6 +1288,7 @@ function renderConstellationInner(){
     text.textContent = label;
 
     floatInner.appendChild(hit); floatInner.appendChild(dot); floatInner.appendChild(ring); floatInner.appendChild(text);
+    if(metasFor(cat.id).length) floatInner.appendChild(starBadge(w.r));
     g.appendChild(floatInner);
     frag.appendChild(g);
 
@@ -1295,6 +1366,7 @@ function renderConstellationInner(){
     text.textContent = label;
 
     floatInner.appendChild(haloOuter); floatInner.appendChild(hit); floatInner.appendChild(dot); floatInner.appendChild(ring); floatInner.appendChild(text);
+    if(metasFor(cat.id).length) floatInner.appendChild(starBadge(r));
     g.appendChild(floatInner);
     frag.appendChild(g);
   });
@@ -1605,6 +1677,7 @@ function openStats(){ showView("view-stats"); renderStatsView(); }
 function openTrash(){ showView("view-trash"); renderTrash(); }
 
 function refreshAfterChange(){
+  renderGoalsBanner();
   renderStats(); renderFrontGrid(); renderConstellation(); renderStale();
   if(vizMode==="bar") renderBarMode();
   var frenteVisible = document.getElementById("view-frente").style.display === "block";
@@ -1827,6 +1900,16 @@ function renderFrente(){
   var infos = all.filter(function(t){ return t.type==="info"; });
   var todos = all.filter(function(t){ return t.type==="task" && t.status!=="concluida"; });
 
+  var metas = all.filter(function(t){ return t.type==="meta"; });
+  var gc = document.getElementById("goals-container");
+  gc.innerHTML = "";
+  if(metas.length){
+    var sec = document.createElement("div"); sec.className = "goals-section";
+    sec.innerHTML = '<div class="goals-heading">Metas fixas <span>' + metas.length + '</span></div>';
+    var gl = document.createElement("div"); gl.className = "goals-list";
+    metas.forEach(function(m){ gl.appendChild(renderGoalCard(m, false)); });
+    sec.appendChild(gl); gc.appendChild(sec);
+  }
   var refContainer = document.getElementById("ref-container");
   if(infos.length){
     var html = '<div class="ref-section"><div class="ref-heading">Referência</div>';
@@ -1861,6 +1944,46 @@ function renderFrente(){
   }
 }
 
+function renderGoalCard(task, showCat){
+  var card = document.createElement("div");
+  card.className = "goal-card";
+  var cat = catById(task.categoryId);
+  if(cat) card.style.setProperty("--goal-accent", hueColor(cat.hue));
+  var star = '<svg class="goal-star" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.1 8.6 22 9.5 17 14.4 18.2 21.4 12 18 5.8 21.4 7 14.4 2 9.5 8.9 8.6"></polygon></svg>';
+  var head = document.createElement("div"); head.className = "goal-head";
+  head.innerHTML = star + '<div class="goal-title">' + escapeHtml(task.title) + '</div>';
+  var actions = document.createElement("div"); actions.className = "card-actions goal-actions";
+  var editBtn = document.createElement("button"); editBtn.type="button"; editBtn.className="icon-btn"; editBtn.textContent="✎"; editBtn.title="Editar";
+  editBtn.addEventListener("click", function(e){ e.stopPropagation(); openTaskModal(task); });
+  var delBtn = document.createElement("button"); delBtn.type="button"; delBtn.className="icon-btn del"; delBtn.innerHTML=TRASH_ICON; delBtn.title="Remover meta (vai para a lixeira)";
+  delBtn.addEventListener("click", function(e){
+    e.stopPropagation();
+    showConfirm('Remover a meta fixa "'+task.title+'"? Ela vai para a lixeira e pode ser restaurada.', function(){
+      task.deletedAt = Date.now(); saveData(); refreshAfterChange();
+    }, "Remover");
+  });
+  actions.appendChild(editBtn); actions.appendChild(delBtn);
+  head.appendChild(actions);
+  card.appendChild(head);
+  if(task.desc){ var d = document.createElement("p"); d.className="goal-desc"; d.textContent = task.desc; card.appendChild(d); }
+  var meta = document.createElement("div"); meta.className = "goal-meta";
+  var bits = [];
+  if(showCat && cat) bits.push('<span class="goal-cat"><i style="background:'+hueColor(cat.hue)+'"></i>'+escapeHtml(cat.name)+'</span>');
+  bits.push(escapeHtml(sinceText(task.createdAt)));
+  meta.innerHTML = bits.join(" · ");
+  card.appendChild(meta);
+  if(showCat){ card.style.cursor="pointer"; card.addEventListener("click", function(){ openFrente(task.categoryId); }); }
+  return card;
+}
+function renderGoalsBanner(){
+  var wrap = document.getElementById("goals-banner");
+  if(!wrap) return;
+  var metas = activeMetas();
+  document.getElementById("goals-banner-list").innerHTML = "";
+  document.getElementById("goals-banner-empty").style.display = metas.length ? "none" : "block";
+  var list = document.getElementById("goals-banner-list");
+  metas.forEach(function(m){ list.appendChild(renderGoalCard(m, true)); });
+}
 function renderFixedCard(task){
   var card = document.createElement("div");
   card.className = "card";
@@ -2063,7 +2186,7 @@ function showConfirm(message, onConfirm, okLabel){
 }
 function hideConfirm(){ document.getElementById("confirm-modal").classList.remove("visible"); confirmCallback = null; }
 
-var taskForm = { categoryId:null, priority:"curto", status:"pendente", attachments:[] };
+var taskForm = { categoryId:null, priority:"curto", status:"pendente", attachments:[], kind:"task" };
 
 function formatDateBR(ts, withTime){
   if(!ts) return "";
@@ -2165,8 +2288,12 @@ function renderCatTrigger(){
 function updateModalFieldsVisibility(){
   var cat = catById(taskForm.categoryId);
   var isSatellite = !!(cat && cat.satellite);
-  document.getElementById("f-priority-field").style.display = isSatellite ? "none" : "block";
-  document.getElementById("f-status-field").style.display = isSatellite ? "none" : "block";
+  var isMeta = taskForm.kind==="meta";
+  document.getElementById("f-priority-field").style.display = (isSatellite || isMeta) ? "none" : "block";
+  document.getElementById("f-status-field").style.display = (isSatellite || isMeta) ? "none" : "block";
+  document.querySelectorAll("#f-kind-seg button").forEach(function(b){ b.classList.toggle("active", b.dataset.value===taskForm.kind); });
+  document.getElementById("f-kind-hint").style.display = isMeta ? "block" : "none";
+  document.getElementById("task-modal-title").textContent = (editingTaskId ? "Editar " : "Nova ") + (isMeta ? "meta fixa" : "demanda");
 }
 function renderCatOptions(query){
   var wrap = document.getElementById("f-cat-options");
@@ -2194,8 +2321,9 @@ function renderSegmented(kind){
   document.querySelectorAll("#"+containerId+" button").forEach(function(b){ b.classList.toggle("active", b.dataset.value===value); });
 }
 
-function openTaskModal(task){
+function openTaskModal(task, kind){
   editingTaskId = task ? task.id : null;
+  taskForm.kind = task ? (task.type==="meta" ? "meta" : "task") : (kind || "task");
   document.getElementById("task-modal-title").textContent = task ? "Editar demanda" : "Nova demanda";
   taskForm.categoryId = task ? task.categoryId : (activeCategoryId || (activeCategories()[0]&&activeCategories()[0].id) || null);
   taskForm.priority = task ? task.priority : "curto";
@@ -2216,18 +2344,21 @@ function saveTask(){
   var wasConcluida = editingTaskId ? (data.tasks.find(function(x){return x.id===editingTaskId;})||{}).status==="concluida" : false;
   var payload = {
     title:title, desc:document.getElementById("f-desc").value.trim(),
-    categoryId:taskForm.categoryId, type:"task",
-    priority:taskForm.priority, status:taskForm.status,
+    categoryId:taskForm.categoryId, type: taskForm.kind==="meta" ? "meta" : "task",
+    priority: taskForm.kind==="meta" ? "longo" : taskForm.priority, status: taskForm.kind==="meta" ? "pendente" : taskForm.status,
     attachments: taskForm.attachments.slice()
   };
   if(editingTaskId){
     var t = data.tasks.find(function(x){ return x.id===editingTaskId; });
-    if(taskForm.status==="concluida" && !wasConcluida) t.completedAt = Date.now();
-    if(taskForm.status!=="concluida" && wasConcluida) t.completedAt = null;
+    if(taskForm.kind==="meta") t.completedAt = null;
+    else {
+      if(taskForm.status==="concluida" && !wasConcluida) t.completedAt = Date.now();
+      if(taskForm.status!=="concluida" && wasConcluida) t.completedAt = null;
+    }
     Object.assign(t, payload);
   } else {
     payload.id = uid(); payload.createdAt = Date.now();
-    payload.completedAt = taskForm.status==="concluida" ? Date.now() : null;
+    payload.completedAt = (taskForm.kind!=="meta" && taskForm.status==="concluida") ? Date.now() : null;
     payload.deletedAt = null;
     data.tasks.push(payload);
   }
@@ -2242,13 +2373,21 @@ function saveTask(){
   refreshAfterChange();
 }
 
-function openCatModal(){ document.getElementById("c-name").value=""; document.getElementById("cat-modal").classList.add("visible"); document.getElementById("c-name").focus(); }
+var catKind = "normal";
+function renderCatKind(){ document.querySelectorAll("#c-kind-seg button").forEach(function(b){ b.classList.toggle("active", b.dataset.value===catKind); }); document.getElementById("c-kind-hint").textContent = catKind==="fixa" ? "Frente fixa: permanente, fica fora da órbita, sem prazos. Ideal para o que você constrói ao longo da vida." : "Frente normal: entra na órbita e organiza demandas por prazo (curto, médio, longo)."; }
+function openCatModal(){ catKind="normal"; renderCatKind(); document.getElementById("c-name").value=""; document.getElementById("cat-modal").classList.add("visible"); document.getElementById("c-name").focus(); }
 function closeCatModal(){ document.getElementById("cat-modal").classList.remove("visible"); }
 function saveCategory(){
   var name = document.getElementById("c-name").value.trim();
   if(!name){ document.getElementById("c-name").focus(); return; }
   var hue = Math.round((data.categories.length * 137.508) % 360);
   var cat = { id: uid(), name:name, hue:hue };
+  if(catKind==="fixa"){
+    var nExtra = data.categories.filter(function(c){ return c.satellite==="extra" && !c.deletedAt; }).length;
+    if(nExtra>=14){ alert("Você já tem o máximo de frentes fixas (14). Exclua alguma para criar outra."); return; }
+    cat.satellite = "extra";
+    cat.hue = [42,190,300,150,20,260,80,330,110,225,60,170,0,285][nExtra%14];
+  }
   data.categories.push(cat);
   saveData(); closeCatModal();
   renderAll();
@@ -2261,6 +2400,7 @@ function deleteFrente(){
   var msg = itemCount>0
     ? 'Excluir a frente "'+cat.name+'"? As '+itemCount+' demanda'+(itemCount===1?'':'s')+' dela vão para a lixeira, e a frente deixa de existir.'
     : 'Excluir a frente "'+cat.name+'"? Ela está vazia.';
+  if(cat.satellite) msg = 'Esta é uma frente FIXA ("'+cat.name+'"), feita para durar. ' + msg;
   showConfirm(msg, function(){
     var now = Date.now();
     data.tasks.forEach(function(t){ if(t.categoryId===cat.id && !t.deletedAt) t.deletedAt = now; });
@@ -2271,6 +2411,7 @@ function deleteFrente(){
 }
 
 function renderAll(){
+  renderGoalsBanner();
   renderStats();
   renderConstellation();
   renderFrontGrid();
@@ -2501,6 +2642,10 @@ function bootUI(){
   document.getElementById("task-save").addEventListener("click", saveTask);
   document.getElementById("task-modal").addEventListener("click", function(e){ if(e.target.id==="task-modal") closeTaskModal(); });
 
+  document.querySelectorAll("#c-kind-seg button").forEach(function(b){ b.addEventListener("click", function(){ catKind = b.dataset.value; renderCatKind(); }); });
+  document.querySelectorAll("#f-kind-seg button").forEach(function(b){ b.addEventListener("click", function(){ taskForm.kind = b.dataset.value; updateModalFieldsVisibility(); }); });
+  document.getElementById("new-goal-btn").addEventListener("click", function(){ openTaskModal(null, "meta"); });
+  document.getElementById("new-goal-btn-frente").addEventListener("click", function(){ openTaskModal(null, "meta"); });
   document.getElementById("cat-cancel").addEventListener("click", closeCatModal);
   document.getElementById("cat-save").addEventListener("click", saveCategory);
   document.getElementById("cat-modal").addEventListener("click", function(e){ if(e.target.id==="cat-modal") closeCatModal(); });
