@@ -182,6 +182,13 @@
   .goal-cat i{ width:8px; height:8px; border-radius:50%; display:inline-block; }
   .btn-goal{ background:transparent; border:1px solid var(--gold); color:var(--gold); }
   .btn-goal:hover{ background:rgba(244,183,64,0.15); }
+  .pf-danger{ margin-top:16px; padding-top:14px; border-top:1px solid var(--border); display:flex; flex-direction:column; gap:8px; }
+  .pf-danger-title{ font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-mute); font-weight:700; }
+  .pf-danger-box{ display:flex; flex-direction:column; gap:8px; padding:12px; border:1px solid var(--danger); border-radius:10px; background:rgba(255,107,122,0.06); }
+  .pf-danger-box p{ margin:0; font-size:12px; line-height:1.55; color:var(--text-dim); }
+  .pf-check{ display:flex; align-items:center; gap:8px; font-size:12px; color:var(--text-dim); }
+  .btn-ghost.danger{ color:var(--danger); border-color:rgba(255,107,122,0.5); }
+  .btn-ghost:disabled{ opacity:0.4; cursor:not-allowed; }
   .account-chip{ align-self:center; max-width:170px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:11px; color:var(--text-mute); margin-right:4px; }
   .signout-btn{ display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:8px; border:1px solid var(--border); background:rgba(255,255,255,0.06); color:var(--text); font:inherit; font-size:12px; font-weight:600; cursor:pointer; }
   .signout-btn:hover{ background:rgba(244,183,64,0.15); border-color:var(--gold); color:var(--gold); }
@@ -705,7 +712,7 @@
 </div>
 
 <div class="modal-backdrop" id="profile-modal">
-  <div class="modal" style="max-width:460px">
+  <div class="modal" style="max-width:460px; max-height:92vh; overflow-y:auto">
     <h3>Meu perfil</h3>
     <div class="pf-top">
       <img id="pf-avatar" class="pf-avatar" alt="Foto do perfil" src="">
@@ -724,12 +731,25 @@
       <button type="button" class="btn-ghost" id="pf-backup-btn">Baixar backup</button>
       <button type="button" class="btn-ghost" id="pf-restore-btn">Restaurar backup</button>
       <input type="file" id="pf-restore-file" accept="application/json,.json" style="display:none">
-      <button type="button" class="btn-ghost" id="pf-del-btn" style="color:var(--danger)">Excluir minha conta</button>
     </div>
-    <div id="pf-del-box" style="display:none; margin-top:12px;">
-      <p style="font-size:12px; color:var(--text-dim); margin:0 0 8px;">Isso apaga sua conta e todos os seus dados, sem volta. Digite sua senha para confirmar.</p>
-      <input type="password" id="pf-del-pass" placeholder="Sua senha" autocomplete="current-password" style="width:100%; margin-bottom:8px;">
-      <button type="button" class="btn-ghost" id="pf-del-confirm" style="color:var(--danger); width:100%;">Confirmar exclusão definitiva</button>
+    <div class="pf-danger">
+      <div class="pf-danger-title">Dados e conta</div>
+      <button type="button" class="btn-ghost" id="pf-reset-btn">Resetar conta (apagar tudo e recomeçar)</button>
+      <div id="pf-reset-box" class="pf-danger-box" style="display:none">
+        <p>Isso apaga todas as suas frentes, demandas, metas fixas e a lixeira, e deixa o Konstela vazio, como no primeiro dia. Sua conta, e-mail e senha continuam os mesmos. Não tem volta.</p>
+        <label class="pf-check"><input type="checkbox" id="pf-reset-profile"> Remover também meu nome e minha foto</label>
+        <button type="button" class="btn-ghost" id="pf-reset-backup">Baixar backup antes</button>
+        <input type="text" id="pf-reset-type" placeholder="Digite RESETAR para confirmar" autocomplete="off">
+        <button type="button" class="btn-ghost danger" id="pf-reset-confirm" disabled>Apagar tudo e recomeçar do zero</button>
+      </div>
+      <button type="button" class="btn-ghost danger" id="pf-del-btn">Excluir minha conta</button>
+      <div id="pf-del-box" class="pf-danger-box" style="display:none">
+        <p>Isso exclui a sua conta e todos os seus dados de forma definitiva. Você não vai mais conseguir entrar com este e-mail, a menos que crie uma conta nova.</p>
+        <button type="button" class="btn-ghost" id="pf-del-backup">Baixar backup antes</button>
+        <input type="text" id="pf-del-type" placeholder="Digite EXCLUIR para confirmar" autocomplete="off">
+        <input type="password" id="pf-del-pass" placeholder="Sua senha" autocomplete="current-password">
+        <button type="button" class="btn-ghost danger" id="pf-del-confirm" disabled>Excluir minha conta definitivamente</button>
+      </div>
     </div>
     <div class="modal-actions">
       <button class="btn-ghost" id="pf-signout">Sair da conta</button>
@@ -2517,8 +2537,11 @@ function openProfile(){
   document.getElementById("pf-email").textContent = currentEmail;
   document.getElementById("pf-since").textContent = profile.createdAt ? formatDateBR(profile.createdAt) : "";
   document.getElementById("pf-msg").textContent = "";
-  document.getElementById("pf-del-box").style.display = "none";
-  document.getElementById("pf-del-btn").style.display = isOwner() ? "none" : "";
+  ["pf-del-box","pf-reset-box"].forEach(function(id){ document.getElementById(id).style.display = "none"; });
+  ["pf-reset-type","pf-del-type","pf-del-pass"].forEach(function(id){ document.getElementById(id).value = ""; });
+  document.getElementById("pf-reset-profile").checked = false;
+  document.getElementById("pf-reset-confirm").disabled = true;
+  document.getElementById("pf-del-confirm").disabled = true;
   refreshPfAvatar();
   document.getElementById("profile-modal").classList.add("visible");
 }
@@ -2559,7 +2582,23 @@ function sendPasswordChange(){
     .then(function(){ pfMsg("Enviamos um e-mail para " + currentEmail + " com o link para criar uma nova senha.", true); })
     .catch(function(){ pfMsg("Não deu para enviar o e-mail agora. Tente novamente.", false); });
 }
+function resetAccount(){
+  if(document.getElementById("pf-reset-type").value.trim().toUpperCase()!=="RESETAR") return;
+  var wipeProfile = document.getElementById("pf-reset-profile").checked;
+  data = emptySeed();
+  activeCategoryId = null; globalQuery = ""; frenteQuery = "";
+  saveData();
+  if(wipeProfile){
+    profile = { name:"", photo:"", createdAt: profile.createdAt || Date.now(), onboarded:false };
+    saveProfile();
+  }
+  closeProfile();
+  showView("view-home");
+  applyIdentity(); renderAll();
+  if(wipeProfile) openOnboarding();
+}
 function deleteAccount(){
+  if(document.getElementById("pf-del-type").value.trim().toUpperCase()!=="EXCLUIR") return;
   var pw = document.getElementById("pf-del-pass").value;
   if(!pw){ pfMsg("Digite sua senha para confirmar.", false); return; }
   var fb = window.__firebase, user = fb.auth.currentUser;
@@ -2613,7 +2652,13 @@ function bootUI(){
   document.getElementById("pf-backup-btn").addEventListener("click", downloadBackup);
   document.getElementById("pf-restore-btn").addEventListener("click", function(){ document.getElementById("pf-restore-file").click(); });
   document.getElementById("pf-restore-file").addEventListener("change", function(e){ var f=e.target.files[0]; e.target.value=""; if(f) restoreBackup(f); });
-  document.getElementById("pf-del-btn").addEventListener("click", function(){ document.getElementById("pf-del-box").style.display = "block"; });
+  document.getElementById("pf-del-btn").addEventListener("click", function(){ document.getElementById("pf-reset-box").style.display = "none"; document.getElementById("pf-del-box").style.display = "flex"; });
+  document.getElementById("pf-reset-btn").addEventListener("click", function(){ document.getElementById("pf-del-box").style.display = "none"; document.getElementById("pf-reset-box").style.display = "flex"; });
+  document.getElementById("pf-reset-type").addEventListener("input", function(e){ document.getElementById("pf-reset-confirm").disabled = e.target.value.trim().toUpperCase()!=="RESETAR"; });
+  document.getElementById("pf-del-type").addEventListener("input", function(e){ document.getElementById("pf-del-confirm").disabled = e.target.value.trim().toUpperCase()!=="EXCLUIR"; });
+  document.getElementById("pf-reset-confirm").addEventListener("click", resetAccount);
+  document.getElementById("pf-reset-backup").addEventListener("click", downloadBackup);
+  document.getElementById("pf-del-backup").addEventListener("click", downloadBackup);
   document.getElementById("pf-del-confirm").addEventListener("click", deleteAccount);
   document.getElementById("pf-signout").addEventListener("click", function(){ closeProfile(); document.getElementById("sign-out-btn").click(); });
   document.getElementById("ob-name").addEventListener("input", refreshObAvatar);
