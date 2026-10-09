@@ -188,6 +188,11 @@
   .pdf-period{ margin-top:14px; padding-top:14px; border-top:1px solid var(--border); }
   .pdf-period-title{ font-size:11px; color:var(--text-mute); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; }
   .pdf-period .field{ margin:10px 0 0; }
+  .pf-days{ display:flex; align-items:center; gap:10px; }
+  .pf-days input{ flex:1; min-width:0; padding:10px 12px; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:var(--radius-sm); color:var(--text); outline:none; color-scheme:dark; }
+  .pf-days input:focus{ border-color:var(--gold); }
+  .pf-days span{ color:var(--text-mute); font-size:12px; }
+  .pdf-period .segmented button{ padding:10px 4px; font-size:12px; }
   .pdf-period-hint{ margin:8px 0 0; font-size:11.5px; color:var(--text-mute); line-height:1.5; }
   .pdf-period.disabled{ opacity:0.5; }
   .pdf-period.disabled button{ cursor:not-allowed; }
@@ -658,6 +663,79 @@
   }
 
 
+  /* calendario */
+  #view-calendar{ display:none; width:100%; max-width:1180px; margin:0 auto; }
+  .cal-modes{ margin-left:auto; min-width:190px; }
+  .cal-layout{ display:grid; grid-template-columns:minmax(0,1.7fr) minmax(280px,1fr); gap:22px; align-items:start; }
+  .cal-nav{ display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+  .cal-nav h3{ flex:1; margin:0; font-size:19px; font-weight:700; text-align:center; }
+  .cal-navbtn{ width:42px; height:42px; border-radius:11px; border:1px solid var(--border); background:var(--surface); color:var(--text); font-size:24px; line-height:1; cursor:pointer; }
+  .cal-navbtn:hover{ border-color:var(--gold); color:var(--gold); }
+  .cal-today{ padding:9px 14px; }
+  .cal-grid{ display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:5px; touch-action:pan-y; }
+  .cal-dow{ font-size:10.5px; text-align:center; color:var(--text-mute); text-transform:uppercase; letter-spacing:0.06em; padding:4px 0; }
+  .cal-day{ min-height:92px; border:1px solid var(--border); border-radius:11px; background:var(--surface); display:flex; flex-direction:column; align-items:flex-start; padding:8px; cursor:pointer; color:var(--text); font:inherit; text-align:left; }
+  .cal-day:hover{ border-color:var(--border-hi); background:var(--surface-hi); }
+  .cal-day.out{ opacity:0.38; }
+  .cal-num{ font-size:13px; font-weight:700; min-width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; }
+  .cal-day.today .cal-num{ background:var(--cyan); color:#052220; }
+  .cal-day.sel{ border-color:var(--gold); background:rgba(244,183,64,0.12); box-shadow:0 0 0 1px var(--gold) inset; }
+  .cal-day.inrange{ border-color:rgba(244,183,64,0.45); background:rgba(244,183,64,0.07); }
+  .cal-chips{ margin-top:auto; display:flex; gap:4px; flex-wrap:wrap; }
+  .cal-chip{ font-style:normal; min-width:18px; height:18px; padding:0 5px; border-radius:9px; font-size:10.5px; font-weight:800; display:inline-flex; align-items:center; justify-content:center; color:#10131c; }
+  .cal-chip.done{ background:#7bd88f; } .cal-chip.due{ background:var(--gold); } .cal-chip.over{ background:var(--danger); }
+  .cal-day{ position:relative; }
+  .cal-add{ position:absolute; top:9px; right:9px; width:7px; height:7px; border-radius:50%; background:var(--cyan); box-shadow:0 0 6px rgba(57,232,210,0.7); }
+  .cal-add-leg{ width:10px; height:10px; border-radius:50%; background:var(--cyan); display:inline-block; }
+  .cal-lines{ display:flex; flex-direction:column; gap:3px; width:100%; margin-top:4px; min-width:0; }
+  .cal-line{ font-size:11px; line-height:1.3; padding:2px 6px; border-radius:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; border-left:3px solid var(--text-mute); background:rgba(255,255,255,0.05); color:var(--text-dim); }
+  .cal-line.over{ border-left-color:var(--danger); background:rgba(255,107,122,0.12); color:#ffb3bb; }
+  .cal-line.due{ border-left-color:var(--gold); background:rgba(244,183,64,0.12); color:#f6d58f; }
+  .cal-line.done{ border-left-color:#7bd88f; background:rgba(123,216,143,0.1); color:#b7e8c2; }
+  .cal-more{ font-size:10.5px; color:var(--text-mute); padding-left:2px; }
+  @media (min-width:901px){ .cal-chips{ display:none; } }
+  @media (max-width:900px){ .cal-lines{ display:none; } }
+  .cal-legend{ display:flex; gap:16px; flex-wrap:wrap; margin-top:12px; font-size:12px; color:var(--text-dim); }
+  .cal-legend span{ display:inline-flex; align-items:center; gap:6px; }
+  .cal-legend .cal-chip{ min-width:10px; width:10px; height:10px; padding:0; }
+  .cal-panel{ border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); padding:16px; position:sticky; top:96px; max-height:calc(100vh - 120px); overflow-y:auto; }
+  .cal-panel h4{ margin:0 0 10px; font-size:16px; font-weight:700; }
+  .cal-hint{ margin:0 0 10px; font-size:12px; color:var(--gold); }
+  .cal-sec-title{ display:flex; align-items:center; gap:8px; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-dim); margin:14px 0 6px; }
+  .cal-sec-title i{ width:9px; height:9px; border-radius:50%; background:var(--text-mute); }
+  .cal-sec-title.over i{ background:var(--danger); } .cal-sec-title.due i{ background:var(--gold); } .cal-sec-title.done i{ background:#7bd88f; } .cal-sec-title.added i{ background:var(--cyan); }
+  .cal-sec-title b{ color:var(--text); font-family:'Space Mono',monospace; }
+  .cal-item{ display:flex; align-items:center; gap:10px; padding:11px 10px; border-radius:10px; border:1px solid var(--border); background:rgba(255,255,255,0.025); margin-bottom:6px; cursor:pointer; }
+  .cal-item:hover{ border-color:var(--border-hi); }
+  .cal-item-dot{ width:9px; height:9px; border-radius:50%; flex:none; }
+  .cal-item-main{ flex:1; min-width:0; }
+  .cal-item-title{ font-size:14px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .cal-item-sub{ font-size:11.5px; color:var(--text-mute); }
+  .cal-tag{ font-size:10.5px; font-weight:800; padding:3px 8px; border-radius:999px; border:1px solid var(--border); color:var(--text-dim); white-space:nowrap; }
+  .cal-tag.over{ color:var(--danger); border-color:rgba(255,107,122,0.45); } .cal-tag.go{ color:var(--cyan); border-color:rgba(57,232,210,0.4); }
+  .cal-empty{ padding:26px 10px; text-align:center; color:var(--text-mute); font-size:13px; border:1px dashed var(--border); border-radius:10px; margin-top:6px; }
+  .cal-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+  .cal-actions .btn-new, .cal-actions .btn-ghost{ flex:1 1 auto; text-align:center; }
+  .due-row{ display:flex; gap:8px; }
+  .due-row input{ flex:1; padding:10px 12px; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:var(--radius-sm); color:var(--text); outline:none; color-scheme:dark; }
+  .due-row input:focus{ border-color:var(--gold); }
+  .toast{ position:fixed; left:50%; bottom:calc(24px + env(safe-area-inset-bottom)); transform:translate(-50%,20px); opacity:0; pointer-events:none; background:#171b2b; border:1px solid var(--border-hi); color:var(--text); padding:12px 18px; border-radius:12px; font-size:13.5px; z-index:300; transition:opacity .2s, transform .2s; max-width:calc(100vw - 32px); box-shadow:0 14px 40px -10px rgba(0,0,0,0.7); }
+  .toast.show{ opacity:1; transform:translate(-50%,0); }
+  .toast.bad{ border-color:var(--danger); }
+  @media (max-width:900px){
+    .cal-layout{ grid-template-columns:1fr; gap:16px; }
+    .cal-panel{ position:static; max-height:none; }
+  }
+  @media (max-width:640px){
+    .cal-modes{ flex:1 1 100%; margin-left:0; }
+    .cal-grid{ gap:3px; }
+    .cal-day{ min-height:56px; padding:5px 4px; border-radius:9px; align-items:center; }
+    .cal-num{ font-size:12.5px; min-width:22px; height:22px; }
+    .cal-chips{ justify-content:center; gap:2px; }
+    .cal-chip{ min-width:15px; height:15px; padding:0 3px; font-size:9.5px; }
+    .cal-nav h3{ font-size:17px; }
+    .cal-add{ top:5px; right:5px; width:6px; height:6px; }
+  }
   /* ===== Mobile ===== */
   .fh-break{ display:none; }
   html{ -webkit-text-size-adjust:100%; }
@@ -681,12 +759,12 @@
     header.top{ padding:calc(10px + env(safe-area-inset-top)) 14px 10px; gap:8px 10px; }
     .brand{ order:1; flex:0 0 auto; gap:9px; }
     .top-search{ order:2; flex:1 1 150px; min-width:150px; max-width:none; }
-    .header-icons{ order:3; flex:0 0 auto; gap:0; align-items:center; }
-    .stats{ order:4; margin-left:auto; gap:8px; }
+    .header-icons{ order:3; flex:1 1 100%; gap:0; align-items:center; justify-content:space-between; }
+    .stats{ order:5; margin-left:auto; gap:8px; }
     .stat{ text-align:center; }
     .stat .num{ font-size:15px; }
     .stat .lbl{ font-size:7.5px; letter-spacing:0.03em; }
-    .bsb-clock{ order:5; width:100%; font-size:10px; margin:-2px 0 0; }
+    .bsb-clock{ order:4; flex:1 1 auto; font-size:10px; margin:0; align-self:center; }
     .icon-btn-header{ width:36px; height:36px; }
     .signout-btn{ font-size:0; gap:0; padding:0; width:36px; height:36px; justify-content:center; background:none; border-color:transparent; color:var(--text-mute); }
     .signout-btn svg{ width:16px; height:16px; }
@@ -715,6 +793,7 @@
     .settings-shell{ height:94vh; height:94dvh; border-radius:22px 22px 0 0; width:100%; }
     .settings-body{ padding:18px 16px calc(24px + env(safe-area-inset-bottom)); }
     .btn-row, .modal-actions{ gap:10px; }
+    .modal-actions{ position:sticky; bottom:calc(-22px - env(safe-area-inset-bottom)); margin:14px -18px calc(-22px - env(safe-area-inset-bottom)); padding:12px 18px calc(18px + env(safe-area-inset-bottom)); background:linear-gradient(180deg, rgba(10,12,20,0), rgba(10,12,20,0.98) 28%); }
     .pdf-box-foot{ flex-wrap:wrap; }
     .btn-solid{ white-space:nowrap; }
     .pdf-box-foot .btn-solid{ margin-left:auto; }
@@ -730,8 +809,8 @@
     .stats-cards{ gap:10px; }
   }
   @media (max-width:380px){
+    .bsb-clock{ flex:1 1 100%; }
     .stats{ flex:1 1 100%; justify-content:space-between; margin-left:0; }
-    .header-icons{ flex:1 1 100%; justify-content:space-between; }
   }
 
   @media print{
@@ -773,6 +852,9 @@
       <button type="button" class="icon-btn-header" id="open-trash-btn" title="Lixeira">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg>
         <span class="header-icon-badge" id="trash-badge" style="display:none">0</span>
+      </button>
+      <button type="button" class="icon-btn-header" id="open-cal-btn" title="Calendário">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
       </button>
       <button type="button" class="icon-btn-header" id="open-filter-btn" title="Filtrar">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
@@ -918,6 +1000,32 @@
       </div>
       <div id="flt-list"></div>
     </div>
+
+    <div id="view-calendar">
+      <div class="frente-header">
+        <button class="back-btn" id="back-btn-cal">&larr;</button>
+        <div class="frente-title-wrap"><span class="frente-dot" style="background:var(--cyan);box-shadow:0 0 10px 1px var(--cyan)"></span><h2>Calendário</h2></div>
+        <div class="segmented cal-modes" id="cal-modes"><button type="button" data-m="day" class="active">Dia</button><button type="button" data-m="range">Período</button></div>
+      </div>
+      <div class="cal-layout">
+        <div class="cal-main">
+          <div class="cal-nav">
+            <button type="button" class="cal-navbtn" id="cal-prev" aria-label="Mês anterior">&lsaquo;</button>
+            <h3 id="cal-title"></h3>
+            <button type="button" class="cal-navbtn" id="cal-next" aria-label="Próximo mês">&rsaquo;</button>
+            <button type="button" class="btn-ghost cal-today" id="cal-today">Hoje</button>
+          </div>
+          <div class="cal-grid" id="cal-grid"></div>
+          <div class="cal-legend"><span><i class="cal-chip over"></i>Atrasadas</span><span><i class="cal-chip due"></i>Previstas</span><span><i class="cal-chip done"></i>Concluídas</span><span><i class="cal-add-leg"></i>Adicionadas</span></div>
+        </div>
+        <aside class="cal-panel">
+          <div class="cal-panel-head"><h4 id="cal-panel-title"></h4></div>
+          <p class="cal-hint" id="cal-hint" style="display:none"></p>
+          <div id="cal-panel-body"></div>
+          <div class="cal-actions"><button type="button" class="btn-new" id="cal-new">+ Demanda neste dia</button><button type="button" class="btn-ghost" id="cal-pdf">PDF deste recorte</button></div>
+        </aside>
+      </div>
+    </div>
   </main>
 </div>
 
@@ -958,6 +1066,7 @@
         <button type="button" data-value="longo">Longo</button>
       </div>
     </div>
+    <div class="field" id="f-due-field"><label for="f-due">Data prevista (opcional)</label><div class="due-row"><input type="date" id="f-due"><button type="button" class="btn-ghost" id="f-due-clear">Limpar</button></div><p class="attach-hint">Sem data, o calendário usa o prazo: curto 7 dias, médio 30, longo 90.</p></div>
     <div class="field" id="f-status-field"><label>Status</label>
       <div class="segmented" id="f-status-seg">
         <button type="button" data-value="pendente">Pendente</button>
@@ -1065,8 +1174,9 @@
           </div>
           <div class="pdf-period" id="pf-period">
             <div class="pdf-period-title">Período do relatório</div>
-            <div class="segmented" id="pf-period-seg"><button type="button" data-p="all" class="active">Tudo</button><button type="button" data-p="week">Uma semana</button><button type="button" data-p="month">Um mês</button></div>
+            <div class="segmented" id="pf-period-seg"><button type="button" data-p="all" class="active">Tudo</button><button type="button" data-p="day">Dia</button><button type="button" data-p="week">Semana</button><button type="button" data-p="month">Mês</button><button type="button" data-p="range">Período</button></div>
             <div class="field" id="pf-period-pick" style="display:none"><select id="pf-period-sel"></select></div>
+            <div class="field" id="pf-days" style="display:none"><div class="pf-days"><input type="date" id="pf-day-a"><span id="pf-day-sep">até</span><input type="date" id="pf-day-b"></div></div>
             <p class="pdf-period-hint" id="pf-period-hint"></p>
           </div>
           <label class="pdf-check"><input type="checkbox" id="pf-pdf-metas" checked><span>Ocultar as metas fixas no PDF <em>(aparecem como asteriscos)</em></span></label>
@@ -1161,6 +1271,7 @@
   window.dispatchEvent(new Event("firebase-ready"));
 </script>
 
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>(function(){
 "use strict";
 
@@ -2069,7 +2180,7 @@ function renderStatsView(){
 
 // ---------------- View switching ----------------
 function showView(id){
-  ["view-home","view-frente","view-done","view-stats","view-trash","view-filter"].forEach(function(v){
+  ["view-home","view-frente","view-done","view-stats","view-trash","view-filter","view-calendar"].forEach(function(v){
     document.getElementById(v).style.display = (v===id) ? (v==="view-home" ? "flex" : "block") : "none";
   });
 }
@@ -2322,6 +2433,174 @@ function initFilter(){
   document.getElementById("frente-filter-btn").addEventListener("click", function(){ openFilter(activeCategoryId); });
 }
 
+// ---------------- Calendário ----------------
+var cal = { y:0, m:0, mode:"day", a:null, b:null, step:0 };
+var pendingDueISO = null;
+function calReset(){
+  var t = brDayStartOf(Date.now()), x = brL(t);
+  cal.y = x.getUTCFullYear(); cal.m = x.getUTCMonth(); cal.mode = "day"; cal.a = t; cal.b = null; cal.step = 0;
+}
+function isoOfDay(ts){ return new Date(ts + BR_OFF).toISOString().slice(0,10); }
+function dueTs(t){
+  if(t.dueAt) return t.dueAt;
+  var c = catById(t.categoryId); if(c && c.satellite) return null;
+  if(!t.createdAt) return null;
+  return brDayStartOf(t.createdAt + (PRAZO_REF[t.priority] || PRAZO_REF.medio) * DAY_MS);
+}
+function calTasks(){
+  var ok = {}; activeCategories().forEach(function(c){ ok[c.id] = true; });
+  return data.tasks.filter(function(t){ return !t.deletedAt && t.type==="task" && ok[t.categoryId]; });
+}
+function calDayLabel(ts){
+  var x = brL(ts);
+  return PT_DOW[x.getUTCDay()] + ", " + x.getUTCDate() + " de " + PT_MONTH[x.getUTCMonth()] + " de " + x.getUTCFullYear();
+}
+function calRange(){
+  var a = cal.a, b = (cal.mode==="range" && cal.b) ? cal.b : cal.a;
+  if(b < a){ var t = a; a = b; b = t; }
+  return { from:a, to:b + DAY_MS - 1, lastDay:b };
+}
+function calPeriodLabel(){
+  var r = calRange();
+  return r.lastDay===r.from ? calDayLabel(r.from) : rangeLabel(r.from, r.lastDay);
+}
+function calBuckets(from, to){
+  var map = {}, today = brDayStartOf(Date.now());
+  function slot(ts){ var k = brDayStartOf(ts); return map[k] || (map[k] = { done:[], due:[], over:[], added:[] }); }
+  calTasks().forEach(function(t){
+    if(t.completedAt && t.completedAt >= from && t.completedAt < to) slot(t.completedAt).done.push(t);
+    if(t.createdAt && t.createdAt >= from && t.createdAt < to) slot(t.createdAt).added.push(t);
+    if(t.status!=="concluida"){
+      var d = dueTs(t);
+      if(d && d >= from && d < to) slot(d)[d < today ? "over" : "due"].push(t);
+    }
+  });
+  return map;
+}
+function calChip(kind, n){ return '<i class="cal-chip '+kind+'">'+n+'</i>'; }
+function renderCalendar(){
+  var first = brStart(cal.y, cal.m, 1), dowFirst = (brL(first).getUTCDay()+6)%7;
+  var gridStart = first - dowFirst*DAY_MS, gridEnd = gridStart + 42*DAY_MS;
+  var today = brDayStartOf(Date.now());
+  document.getElementById("cal-title").textContent = PT_MONTH[cal.m].charAt(0).toUpperCase() + PT_MONTH[cal.m].slice(1) + " de " + cal.y;
+  document.querySelectorAll("#cal-modes button").forEach(function(b){ b.classList.toggle("active", b.dataset.m===cal.mode); });
+  var map = calBuckets(gridStart, gridEnd), rg = calRange();
+  var grid = document.getElementById("cal-grid"); grid.innerHTML = "";
+  for(var i=0;i<7;i++){ var h = document.createElement("div"); h.className = "cal-dow"; h.textContent = PT_DOW3[(i+1)%7]; grid.appendChild(h); }
+  for(var n=0;n<42;n++){
+    var ts = gridStart + n*DAY_MS, x = brL(ts), b = map[ts];
+    var cell = document.createElement("button"); cell.type = "button"; cell.className = "cal-day";
+    if(x.getUTCMonth()!==cal.m) cell.classList.add("out");
+    if(ts===today) cell.classList.add("today");
+    var inRange = ts >= rg.from && ts <= rg.lastDay;
+    if(inRange) cell.classList.add(cal.mode==="range" && rg.lastDay!==rg.from ? "inrange" : "sel");
+    if(cal.mode==="range" && (ts===rg.from || ts===rg.lastDay)) cell.classList.add("sel");
+    var chips = "";
+    if(b){
+      if(b.over.length) chips += calChip("over", b.over.length);
+      if(b.due.length) chips += calChip("due", b.due.length);
+      if(b.done.length) chips += calChip("done", b.done.length);
+    }
+    var lbl = x.getUTCDate() + " de " + PT_MONTH[x.getUTCMonth()];
+    if(b) lbl += ": " + [b.done.length ? b.done.length+" concluídas" : "", b.due.length ? b.due.length+" previstas" : "", b.over.length ? b.over.length+" atrasadas" : ""].filter(Boolean).join(", ");
+    cell.setAttribute("aria-label", lbl);
+    var lines = "";
+    if(b){
+      var ents = b.over.map(function(t){ return ["over",t]; }).concat(b.due.map(function(t){ return ["due",t]; })).concat(b.done.map(function(t){ return ["done",t]; }));
+      ents.slice(0,2).forEach(function(en){ lines += '<span class="cal-line '+en[0]+'">'+escapeHtml(en[1].title)+'</span>'; });
+      if(ents.length > 2) lines += '<span class="cal-more">+'+(ents.length-2)+' mais</span>';
+    }
+    cell.innerHTML = '<span class="cal-num">'+x.getUTCDate()+'</span>'+(b && b.added.length ? '<i class="cal-add" title="Adicionadas neste dia"></i>' : '')+'<span class="cal-lines">'+lines+'</span><span class="cal-chips">'+chips+'</span>';
+    cell.dataset.ts = String(ts);
+    cell.addEventListener("click", function(){ calPick(parseInt(this.dataset.ts,10)); });
+    grid.appendChild(cell);
+  }
+  renderCalPanel();
+}
+function calPick(ts){
+  var x = brL(ts);
+  if(cal.mode==="range"){
+    if(cal.step===0){ cal.a = ts; cal.b = null; cal.step = 1; }
+    else { cal.b = ts; if(cal.b < cal.a){ var t = cal.a; cal.a = cal.b; cal.b = t; } cal.step = 0; }
+  } else { cal.a = ts; cal.b = null; }
+  if(x.getUTCMonth()!==cal.m){ cal.y = x.getUTCFullYear(); cal.m = x.getUTCMonth(); }
+  renderCalendar();
+}
+function calMove(delta){
+  cal.m += delta;
+  if(cal.m < 0){ cal.m = 11; cal.y--; } else if(cal.m > 11){ cal.m = 0; cal.y++; }
+  renderCalendar();
+}
+function calItemRow(t, dateTs, tag){
+  var cat = catById(t.categoryId);
+  var row = document.createElement("div"); row.className = "cal-item";
+  row.innerHTML = '<span class="cal-item-dot" style="background:'+(cat ? hueColor(cat.hue) : "var(--text-mute)")+'"></span><div class="cal-item-main"><div class="cal-item-title">'+escapeHtml(t.title)+'</div><div class="cal-item-sub">'+(cat ? escapeHtml(cat.name) : "")+(dateTs ? ' · '+fltDateFmt(dateTs).slice(0,5) : "")+'</div></div>'+(tag ? '<span class="cal-tag '+tag[0]+'">'+tag[1]+'</span>' : "");
+  row.addEventListener("click", function(){ openTaskModal(t); });
+  return row;
+}
+function renderCalPanel(){
+  var panel = document.getElementById("cal-panel-body"); panel.innerHTML = "";
+  var rg = calRange(), isDay = rg.lastDay===rg.from, today = brDayStartOf(Date.now());
+  document.getElementById("cal-panel-title").textContent = calPeriodLabel();
+  var hint = document.getElementById("cal-hint");
+  hint.textContent = cal.mode!=="range" ? "" : (cal.step===1 ? "Agora toque no último dia do período." : (cal.b ? "" : "Toque no primeiro dia do período."));
+  hint.style.display = hint.textContent ? "block" : "none";
+  var bk = calBuckets(rg.from, rg.to + 1), all = { done:[], due:[], over:[], added:[] };
+  Object.keys(bk).forEach(function(k){ ["done","due","over","added"].forEach(function(s){ bk[k][s].forEach(function(t){ all[s].push({ t:t, d:parseInt(k,10) }); }); }); });
+  ["done","due","over","added"].forEach(function(s){ all[s].sort(function(p,q){ return p.d - q.d; }); });
+  var sections = [
+    ["over","Atrasadas","over"], ["due", isDay && rg.from < today ? "Previstas" : "Previstas","due"], ["done","Concluídas","done"], ["added","Adicionadas","added"]
+  ];
+  var any = false;
+  sections.forEach(function(sec){
+    var list = all[sec[0]]; if(!list.length) return; any = true;
+    var h = document.createElement("div"); h.className = "cal-sec-title " + sec[2];
+    h.innerHTML = '<i></i>' + sec[1] + ' <b>' + list.length + '</b>'; panel.appendChild(h);
+    list.forEach(function(it){
+      var tag = null;
+      if(sec[0]==="over") tag = ["over", "+" + Math.max(1, Math.floor((today - it.d)/DAY_MS)) + "d"];
+      else if(it.t.status==="andamento" && sec[0]!=="done") tag = ["go","Em andamento"];
+      panel.appendChild(calItemRow(it.t, isDay ? null : it.d, tag));
+    });
+  });
+  if(!any){
+    var e = document.createElement("div"); e.className = "cal-empty";
+    e.textContent = isDay ? (rg.from > today ? "Nada previsto para este dia ainda." : "Nada registrado neste dia.") : "Nada registrado neste período.";
+    panel.appendChild(e);
+  }
+  document.getElementById("cal-new").style.display = (isDay && cal.mode==="day") ? "" : "none";
+}
+function openCalendar(){ calReset(); showView("view-calendar"); renderCalendar(); }
+function calNewDemand(){
+  pendingDueISO = isoOfDay(cal.a);
+  openTaskModal(null);
+}
+function calMakePdf(){
+  var rg = calRange(), isDay = rg.lastDay===rg.from;
+  var per = { kind: isDay ? "day" : "range", from:rg.from, to:rg.to, label:calPeriodLabel() };
+  generateReport("resumo", toast, { maskMetas:true, period:per });
+}
+var toastTimer = null;
+function toast(msg, ok){
+  var el = document.getElementById("toast");
+  el.textContent = msg; el.className = "toast show" + (ok===false ? " bad" : "");
+  if(toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ el.className = "toast"; }, 3800);
+}
+function initCalendar(){
+  document.getElementById("open-cal-btn").addEventListener("click", openCalendar);
+  document.getElementById("back-btn-cal").addEventListener("click", closeFrente);
+  document.getElementById("cal-prev").addEventListener("click", function(){ calMove(-1); });
+  document.getElementById("cal-next").addEventListener("click", function(){ calMove(1); });
+  document.getElementById("cal-today").addEventListener("click", function(){ calReset(); renderCalendar(); });
+  document.querySelectorAll("#cal-modes button").forEach(function(b){ b.addEventListener("click", function(){
+    cal.mode = b.dataset.m; cal.b = null; cal.step = 0; renderCalendar();
+  }); });
+  document.getElementById("cal-new").addEventListener("click", calNewDemand);
+  document.getElementById("cal-pdf").addEventListener("click", calMakePdf);
+  attachSwipe(document.getElementById("cal-grid"), function(){ calMove(1); }, function(){ calMove(-1); });
+}
+
 function refreshAfterChange(){
   renderGoalsBanner();
   renderStats(); renderFrontGrid(); renderConstellation(); renderStale();
@@ -2332,6 +2611,7 @@ function refreshAfterChange(){
   var trashVisible = document.getElementById("view-trash").style.display === "block";
   var filterVisible = document.getElementById("view-filter").style.display === "block";
   if(filterVisible) renderFilterResults();
+  if(document.getElementById("view-calendar").style.display === "block") renderCalendar();
   if(frenteVisible) renderFrente();
   if(doneVisible) renderDone();
   if(statsVisible) renderStatsView();
@@ -2750,6 +3030,7 @@ function renderCard(task){
 
   var metaBits = [];
   if(task.createdAt) metaBits.push("Criada em "+formatDateBR(task.createdAt));
+  if(task.dueAt && task.status!=="concluida") metaBits.push("Prevista para "+fltDateFmt(task.dueAt));
   if(task.completedAt) metaBits.push("Concluída em "+formatDateBR(task.completedAt));
   if(metaBits.length){ var meta=document.createElement("div"); meta.className="card-meta"; meta.textContent=metaBits.join(" · "); card.appendChild(meta); }
 
@@ -2990,6 +3271,7 @@ function updateModalFieldsVisibility(){
   var isMeta = taskForm.kind==="meta";
   document.getElementById("f-priority-field").style.display = (isSatellite || isMeta) ? "none" : "block";
   document.getElementById("f-status-field").style.display = (isSatellite || isMeta) ? "none" : "block";
+  document.getElementById("f-due-field").style.display = isMeta ? "none" : "block";
   document.querySelectorAll("#f-kind-seg button").forEach(function(b){ b.classList.toggle("active", b.dataset.value===taskForm.kind); });
   document.getElementById("f-kind-hint").style.display = isMeta ? "block" : "none";
   document.getElementById("task-modal-title").textContent = (editingTaskId ? "Editar " : "Nova ") + (isMeta ? "meta fixa" : "demanda");
@@ -3071,6 +3353,8 @@ function openTaskModal(task, kind){
   taskForm.attachments = task && task.attachments ? task.attachments.slice() : [];
   document.getElementById("f-title").value = task ? task.title : "";
   document.getElementById("f-desc").value = task ? (task.desc||"") : "";
+  document.getElementById("f-due").value = task ? (task.dueAt ? isoOfDay(task.dueAt) : "") : (pendingDueISO || "");
+  pendingDueISO = null;
   renderCatTrigger(); closeCatPanel();
   renderSegmented("priority"); renderSegmented("status");
   renderAttachList();
@@ -3093,7 +3377,8 @@ function saveTask(){
     categoryId:taskForm.categoryId, type: taskForm.kind==="meta" ? "meta" : "task",
     priority: taskForm.kind==="meta" ? "longo" : taskForm.priority, status: taskForm.kind==="meta" ? "pendente" : taskForm.status,
     attachments: taskForm.attachments.slice(),
-    updatedAt: Date.now()
+    updatedAt: Date.now(),
+    dueAt: (taskForm.kind!=="meta" && document.getElementById("f-due").value) ? brDayStartTs(document.getElementById("f-due").value) : null
   };
   if(editingTaskId){
     var t = data.tasks.find(function(x){ return x.id===editingTaskId; });
@@ -3219,7 +3504,7 @@ function applyIdentity(){
   var im = document.querySelector("#brand-home .brand-k img");
   var src = photoSrc(); if(im && src) im.setAttribute("src", src);
   var av = document.querySelector("#brand-home .brand-k"); if(av){ av.style.display=""; av.title = guestMode ? "" : "Meu perfil"; av.style.cursor = guestMode ? "" : "pointer"; }
-  var who = document.getElementById("account-email"); if(who && !guestMode){ who.textContent = currentEmail; who.style.cursor="pointer"; }
+  var who = document.getElementById("account-email"); if(who && !guestMode){ who.textContent = ""; who.style.display = "none"; }
   var ct = document.querySelector(".core-name"); if(ct) ct.textContent = nm.toUpperCase();
   patchAvatar();
 }
@@ -3402,8 +3687,18 @@ function renderPdfPeriod(){
   var isBackup = pdfKind==="backup";
   box.classList.toggle("disabled", isBackup);
   seg.forEach(function(b){ b.disabled = isBackup; });
+  var days = document.getElementById("pf-days"), da = document.getElementById("pf-day-a"), db = document.getElementById("pf-day-b");
+  days.style.display = "none";
   if(isBackup){ pick.style.display = "none"; hint.textContent = "O backup completo sempre guarda tudo, sem recorte de período."; return; }
   if(pdfPeriodKind==="all"){ pick.style.display = "none"; hint.textContent = "Mostra a conta como está hoje."; return; }
+  if(pdfPeriodKind==="day" || pdfPeriodKind==="range"){
+    pick.style.display = "none"; days.style.display = "block";
+    var iso = todayISO(); da.max = iso; db.max = iso;
+    if(!da.value) da.value = iso; if(!db.value) db.value = iso;
+    db.style.display = document.getElementById("pf-day-sep").style.display = (pdfPeriodKind==="range") ? "" : "none";
+    hint.textContent = pdfPeriodKind==="day" ? "Mostra como foi esse dia: o que foi adicionado, concluído e o que estava previsto." : "Mostra o recorte entre as duas datas, com o que foi adicionado e concluído nele.";
+    return;
+  }
   var list = pdfPeriodList(pdfPeriodKind), keep = sel.value;
   sel.innerHTML = list.map(function(o){ return '<option value="'+o.value+'">'+escapeHtml(o.text)+'</option>'; }).join("");
   if(keep && list.some(function(o){ return o.value===keep; })) sel.value = keep;
@@ -3412,6 +3707,12 @@ function renderPdfPeriod(){
 }
 function currentPdfPeriod(){
   if(pdfKind==="backup" || pdfPeriodKind==="all") return null;
+  if(pdfPeriodKind==="day" || pdfPeriodKind==="range"){
+    var a = brDayStartTs(document.getElementById("pf-day-a").value) || brDayStartOf(Date.now());
+    var b = pdfPeriodKind==="range" ? (brDayStartTs(document.getElementById("pf-day-b").value) || a) : a;
+    if(b < a){ var tmp = a; a = b; b = tmp; }
+    return { kind: a===b ? "day" : "range", from:a, to:b + DAY_MS - 1, label: a===b ? calDayLabel(a) : rangeLabel(a, b) };
+  }
   var list = pdfPeriodList(pdfPeriodKind), v = document.getElementById("pf-period-sel").value;
   for(var i=0;i<list.length;i++) if(list[i].value===v) return list[i];
   return list[0] || null;
@@ -3440,7 +3741,7 @@ function generateReport(kind, notify, opts){
     var bytes = buildReportPdf(kind, { data: per ? snapshotAt(ref) : data, name:displayName(), email:currentEmail, avatar:r[0], logo:r[1], nowTs:now0, refTs: per ? ref : null, period: per ? { kind:per.kind, from:per.from, to:per.to, label:per.label } : null, maskMetas: !!(opts && opts.maskMetas) });
     var blob = new Blob([bytes], {type:"application/pdf"});
     var u = URL.createObjectURL(blob), l = document.createElement("a");
-    var suf = per ? "-" + (per.kind==="week" ? "semana" : "mes") + "-" + new Date(per.from + BR_OFF).toISOString().slice(0,10) : "";
+    var suf = per ? "-" + ({week:"semana", month:"mes", day:"dia", range:"periodo"})[per.kind] + "-" + new Date(per.from + BR_OFF).toISOString().slice(0,10) : "";
     l.href = u; l.download = "konstela-" + (kind==="backup" ? "backup-completo" : (kind==="resumo" ? "resumo" : "organizacao")) + suf + "-" + todayISO() + ".pdf";
     document.body.appendChild(l); l.click(); l.remove(); setTimeout(function(){ URL.revokeObjectURL(u); }, 4000);
     notify("PDF gerado. Confira seus downloads.", true);
@@ -3817,7 +4118,9 @@ function buildReportPdf(kind, ctx){
   var period = ctx.period || null;
   var refIsNow = !period || NOWTS >= (ctx.nowTs || Date.now());
   var overdueDays = function(t){
-    if(!t.createdAt || t.status==="concluida") return 0;
+    if(t.status==="concluida") return 0;
+    if(t.dueAt) return NOWTS >= t.dueAt + DAY_MS ? Math.floor((NOWTS - t.dueAt)/DAY_MS) : 0;
+    if(!t.createdAt) return 0;
     var age = Math.floor((NOWTS - t.createdAt)/DAY_MS);
     return Math.max(0, age - (PRAZO_REF[t.priority] || PRAZO_REF.medio));
   };
@@ -4466,6 +4769,8 @@ function bootUI(){
   document.getElementById("back-btn-stats").addEventListener("click", closeFrente);
   document.getElementById("back-btn-trash").addEventListener("click", closeFrente);
   initFilter();
+  initCalendar();
+  document.getElementById("f-due-clear").addEventListener("click", function(){ document.getElementById("f-due").value = ""; });
   document.querySelectorAll("#pf-period-seg button").forEach(function(b){ b.addEventListener("click", function(){ pdfPeriodKind = b.dataset.p; renderPdfPeriod(); }); });
   document.getElementById("goals-collapse-btn").addEventListener("click", function(){ setMetasCollapsed(!metasCollapsed); });
   document.getElementById("open-done-btn").addEventListener("click", openDone);
