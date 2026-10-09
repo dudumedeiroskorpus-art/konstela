@@ -267,6 +267,12 @@
     .settings-body{ padding:22px 18px; }
     .set-row{ flex-direction:column; align-items:flex-start; }
   }
+  .brand-k{ position:relative; }
+  .brand-k::after{ content:""; position:absolute; inset:-8px -6px; border-radius:14px; }
+  #brand-home p.profile-hit{ display:inline-flex; align-items:center; gap:5px; padding:4px 10px; margin:-4px 0 -4px -10px; border-radius:10px; cursor:pointer; transition:background .15s, color .15s; }
+  #brand-home p.profile-hit::after{ content:""; width:5px; height:5px; border-right:1.6px solid currentColor; border-bottom:1.6px solid currentColor; transform:rotate(45deg) translateY(-2px); opacity:0.7; }
+  #brand-home p.profile-hit:hover{ background:rgba(244,183,64,0.14); color:var(--gold); }
+  .brand-k:hover{ filter:brightness(1.2); }
   .account-chip{ align-self:center; max-width:170px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:11px; color:var(--text-mute); margin-right:4px; }
   .signout-btn{ display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:8px; border:1px solid var(--border); background:rgba(255,255,255,0.06); color:var(--text); font:inherit; font-size:12px; font-weight:600; cursor:pointer; }
   .signout-btn:hover{ background:rgba(244,183,64,0.15); border-color:var(--gold); color:var(--gold); }
@@ -2663,7 +2669,7 @@ function patchAvatar(){
 }
 function applyIdentity(){
   var nm = displayName();
-  var p = document.querySelector("#brand-home p"); if(p) p.textContent = nm;
+  var p = document.querySelector("#brand-home p"); if(p){ p.textContent = nm; p.classList.toggle("profile-hit", !guestMode); p.title = guestMode ? "" : "Meu perfil"; }
   var im = document.querySelector("#brand-home .brand-k img");
   var src = photoSrc(); if(im && src) im.setAttribute("src", src);
   var av = document.querySelector("#brand-home .brand-k"); if(av){ av.style.display=""; av.title = guestMode ? "" : "Meu perfil"; av.style.cursor = guestMode ? "" : "pointer"; }
@@ -2788,14 +2794,33 @@ function avatarForPdf(){
     }catch(e){ res(null); }
   });
 }
+function logoForPdf(){
+  return new Promise(function(res){
+    try{
+      var el = document.querySelector("#brand-home .brand-logo");
+      var img = new Image();
+      img.onload = function(){
+        var W = 960, H = Math.round(960*img.height/img.width);
+        var cv = document.createElement("canvas"); cv.width = W; cv.height = H;
+        var cx = cv.getContext("2d");
+        cx.fillStyle = "#0B1020"; cx.fillRect(0,0,W,H);
+        cx.imageSmoothingQuality = "high";
+        cx.drawImage(img, 0, 0, W, H);
+        try{ res({ bin: atob(cv.toDataURL("image/jpeg",0.95).split(",")[1]), w:W, h:H }); }catch(e){ res(null); }
+      };
+      img.onerror = function(){ res(null); };
+      img.src = el.getAttribute("src");
+    }catch(e){ res(null); }
+  });
+}
 function todayISO(){
   try{ var p = new Intl.DateTimeFormat("en-CA",{timeZone:"America/Sao_Paulo",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date()); return p; }catch(e){ return new Date().toISOString().slice(0,10); }
 }
 function generateReport(kind, notify){
   if(!data) return;
   notify("Gerando o PDF...", true);
-  avatarForPdf().then(function(av){
-    var bytes = buildReportPdf(kind, { data:data, name:displayName(), email:currentEmail, avatar:av, nowTs:Date.now() });
+  Promise.all([avatarForPdf(), logoForPdf()]).then(function(r){
+    var bytes = buildReportPdf(kind, { data:data, name:displayName(), email:currentEmail, avatar:r[0], logo:r[1], nowTs:Date.now() });
     var blob = new Blob([bytes], {type:"application/pdf"});
     var u = URL.createObjectURL(blob), l = document.createElement("a");
     l.href = u; l.download = "konstela-" + (kind==="backup" ? "backup-completo" : "organizacao") + "-" + todayISO() + ".pdf";
@@ -3059,7 +3084,9 @@ PdfDoc.prototype.wrap = function(s,maxW,size,bold){
   return lines;
 };
 PdfDoc.prototype.image = function(bin,pw,ph,x,y,w,h){
-  var idx = this.images.length; this.images.push({ bin:bin, w:pw, h:ph });
+  var idx = -1;
+  for(var q=0;q<this.images.length;q++){ if(this.images[q].bin===bin){ idx = q; break; } }
+  if(idx<0){ idx = this.images.length; this.images.push({ bin:bin, w:pw, h:ph }); }
   this.cur.push("q "+pf(w*this.K)+" 0 0 "+pf(h*this.K)+" "+pf(this.X(x))+" "+pf(this.Y(y+h))+" cm /Im"+idx+" Do Q");
 };
 PdfDoc.prototype.build = function(meta){
@@ -3118,7 +3145,7 @@ function buildReportPdf(kind, ctx){
   var d = ctx.data, isBackup = (kind==="backup");
   var doc = new PdfDoc();
   var NAVY=[11,16,32], NAVY2=[22,29,52], GOLD=[244,183,64], GOLDD=[176,122,18], INK=[26,31,48], MUTE=[106,113,134], LINE=[222,226,236], SOFT=[244,246,250], WHITE=[255,255,255], GOLDBG=[255,248,232];
-  var M=18, PW=210, PH=297, CW=174, TOP=30, BOT=PH-24;
+  var M=18, PW=210, PH=297, CW=174, TOP=35, BOT=PH-24;
   var y = TOP;
   var title = isBackup ? "Backup completo" : "Relatório de organização";
   var stamp = formatDateBR(ctx.nowTs, true).replace(",", " às");
@@ -3153,8 +3180,12 @@ function buildReportPdf(kind, ctx){
   });
   doc.circle(ccx,ccy,7.5,{fill:GOLD,alpha:0.95});
   doc.circle(ccx,ccy,11,{stroke:GOLD,lw:0.5,alpha:0.6});
-  doc.text("KONSTELA", M, 40, {size:13, bold:true, color:GOLD, cs:5});
-  doc.rect(M, 46, 22, 0.9, {fill:GOLD});
+  if(ctx.logo){
+    doc.image(ctx.logo.bin, ctx.logo.w, ctx.logo.h, M-4, 22, 84, 84*ctx.logo.h/ctx.logo.w);
+  } else {
+    doc.text("KONSTELA", M, 40, {size:13, bold:true, color:GOLD, cs:5});
+  }
+  doc.rect(M, 66, 22, 0.9, {fill:GOLD});
   var tl = isBackup ? ["Backup","completo"] : ["Relatório de","organização"];
   doc.text(tl[0], M, 128, {size:40, bold:true, color:WHITE});
   doc.text(tl[1], M, 144, {size:40, bold:true, color:GOLD});
@@ -3390,9 +3421,15 @@ function buildReportPdf(kind, ctx){
   var total = doc.pages.length;
   for(var p=1;p<total;p++){
     doc.cur = doc.pages[p];
-    doc.text("KONSTELA", M, 15, {size:8, bold:true, color:GOLDD, cs:2.6});
-    doc.text(title.toUpperCase(), M+CW, 15, {size:7, bold:true, color:MUTE, cs:1.2, align:"right"});
-    doc.line(M, 19, M+CW, 19, {color:LINE, lw:0.3});
+    doc.rect(0, 0, PW, 21, {fill:NAVY});
+    doc.rect(0, 21, PW, 0.7, {fill:GOLD});
+    if(ctx.logo){
+      var lh = 10.4;
+      doc.image(ctx.logo.bin, ctx.logo.w, ctx.logo.h, M-1.5, 5.3, lh*ctx.logo.w/ctx.logo.h, lh);
+    } else {
+      doc.text("KONSTELA", M, 13.5, {size:9, bold:true, color:GOLD, cs:2.6});
+    }
+    doc.text(title.toUpperCase(), M+CW, 12.6, {size:7, bold:true, color:[200,206,224], cs:1.3, align:"right"});
     doc.line(M, PH-17, M+CW, PH-17, {color:LINE, lw:0.3});
     doc.text(name+"   |   "+stamp, M, PH-11.5, {size:7.4, color:MUTE});
     doc.text("Página "+(p+1)+" de "+total, M+CW, PH-11.5, {size:7.4, color:MUTE, align:"right"});
@@ -3431,6 +3468,7 @@ function bootUI(){
   applyIdentity();
   document.getElementById("brand-home").addEventListener("click", closeFrente);
   document.querySelector("#brand-home .brand-k").addEventListener("click", function(e){ if(!guestMode){ e.stopPropagation(); openProfile(); } });
+  document.querySelector("#brand-home p").addEventListener("click", function(e){ if(!guestMode){ e.stopPropagation(); openProfile(); } });
   document.getElementById("account-email").addEventListener("click", openProfile);
   document.getElementById("pf-close").addEventListener("click", closeProfile);
   document.getElementById("pf-save").addEventListener("click", saveProfileFromForm);
