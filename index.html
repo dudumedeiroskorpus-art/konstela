@@ -2,7 +2,11 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-W3kHmv3BJw9RIctnQ/vvgZy6gCg2cuMeU01JIE2TyD4=' 'sha256-eWJkekTZIXTV3SRsr+U2sIPQOBoPEaNuWtB7s1ZPo8U=' https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://*.firebaseapp.com https://www.gstatic.com; frame-src https://konstela-d88fe.firebaseapp.com; worker-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-W3kHmv3BJw9RIctnQ/vvgZy6gCg2cuMeU01JIE2TyD4=' 'sha256-W6iny/hcjeLmf+bs45H2xZ6dwIFyWVYI3U38TEWJJh4=' https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://*.firebaseapp.com https://www.gstatic.com; frame-src https://konstela-d88fe.firebaseapp.com; worker-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'">
+
+
+
+
 
 
 
@@ -379,7 +383,7 @@
   .brand-k:hover{ filter:brightness(1.2); }
   .pdf-box{ padding:16px; border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,0.025); margin-bottom:6px; }
   .pdf-box-title{ font-size:14px; font-weight:700; margin-bottom:12px; }
-  .pdf-options{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .pdf-options{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
   .pdf-opt{ text-align:left; padding:13px 12px; border-radius:11px; border:1px solid var(--border); background:rgba(255,255,255,0.03); color:var(--text-dim); cursor:pointer; display:flex; flex-direction:column; gap:6px; }
   .pdf-opt b{ font-size:13px; color:var(--text); }
   .pdf-opt span{ font-size:11.5px; line-height:1.5; color:var(--text-mute); }
@@ -883,6 +887,7 @@
   .fab-ic-dated{ background:rgba(120,160,255,0.16); color:#9db6ff; }
   .fab-ic-meta{ background:rgba(244,183,64,0.16); color:var(--gold); }
   .fab-ic-progress{ background:rgba(123,216,143,0.15); color:#7bd88f; }
+  .fab-ic-export{ background:rgba(200,210,235,0.1); color:#c9d1e8; }
   .fab-ic-info{ background:rgba(200,150,255,0.15); color:#c99bff; }
   .fab-ic-frente{ background:rgba(255,140,110,0.15); color:#ff9c80; }
   .fab-txt{ display:flex; flex-direction:column; min-width:0; }
@@ -1449,6 +1454,46 @@
     .frente-header h2{ font-size:19px !important; }
     body{ background-attachment: scroll !important; }
   }
+
+  /* ---- Órbita: ferramentas, tamanho do texto ---- */
+  .node text{ font-size:calc(15px * var(--ofs,1)) !important; stroke-width:calc(4px * var(--ofs,1)) !important; }
+  .core-name{ font-size:calc(15px * var(--ofs,1)) !important; }
+  .orbit-tools{ display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:8px; margin:6px auto 0; }
+  .orbit-tool{ display:inline-flex; align-items:center; gap:6px; height:38px; padding:0 13px; border-radius:11px; font-size:12.5px; font-weight:700; color:var(--text-dim); background:var(--plate); border:1px solid var(--border-hi); box-shadow:inset 0 1px 0 rgba(255,255,255,0.06); cursor:pointer; transition:color .15s, background .15s, opacity .15s; }
+  .orbit-tool:hover:not(:disabled){ color:var(--text); background:var(--plate-hi); }
+  .orbit-tool:disabled{ opacity:.38; cursor:default; }
+  .orbit-tool.is-off{ opacity:.55; }
+  .orbit-fs{ display:inline-flex; align-items:center; gap:2px; padding:0 3px; height:38px; border-radius:11px; border:1px solid var(--border-hi); background:var(--plate); }
+  .orbit-fs .orbit-fs-btn{ height:32px; width:34px; padding:0; justify-content:center; border:none; background:none; box-shadow:none; }
+  .orbit-fs-lbl{ min-width:84px; text-align:center; font-size:11.5px; font-weight:700; color:var(--text-mute); }
+  .fs-a{ font-weight:800; line-height:1; }
+  .fs-a.sm{ font-size:12px; } .fs-a.lg{ font-size:17px; }
+  /* ---- Botões fixos: estáveis, sem movimento ---- */
+  #fab, #fbk-btn, .icon-btn-header, .btn-new{ translate:none !important; transition:background .15s, color .15s, border-color .15s, box-shadow .15s !important; }
+  #fab{ animation:none !important; }
+  #fab:hover{ transform:none !important; box-shadow:0 12px 30px -6px rgba(244,183,64,0.6), 0 0 0 1px rgba(255,255,255,0.2) inset; filter:brightness(1.05); }
+  #fab::after{ display:none !important; }
+  .icon-btn-header:active, #fab:active, #fbk-btn:active{ transform:none !important; filter:brightness(.92); }
+  /* ---- Exportação rápida ---- */
+  .qexp-list{ display:flex; flex-direction:column; gap:8px; }
+  .qexp-opt{ display:flex; align-items:center; gap:14px; width:100%; padding:14px; border-radius:13px; border:1px solid var(--border); background:var(--plate); color:var(--text); text-align:left; cursor:pointer; transition:border-color .15s, background .15s; }
+  .qexp-opt:hover{ border-color:rgba(244,183,64,0.55); background:var(--plate-hi); }
+  .qexp-opt i{ flex:none; width:42px; height:42px; border-radius:11px; display:flex; align-items:center; justify-content:center; color:var(--gold); background:rgba(244,183,64,0.1); font-style:normal; }
+  .qexp-opt span{ display:flex; flex-direction:column; gap:2px; }
+  .qexp-opt b{ font-size:14px; } .qexp-opt small{ font-size:12px; color:var(--text-mute); line-height:1.4; }
+  .qexp-opt.busy{ opacity:.6; pointer-events:none; }
+  .settings-pane[data-pane="backup"] .set-row{ margin-bottom:10px; }
+  .quick-exp-inline{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 16px; margin-bottom:12px; border-radius:12px; border:1px solid rgba(244,183,64,0.3); background:rgba(244,183,64,0.06); }
+  .quick-exp-inline b{ display:block; font-size:13.5px; } .quick-exp-inline span{ font-size:12.5px; color:var(--text-mute); }
+  @media (max-width:640px){
+    #constellation-svg.orbit-mobile .node text{ font-size:calc(24px * var(--ofs,1)) !important; stroke-width:calc(6px * var(--ofs,1)) !important; }
+    #constellation-svg.orbit-mobile .core-name{ font-size:calc(24px * var(--ofs,1)) !important; }
+    .orbit-tool span{ font-size:12.5px; }
+    .orbit-tool{ height:42px; } .orbit-fs{ height:42px; } .orbit-fs .orbit-fs-btn{ height:38px; width:40px; }
+    .orbit-fs-lbl{ display:none; }
+    .orbit-tools{ gap:6px; } .orbit-tool{ padding:0 12px; }
+    .quick-exp-inline{ flex-direction:column; align-items:stretch; } .quick-exp-inline .btn-ghost{ width:100%; }
+  }
 </style>
 </head>
 <body>
@@ -1503,6 +1548,9 @@
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
         <span class="header-icon-badge" id="flt-badge" style="display:none">0</span>
       </button>
+      <button type="button" class="icon-btn-header" id="open-export-btn" title="Exportar relatório" aria-label="Exportar relatório">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="12" x2="12" y2="18"></line><polyline points="9 15 12 18 15 15"></polyline></svg>
+      </button>
       <button type="button" class="icon-btn-header" id="open-stats-header-btn" title="Estatísticas">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
       </button>
@@ -1525,7 +1573,11 @@
         <button type="button" data-mode="orbit" class="active">Órbita</button>
         <button type="button" data-mode="bar">Barra</button>
       </div>
-      <div class="constellation-wrap" id="constellation-wrap"><svg id="constellation-svg" viewBox="0 0 1400 940"></svg><button type="button" class="orbit-reset" id="orbit-reset" style="display:none" title="Voltar à arrumação automática"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.5 15a9 9 0 1 0 2.1-9.4L1 10"></path></svg>Reorganizar</button></div>
+      <div class="constellation-wrap" id="constellation-wrap"><svg id="constellation-svg" viewBox="0 0 1400 940"></svg><div class="orbit-tools" id="orbit-tools">
+        <button type="button" class="orbit-tool" id="orbit-undo" disabled title="Desfazer a última mudança"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14L4 9l5-5"></path><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"></path></svg><span>Desfazer</span></button>
+        <button type="button" class="orbit-tool" id="orbit-reset" title="Voltar à arrumação automática"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.5 15a9 9 0 1 0 2.1-9.4L1 10"></path></svg><span>Reorganizar</span></button>
+        <div class="orbit-fs" role="group" aria-label="Tamanho do texto da órbita"><button type="button" class="orbit-tool orbit-fs-btn" id="orbit-fs-dn" title="Diminuir texto" aria-label="Diminuir texto"><span class="fs-a sm">A</span></button><span class="orbit-fs-lbl" id="orbit-fs-lbl">Padrão</span><button type="button" class="orbit-tool orbit-fs-btn" id="orbit-fs-up" title="Aumentar texto" aria-label="Aumentar texto"><span class="fs-a lg">A</span></button></div>
+      </div></div>
       <div id="bar-mode" style="display:none">
         <div id="bar-list"></div>
       </div>
@@ -1812,6 +1864,20 @@
     <div class="modal-actions"><button type="button" class="btn-ghost" id="cs-out">Não concordo e sair</button><button type="button" class="btn-solid" id="cs-go">Concordar e continuar</button></div>
   </div>
 </div>
+<div class="modal-backdrop" id="qexp-modal">
+  <div class="modal qexp" style="max-width:440px">
+    <h3>Exportar relatório</h3>
+    <p class="pane-sub" style="margin:-4px 0 14px">Escolha e o PDF já baixa.</p>
+    <div class="qexp-list">
+      <button type="button" class="qexp-opt" data-q="week"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="12" x2="12" y2="18"></line><polyline points="9 20 12 18 20 20"></polyline></svg></i><span><b>Esta semana</b><small>Resumo do que entrou, andou e foi concluído</small></span></button>
+      <button type="button" class="qexp-opt" data-q="month"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="12" x2="12" y2="18"></line><polyline points="9 20 12 18 20 20"></polyline></svg></i><span><b>Este mês</b><small>Resumo do mês até hoje</small></span></button>
+      <button type="button" class="qexp-opt" data-q="now"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="12" x2="12" y2="18"></line><polyline points="9 20 12 18 20 20"></polyline></svg></i><span><b>Tudo em aberto hoje</b><small>Todas as frentes com o que falta fazer</small></span></button>
+    </div>
+    <label class="pdf-check"><input type="checkbox" id="qexp-metas" checked><span>Ocultar as demandas fixas <em>(aparecem como asteriscos)</em></span></label>
+    <p class="fbk-hint" id="qexp-msg"></p>
+    <div class="modal-actions"><button type="button" class="btn-ghost" id="qexp-more">Mais opções</button><button type="button" class="btn-solid" id="qexp-close">Fechar</button></div>
+  </div>
+</div>
 <div class="modal-backdrop" id="confirm-modal">
   <div class="modal" style="max-width:360px">
     <h3 id="confirm-title">Confirmar</h3>
@@ -1856,7 +1922,8 @@
       <nav class="settings-tabs" id="settings-tabs">
         <button type="button" data-tab="conta" class="active">Conta</button>
         <button type="button" data-tab="seguranca">Segurança</button>
-        <button type="button" data-tab="dados">Dados e backup</button>
+        <button type="button" data-tab="relatorios">Relatórios</button>
+        <button type="button" data-tab="backup">Backup</button>
         <button type="button" data-tab="privacidade">Privacidade</button>
         <button type="button" data-tab="avancado" class="tab-muted">Avançado</button>
       </nav>
@@ -1892,15 +1959,15 @@
         <div class="set-row"><div><b>Sessão neste aparelho</b><span>Saia da conta ou entre com outra, sem perder nada.</span></div><button type="button" class="btn-ghost" id="pf-signout2">Sair da conta</button></div>
       </div>
 
-      <div class="settings-pane" data-pane="dados">
-        <h3>Dados e backup</h3>
-        <p class="pane-sub">Leve o seu conteúdo com você, em formatos que você pode guardar.</p>
+      <div class="settings-pane" data-pane="relatorios">
+        <h3>Relatórios</h3>
+        <p class="pane-sub">PDFs para ler, apresentar ou enviar. Escolha o formato e o período.</p>
+        <div class="quick-exp-inline"><div><b>Com pressa?</b><span>Exporte em um toque, sem configurar nada.</span></div><button type="button" class="btn-ghost" id="pf-quick-exp">Exportar rápido</button></div>
         <div class="pdf-box">
           <div class="pdf-box-title">Gerar PDF <i class="tag">PDF</i></div>
           <div class="pdf-options" id="pf-pdf-options">
             <button type="button" class="pdf-opt" data-kind="resumo"><b>Resumido</b><span>3 páginas: números, andamento da semana, do mês e do ano, atrasos e o que está parado há mais tempo.</span></button>
             <button type="button" class="pdf-opt active" data-kind="organizacao"><b>Organização</b><span>Resumo e andamento no início, atrasos por prazo e todas as frentes com as demandas em aberto.</span></button>
-            <button type="button" class="pdf-opt" data-kind="backup"><b>Backup completo</b><span>Resumo e andamento no início e tudo o que existe: concluídas, datas, anexos e lixeira.</span></button>
           </div>
           <div class="pdf-period" id="pf-period">
             <div class="pdf-period-title">Período do relatório</div>
@@ -1910,15 +1977,23 @@
             <p class="pdf-period-hint" id="pf-period-hint"></p>
           </div>
           <label class="pdf-check"><input type="checkbox" id="pf-pdf-metas" checked><span>Ocultar as demandas fixas no PDF <em>(aparecem como asteriscos)</em></span></label>
-          <div class="pdf-box-foot"><span>Todos começam com um resumo executivo.</span><button type="button" class="btn-solid" id="pf-pdf-go">Gerar PDF</button></div>
+          <div class="pdf-box-foot"><span>Os dois começam com um resumo executivo.</span><button type="button" class="btn-solid" id="pf-pdf-go">Gerar PDF</button></div>
         </div>
+      </div>
+
+      <div class="settings-pane" data-pane="backup">
+        <h3>Backup</h3>
+        <p class="pane-sub">Cópias de segurança da sua conta, para guardar, migrar ou recuperar tudo.</p>
         <div class="set-row"><div><b>Backup para restaurar <i class="tag">JSON</i></b><span>Arquivo que o Konstela consegue ler de volta. Use para guardar ou migrar seus dados.</span></div><div class="set-row-btns"><button type="button" class="btn-ghost" id="pf-backup-btn">Baixar</button><button type="button" class="btn-ghost" id="pf-restore-btn">Restaurar</button><input type="file" id="pf-restore-file" accept="application/json,.json" style="display:none"></div></div>
+        <div class="set-row"><div><b>Cópia completa para arquivo <i class="tag">PDF</i></b><span>Tudo o que existe na conta, para ler e guardar: concluídas, datas, anexos e lixeira. Não serve para restaurar.</span></div><div class="set-row-btns"><button type="button" class="btn-ghost" id="pf-bk-pdf">Baixar</button></div></div>
+        <label class="pdf-check"><input type="checkbox" id="pf-bk-metas"><span>Ocultar as demandas fixas na cópia em PDF <em>(aparecem como asteriscos)</em></span></label>
+        <p class="fbk-hint">Dica: baixe o backup com frequência e guarde em um lugar seguro, como a nuvem do seu celular.</p>
       </div>
 
       <div class="settings-pane" data-pane="privacidade">
         <h3>Privacidade</h3>
         <p class="pane-sub">Seus dados são seus.</p>
-        <div class="priv-card"><b>Onde ficam guardados</b><span>No Google Firebase, em servidores em São Paulo, vinculados à sua conta e protegidos por regras que isolam cada pessoa.</span></div>
+        <div class="priv-card"><b>Guardados com segurança</b><span>Seus dados ficam em infraestrutura de nuvem profissional, com criptografia, cópias de segurança e acesso restrito. Cada conta é isolada: só você entra na sua.</span></div>
         <div class="priv-card"><b>Quem pode ver</b><span>O conteúdo das suas frentes e demandas aparece só para você. O administrador vê apenas dados de cadastro e números de uso.</span></div>
         <label class="pv-switch"><span><b>Estatísticas de uso</b><small>Dias de acesso, tempo de uso e tipo de aparelho, para melhorar o Konstela. Desligar apaga esses dados do painel.</small></span><input type="checkbox" id="pv-analytics"><i></i></label>
         <div class="pv-rights">
@@ -2503,6 +2578,7 @@ function applyPrefs(){
   if(typeof p.grid==="boolean" && p.grid!==gridExpanded) toggleGrid(true);
   if(typeof p.metasCollapsed==="boolean" && p.metasCollapsed!==metasCollapsed){ metasCollapsed = p.metasCollapsed; renderGoalsBanner(); }
   if(typeof p.fltAdv==="boolean"){ var fp = document.getElementById("flt-panel"); if(fp) fp.classList.toggle("adv-closed", !p.fltAdv); }
+  applyOrbitFont(); if(constellationNodes.length) paintOrbit(orbitElapsed); updateOrbitTools();
 }
 var EYE_ON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
 var EYE_OFF = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>';
@@ -2701,7 +2777,8 @@ function renderConstellationInner(){
   constellationNodes = newNodes;
   moonLinks = links.map(function(l){ return { el:l.el, a:newNodes.find(function(x){ return x.catId===l.a.cat.id; }), b:newNodes.find(function(x){ return x.catId===l.b.cat.id; }) }; });
   moonPulses = [];
-  var rb = document.getElementById("orbit-reset"); if(rb) rb.style.display = activeCategories().some(function(c){ return validPos(c.pos); }) ? "" : "none";
+  applyOrbitFont(svg);
+  updateOrbitTools();
   paintOrbit(orbitElapsed);
 }
 var moonLinks = [];
@@ -2711,18 +2788,19 @@ function nodeXY(nd){
 }
 function paintOrbit(elapsed){
   orbitElapsed = elapsed;
+  var ofs = orbitFontScale();
   constellationNodes.forEach(function(nd){
     var p = nodeXY(nd), x = p.x, y = p.y;
     nd.g.setAttribute("transform","translate("+x.toFixed(1)+","+y.toFixed(1)+")");
     if(nd.moon){
       var above = y > ORBIT_H - 160;
       var man = x > ORBIT_W*0.78 ? "end" : (x < ORBIT_W*0.22 ? "start" : "middle");
-      nd.textEl.setAttribute("x", man==="end" ? (nd.r+4) : (man==="start" ? -(nd.r+4) : 0)); nd.textEl.setAttribute("y", above ? -(nd.r+18) : (nd.r+(orbitLayout && orbitLayout.mobile ? 34 : 24))); nd.textEl.setAttribute("text-anchor", man);
+      nd.textEl.setAttribute("x", man==="end" ? (nd.r+4) : (man==="start" ? -(nd.r+4) : 0)); nd.textEl.setAttribute("y", above ? -(nd.r+18*ofs) : (nd.r+(orbitLayout && orbitLayout.mobile ? 34 : 24)*ofs)); nd.textEl.setAttribute("text-anchor", man);
     } else {
       var vx = x - nd.cx, vy = y - nd.cy, len = Math.sqrt(vx*vx + vy*vy) || 1;
-      var dxU = vx/len, dyU = vy/len, lo = nd.r + 12;
+      var dxU = vx/len, dyU = vy/len, lo = nd.r + 12*ofs;
       var anchor = dxU > 0.28 ? "start" : (dxU < -0.28 ? "end" : "middle");
-      nd.textEl.setAttribute("x", (dxU*lo).toFixed(1)); nd.textEl.setAttribute("y", (dyU*lo + 3.5 + (anchor==="middle" ? dyU*8 : 0)).toFixed(1)); nd.textEl.setAttribute("text-anchor", anchor);
+      nd.textEl.setAttribute("x", (dxU*lo).toFixed(1)); nd.textEl.setAttribute("y", (dyU*lo + 3.5*ofs + (anchor==="middle" ? dyU*8*ofs : 0)).toFixed(1)); nd.textEl.setAttribute("text-anchor", anchor);
     }
     nd.lineEl.setAttribute("x2", x.toFixed(1)); nd.lineEl.setAttribute("y2", y.toFixed(1));
     if(nd.ledDot){
@@ -2851,8 +2929,8 @@ function attachNodeDrag(g, nd, svg){
     if(!orbitPhys.loopRunning){ nd.ox = 0; nd.oy = 0; paintOrbit(orbitElapsed); }
     if(save){
       var cat = catById(nd.catId);
-      if(cat && orbitLayout){ cat.pos = { u: +((home.x - orbitLayout.cx)/orbitLayout.R).toFixed(4), v: +((home.y - orbitLayout.cy)/orbitLayout.R).toFixed(4) }; saveData(); }
-      var rb = document.getElementById("orbit-reset"); if(rb) rb.style.display = "";
+      if(cat && orbitLayout){ pushOrbitHistory(); cat.pos = { u: +((home.x - orbitLayout.cx)/orbitLayout.R).toFixed(4), v: +((home.y - orbitLayout.cy)/orbitLayout.R).toFixed(4) }; saveData(); }
+      updateOrbitTools();
     }
   }
   g.addEventListener("pointerup", function(e){
@@ -2869,15 +2947,46 @@ window.addEventListener("resize", function(){
   if(!orbitLayout || !data) return;
   var L = getOrbitLayout(); if(L.mobile!==orbitLayout.mobile) renderConstellation();
 });
+// histórico de arrumações da órbita (desfazer), válido durante a sessão
+var orbitHistory = [];
+var ORBIT_FS = [0.8, 1, 1.2, 1.4], ORBIT_FS_LBL = ["Pequeno","Padrão","Grande","Extra grande"];
+function orbitSnapshot(){ var m = {}; data.categories.forEach(function(c){ m[c.id] = validPos(c.pos) ? { u:c.pos.u, v:c.pos.v } : null; }); return m; }
+function pushOrbitHistory(){ orbitHistory.push(orbitSnapshot()); if(orbitHistory.length > 30) orbitHistory.shift(); }
+function animateOrbitChange(apply){
+  var cur = {}; constellationNodes.forEach(function(nd){ cur[nd.catId] = nodeXY(nd); });
+  apply();
+  saveData();
+  renderConstellation();
+  constellationNodes.forEach(function(nd){ var p = cur[nd.catId]; if(p){ nd.ox = p.x - nd.hx; nd.oy = p.y - nd.hy; } });
+  orbitPhys.active = true;
+  if(window.__wakeOrbit) window.__wakeOrbit();
+}
+function hasCustomOrbit(){ return activeCategories().some(function(c){ return validPos(c.pos); }); }
 function resetOrbitPositions(){
-  showConfirm("Voltar todos os planetas para a arrumação automática?", function(){
-    var cur = {}; constellationNodes.forEach(function(nd){ cur[nd.catId] = nodeXY(nd); });
-    data.categories.forEach(function(c){ delete c.pos; });
-    saveData();
-    renderConstellation();
-    constellationNodes.forEach(function(nd){ var p = cur[nd.catId]; if(p){ nd.ox = p.x - nd.hx; nd.oy = p.y - nd.hy; } });
-    orbitPhys.active = true;
-  }, "Reorganizar");
+  if(!hasCustomOrbit()){ toast("Os planetas já estão na arrumação automática.", true); return; }
+  pushOrbitHistory();
+  animateOrbitChange(function(){ data.categories.forEach(function(c){ delete c.pos; }); });
+  toast("Planetas reorganizados. Use Desfazer se quiser voltar.", true);
+}
+function undoOrbit(){
+  var snap = orbitHistory.pop(); if(!snap) return;
+  animateOrbitChange(function(){ data.categories.forEach(function(c){ var p = snap[c.id]; if(p) c.pos = { u:p.u, v:p.v }; else delete c.pos; }); });
+  toast("Arrumação anterior recuperada.", true);
+}
+function orbitFsIndex(){ var i = getPrefs().orbitFs; return (typeof i==="number" && i>=0 && i<ORBIT_FS.length) ? i : 1; }
+function orbitFontScale(){ return ORBIT_FS[orbitFsIndex()]; }
+function applyOrbitFont(svg){ svg = svg || document.getElementById("constellation-svg"); if(svg) svg.style.setProperty("--ofs", String(orbitFontScale())); }
+function setOrbitFont(delta){
+  var i = Math.max(0, Math.min(ORBIT_FS.length-1, orbitFsIndex() + delta));
+  setPref("orbitFs", i); applyOrbitFont(); paintOrbit(orbitElapsed); updateOrbitTools();
+}
+function updateOrbitTools(){
+  var rb = document.getElementById("orbit-reset"), ub = document.getElementById("orbit-undo");
+  if(rb) rb.classList.toggle("is-off", !hasCustomOrbit());
+  if(ub){ ub.disabled = !orbitHistory.length; }
+  var i = orbitFsIndex(), dn = document.getElementById("orbit-fs-dn"), up = document.getElementById("orbit-fs-up"), lb = document.getElementById("orbit-fs-lbl");
+  if(dn) dn.disabled = i===0; if(up) up.disabled = i===ORBIT_FS.length-1;
+  if(lb) lb.textContent = ORBIT_FS_LBL[i];
 }
 
 // ---------------- Bar mode ----------------
@@ -3717,7 +3826,7 @@ var LEGAL_TERMS = [
 "<h4>3. Seu conteúdo</h4>",
 "<p>Tudo o que você cria (frentes, demandas, anexos, fotos e anotações) continua sendo seu. Você é responsável pelo que guarda e não deve inserir conteúdo ilegal, de terceiros sem autorização ou dados sensíveis de outras pessoas.</p>",
 "<h4>4. Fase de testes</h4>",
-"<p>Por estar em testes, o serviço pode mudar, apresentar falhas ou ficar indisponível. Recomendamos baixar backups com frequência, em Perfil, Dados e backup. Não há garantia de disponibilidade contínua.</p>",
+"<p>Por estar em testes, o serviço pode mudar, apresentar falhas ou ficar indisponível. Recomendamos baixar backups com frequência, em Perfil, Backup. Não há garantia de disponibilidade contínua.</p>",
 "<h4>5. Acesso e suspensão</h4>",
 "<p>O acesso pode ser liberado, suspenso ou encerrado pelo administrador, por exemplo em caso de uso indevido, risco à segurança ou fim da fase de testes. Sempre que possível, avisaremos antes, para você baixar seus dados.</p>",
 "<h4>6. Uso proibido</h4>",
@@ -3734,7 +3843,7 @@ var LEGAL_PRIVACY = [
 "<h4>1. Quem é o responsável</h4>",
 "<p>O controlador dos dados é o administrador do Konstela (konstela.com.br). O canal oficial para dúvidas e pedidos sobre seus dados, inclusive como encarregado, é o Fale com a gente, dentro do próprio Konstela, na opção Contato.</p>",
 "<h4>2. Quais dados coletamos</h4>",
-"<ul><li><b>Cadastro:</b> nome, e-mail, número de WhatsApp e senha. A senha é guardada pelo Google Firebase de forma cifrada e ninguém, nem o administrador, consegue vê-la.</li>",
+"<ul><li><b>Cadastro:</b> nome, e-mail, número de WhatsApp e senha. A senha é guardada de forma cifrada e ninguém, nem o administrador, consegue vê-la.</li>",
 "<li><b>Seu conteúdo:</b> frentes, demandas, demandas fixas, registros de progresso, referências, anexos e foto de perfil.</li>",
 "<li><b>Registros de acesso:</b> data de cadastro, data do último acesso, quantidade de acessos e situação da conta (ativa, aguardando ou bloqueada).</li>",
 "<li><b>Estatísticas de uso (somente com sua permissão):</b> dias de uso, tempo aproximado de uso, tipo de aparelho e navegador, idioma, fuso horário, tamanho de tela e quantidades de itens (por exemplo, quantas demandas existem), nunca o conteúdo delas.</li>",
@@ -3747,14 +3856,14 @@ var LEGAL_PRIVACY = [
 "<li>Responder mensagens, bugs e sugestões: consentimento, dado ao enviar (art. 7º, I).</li></ul>",
 "<h4>4. O que não fazemos</h4>",
 "<p>Não vendemos seus dados, não usamos para publicidade e não compartilhamos com outras empresas para fins comerciais. O conteúdo das suas frentes e demandas é exibido somente para você. O painel de administração mostra apenas números de uso e os dados de cadastro, nunca o conteúdo das suas demandas.</p>",
-"<h4>5. Onde ficam e com quem são compartilhados</h4>",
-"<p>Os dados ficam no Google Firebase (Cloud Firestore), em servidores em São Paulo. O login é feito pelo Firebase Authentication, que pode processar dados também fora do Brasil, com garantias contratuais do Google (art. 33). O site é hospedado no GitHub Pages e usa fontes do Google Fonts, que recebem dados técnicos de conexão, como o endereço IP. Esses fornecedores atuam como operadores e não usam seus dados para outros fins.</p>",
+"<h4>5. Como os dados são guardados e com quem são compartilhados</h4>",
+"<p>Seus dados ficam guardados em infraestrutura de nuvem profissional, contratada de provedores reconhecidos no mundo todo, com criptografia na transmissão e no armazenamento, cópias de segurança e controle rigoroso de acesso. Cada conta é isolada das demais: ninguém além de você consegue abrir o conteúdo das suas frentes e demandas. Alguns serviços de apoio, como o login, a hospedagem do site e as fontes de texto, podem tratar dados técnicos de conexão, como o endereço IP, inclusive fora do Brasil, sempre com garantias contratuais adequadas (art. 33). Esses fornecedores atuam apenas como operadores e não usam seus dados para outros fins. Se quiser saber quais são, é só pedir pelo Fale com a gente.</p>",
 "<h4>6. Por quanto tempo guardamos</h4>",
 "<p>Enquanto a sua conta existir. Ao excluir a conta, seu conteúdo e seu perfil são apagados na hora, e o registro de acesso é removido pelo administrador em até 30 dias. Mensagens de feedback ficam guardadas por até 12 meses, ou menos, se você pedir.</p>",
 "<h4>7. Seus direitos</h4>",
-"<p>Pelo art. 18 da LGPD, você pode, a qualquer momento: confirmar se tratamos seus dados, acessar e baixar seus dados (Perfil, Dados e backup), corrigir dados (Perfil, Conta), pedir anonimização, bloqueio ou eliminação, pedir a portabilidade, saber com quem compartilhamos, retirar o consentimento das estatísticas (Perfil, Privacidade) e excluir sua conta (Perfil, Avançado). Pedidos que não puderem ser feitos direto no app são atendidos pelo Fale com a gente, em até 15 dias. Você também pode reclamar à Autoridade Nacional de Proteção de Dados (ANPD).</p>",
+"<p>Pelo art. 18 da LGPD, você pode, a qualquer momento: confirmar se tratamos seus dados, acessar e baixar seus dados (Perfil, Backup), corrigir dados (Perfil, Conta), pedir anonimização, bloqueio ou eliminação, pedir a portabilidade, saber com quem compartilhamos, retirar o consentimento das estatísticas (Perfil, Privacidade) e excluir sua conta (Perfil, Avançado). Pedidos que não puderem ser feitos direto no app são atendidos pelo Fale com a gente, em até 15 dias. Você também pode reclamar à Autoridade Nacional de Proteção de Dados (ANPD).</p>",
 "<h4>8. Segurança</h4>",
-"<p>Usamos conexão cifrada (HTTPS), autenticação do Google, regras de acesso que isolam cada conta, política de segurança de conteúdo no site e ocultação das demandas fixas por padrão. Nenhum sistema é infalível: se acontecer um incidente com risco relevante, avisaremos você e a ANPD, como manda o art. 48 da LGPD.</p>",
+"<p>Usamos conexão cifrada, autenticação segura, regras de acesso que isolam cada conta, política de segurança de conteúdo no site e ocultação das demandas fixas por padrão. Nenhum sistema é infalível: se acontecer um incidente com risco relevante, avisaremos você e a ANPD, como manda o art. 48 da LGPD.</p>",
 "<h4>9. Menores de idade</h4>",
 "<p>O Konstela não é destinado a menores de 18 anos e não coleta dados de crianças e adolescentes de forma intencional.</p>",
 "<h4>10. Mudanças nesta Política</h4>",
@@ -4232,23 +4341,6 @@ function initTilt(){
 }
 
 
-// ---------------- Atração gravitacional dos botões (somente mouse) ----------------
-function initMagnet(){
-  var fine = window.matchMedia && window.matchMedia("(hover:hover) and (pointer:fine)").matches;
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if(!fine || reduce) return;
-  var SEL = "#fab, #fbk-btn, .icon-btn-header, .btn-new";
-  document.addEventListener("pointermove", function(e){
-    document.querySelectorAll(SEL).forEach(function(el){
-      var r = el.getBoundingClientRect(); if(!r.width) return;
-      var cx = r.left + r.width/2, cy = r.top + r.height/2, dx = e.clientX - cx, dy = e.clientY - cy, d = Math.sqrt(dx*dx + dy*dy);
-      var reach = Math.max(r.width, r.height)*0.5 + 70;
-      if(d < reach){ var f = (1 - d/reach) * 0.32, mx = Math.max(-9, Math.min(9, dx*f)), my = Math.max(-9, Math.min(9, dy*f)); el.style.translate = mx.toFixed(1)+"px "+my.toFixed(1)+"px"; el.classList.add("pulled"); }
-      else if(el.classList.contains("pulled")){ el.style.translate = ""; el.classList.remove("pulled"); }
-    });
-  }, { passive:true });
-}
-
 // ---------------- Botão + (criar) ----------------
 var ICO = {
   task:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>',
@@ -4256,6 +4348,7 @@ var ICO = {
   meta:'<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.1 8.6 22 9.5 17 14.4 18.2 21.4 12 18 5.8 21.4 7 14.4 2 9.5 8.9 8.6"></polygon></svg>',
   progress:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>',
   info:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>',
+  export:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="12" x2="12" y2="18"></line><polyline points="9 15 12 18 15 15"></polyline></svg>',
   frente:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><circle cx="12" cy="12" r="9" stroke-dasharray="3 3"></circle><circle cx="19" cy="6" r="2" fill="currentColor"></circle></svg>'
 };
 var FAB_ITEMS = [
@@ -4264,7 +4357,8 @@ var FAB_ITEMS = [
   ["meta","Demanda fixa","Um objetivo que você constrói ao longo do tempo"],
   ["progress","Registrar avanço","Anote quanto andou numa demanda fixa"],
   ["info","Referência","Contato, link ou anotação para consultar"],
-  ["frente","Frente","Uma nova área para organizar"]
+  ["frente","Frente","Uma nova área para organizar"],
+  ["export","Exportar relatório","PDF da semana, do mês ou de tudo em aberto"]
 ];
 function fabOpen(){ return document.getElementById("fab-wrap").classList.contains("open"); }
 function setFab(open){
@@ -4295,6 +4389,7 @@ function fabAction(act){
   else if(act==="meta") openTaskModal(null, "meta");
   else if(act==="info") openTaskModal(null, "info");
   else if(act==="frente") openCatModal();
+  else if(act==="export") openQuickExport();
 }
 function fabShowGoals(){
   if(!metasRevealed) setMetasRevealed(true);
@@ -4319,7 +4414,7 @@ function initFab(){
 // ---------------- Tutorial ----------------
 var TOUR = [
   { t:null, h:"Bem-vindo ao Konstela", p:"Aqui você organiza tudo o que precisa da sua atenção, separado em frentes: trabalho, casa, estudos, o que fizer sentido para você. Leva menos de um minuto." },
-  { t:function(){ return vizMode==="bar" ? "#bar-mode" : "#constellation-wrap"; }, h:"Suas frentes", p:"Cada planeta é uma frente. Quanto mais coisa em aberto, maior ele fica. Toque para abrir, ou arraste para mudar o lugar dele: ele fica onde você soltar, e os vizinhos sentem a gravidade." },
+  { t:function(){ return vizMode==="bar" ? "#bar-mode" : "#constellation-wrap"; }, h:"Suas frentes", p:"Cada planeta é uma frente. Quanto mais coisa em aberto, maior ele fica. Toque para abrir, ou arraste para mudar o lugar dele: ele fica onde você soltar, e os vizinhos sentem a gravidade. Logo abaixo ficam Desfazer, Reorganizar e o tamanho do texto." },
   { t:"#fab", h:"Tudo começa no +", p:"Toque no + para criar uma demanda, uma demanda com data, uma demanda fixa, uma referência ou uma nova frente. Ele fica sempre aqui, em qualquer tela." },
   { t:"#goals-banner", h:"Demandas fixas", p:"São objetivos de longo prazo, sem data para acabar. Ficam ocultas por padrão: toque no olho para ver e registre cada avanço para acompanhar o progresso." },
   { t:".grid-heading", h:"Todas as frentes", p:"A lista completa. Dentro de cada frente as demandas ficam em curto, médio e longo prazo. Nome e cor da frente se editam no lápis." },
@@ -5818,6 +5913,34 @@ function generateReport(kind, notify, opts){
   }).catch(function(e){ console.error("PDF failed", e); notify("Não deu para gerar o PDF agora. Tente novamente.", false); });
 }
 
+// ---------------- Exportação rápida ----------------
+function openQuickExport(){
+  if(!data) return;
+  document.getElementById("qexp-msg").textContent = "";
+  document.getElementById("qexp-modal").classList.add("visible");
+}
+function closeQuickExport(){ document.getElementById("qexp-modal").classList.remove("visible"); }
+function quickExport(q, btn){
+  var mk = document.getElementById("qexp-metas"), msg = document.getElementById("qexp-msg");
+  var per = null, kind = "organizacao";
+  if(q==="week" || q==="month"){ per = pdfPeriodList(q)[0] || null; kind = "resumo"; }
+  if(btn) btn.classList.add("busy");
+  generateReport(kind, function(t, ok){
+    msg.textContent = t; msg.style.color = ok===false ? "var(--danger)" : "";
+    if(btn && t.indexOf("Gerando")!==0) btn.classList.remove("busy");
+  }, { maskMetas: !!(mk && mk.checked), period: per });
+}
+function initQuickExport(){
+  document.getElementById("open-export-btn").addEventListener("click", openQuickExport);
+  document.querySelectorAll("#qexp-modal .qexp-opt").forEach(function(b){ b.addEventListener("click", function(){ quickExport(b.dataset.q, b); }); });
+  document.getElementById("qexp-close").addEventListener("click", closeQuickExport);
+  document.getElementById("qexp-more").addEventListener("click", function(){ closeQuickExport(); openProfile(); showProfileTab("relatorios"); });
+  document.getElementById("qexp-modal").addEventListener("click", function(e){ if(e.target.id==="qexp-modal") closeQuickExport(); });
+  document.addEventListener("keydown", function(e){ if(e.key==="Escape") closeQuickExport(); });
+  document.getElementById("pf-quick-exp").addEventListener("click", function(){ openQuickExport(); });
+  document.getElementById("pf-bk-pdf").addEventListener("click", function(){ var mk = document.getElementById("pf-bk-metas"); generateReport("backup", pfMsg, { maskMetas: !!(mk && mk.checked) }); });
+}
+
 // ---------------- Ações irreversíveis (assistente em etapas) ----------------
 var dz = null;
 function dzCounts(){
@@ -6404,7 +6527,7 @@ function buildReportPdf(kind, ctx){
   var idx = [];
   if(isShort){
     need(14);
-    doc.text("Quer o detalhe? Gere o Relatório de organização ou o Backup completo em Perfil, Dados e backup.", M, y, {size:8.6, italic:true, color:MUTE});
+    doc.text("Quer o detalhe? Gere o Relatório de organização em Perfil, Relatórios, ou a cópia completa em Perfil, Backup.", M, y, {size:8.6, italic:true, color:MUTE});
   } else {
     var ents = [["tempo","Tempo e andamento"],["atrasos","Atrasos"],["visao","Distribuição por frente"]];
     if(metas.length) ents.push(["metas","Demandas fixas"]);
@@ -6742,7 +6865,7 @@ function buildReportPdf(kind, ctx){
     doc.rect(M, y, 2, 40, {fill:GOLD});
     marks.sobre = doc.pages.length;
     doc.text("Sobre este backup", M+8, y+9, {size:11, bold:true, color:NAVY});
-    var about = "Este PDF é uma cópia de leitura e arquivo da sua conta em "+stamp.split(" às")[0]+". Para restaurar os dados dentro do Konstela, use o backup em JSON: Perfil, Dados e backup, Baixar backup (JSON). Guarde os dois em um lugar seguro.";
+    var about = "Este PDF é uma cópia de leitura e arquivo da sua conta em "+stamp.split(" às")[0]+". Para restaurar os dados dentro do Konstela, use o backup em JSON: Perfil, Backup, Baixar backup (JSON). Guarde os dois em um lugar seguro.";
     doc.wrap(about, CW-16, 9, false).forEach(function(ln,i){ doc.text(ln, M+8, y+16+i*4.6, {size:9, color:[80,86,106]}); });
   }
 
@@ -7050,8 +7173,11 @@ function bootUI(){
   initAdmin();
   initFab();
   initTilt();
-  initMagnet();
   var orb = document.getElementById("orbit-reset"); if(orb) orb.addEventListener("click", resetOrbitPositions);
+  document.getElementById("orbit-undo").addEventListener("click", undoOrbit);
+  initQuickExport();
+  document.getElementById("orbit-fs-dn").addEventListener("click", function(){ setOrbitFont(-1); });
+  document.getElementById("orbit-fs-up").addEventListener("click", function(){ setOrbitFont(1); });
   initTour();
   initFeedback();
   initConsent();
