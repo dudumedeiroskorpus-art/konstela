@@ -916,6 +916,94 @@
     .tour-invite-btns button{ flex:1; }
     .toast{ bottom:calc(90px + env(safe-area-inset-bottom)); }
   }
+
+  /* feedback */
+  #fbk-btn{ position:fixed; left:calc(22px + env(safe-area-inset-left)); bottom:calc(30px + env(safe-area-inset-bottom)); z-index:93; display:none; align-items:center; gap:8px; height:46px; padding:0 16px 0 14px; border-radius:23px; border:1px solid var(--border-hi); background:rgba(18,21,32,0.92); backdrop-filter:blur(10px); color:var(--text-dim); font-size:13px; font-weight:700; cursor:pointer; box-shadow:0 10px 26px -10px rgba(0,0,0,0.8); }
+  #app.visible ~ #fbk-btn{ display:inline-flex; }
+  #fbk-btn:hover{ color:var(--gold); border-color:rgba(244,183,64,0.55); }
+  .fbk-badge{ position:absolute; top:-4px; right:-4px; min-width:18px; height:18px; border-radius:9px; background:var(--danger); color:#2a0a0a; font-size:10.5px; font-weight:800; display:flex; align-items:center; justify-content:center; padding:0 4px; }
+  .fbk-modal{ max-width:560px; max-height:calc(100vh - 40px); overflow-y:auto; }
+  .fbk-head{ display:flex; gap:12px; align-items:flex-start; justify-content:space-between; }
+  .fbk-head h3{ margin:0 0 4px; }
+  .fbk-head p{ margin:0 0 14px; font-size:12.5px; color:var(--text-mute); line-height:1.5; }
+  .fbk-tabs{ margin-bottom:14px; }
+  .adm-tab-n{ display:inline-flex; min-width:18px; height:18px; border-radius:9px; background:var(--danger); color:#2a0a0a; font-size:10.5px; font-weight:800; align-items:center; justify-content:center; padding:0 5px; margin-left:4px; }
+  .fbk-types{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin-bottom:14px; }
+  .fbk-types button{ display:flex; flex-direction:column; align-items:flex-start; gap:3px; padding:12px 10px; border-radius:12px; border:1px solid var(--border); background:rgba(255,255,255,0.03); color:var(--text-dim); cursor:pointer; text-align:left; }
+  .fbk-types button i{ color:var(--text-mute); margin-bottom:4px; }
+  .fbk-types button b{ font-size:13px; color:var(--text); }
+  .fbk-types button span{ font-size:11px; color:var(--text-mute); }
+  .fbk-types button.active{ border-color:var(--gold); background:rgba(244,183,64,0.1); box-shadow:0 0 0 1px var(--gold) inset; }
+  .fbk-types button.active i{ color:var(--gold); }
+  .fbk-modal textarea{ width:100%; padding:12px; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:var(--radius-sm); color:var(--text); font-size:14px; line-height:1.5; resize:vertical; outline:none; font-family:inherit; }
+  .fbk-modal textarea:focus{ border-color:var(--gold); }
+  .fbk-rate{ display:flex; gap:8px; }
+  .fbk-rate button{ flex:1; height:44px; border-radius:10px; border:1px solid var(--border); background:rgba(255,255,255,0.03); color:var(--text-dim); font-family:'Orbitron',sans-serif; font-size:16px; font-weight:700; cursor:pointer; }
+  .fbk-rate button.active{ background:linear-gradient(180deg, var(--gold), #c9902c); color:#1a1204; border-color:transparent; }
+  .fbk-img-btn{ width:100%; }
+  .fbk-img-prev{ display:flex; align-items:center; gap:10px; }
+  .fbk-img-prev img{ max-height:120px; max-width:60%; border-radius:8px; border:1px solid var(--border); }
+  .fbk-img-prev button{ background:none; border:1px solid var(--border); color:var(--text-dim); border-radius:8px; padding:8px 12px; cursor:pointer; }
+  #fbk-phone{ width:100%; margin-top:8px; padding:10px 12px; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:var(--radius-sm); color:var(--text); outline:none; }
+  .fbk-hint{ font-size:11.5px; color:var(--text-mute); margin:6px 0 0; line-height:1.5; }
+  .fbk-warn{ color:var(--gold); }
+  .fbk-err{ color:var(--danger); font-size:12.5px; margin:8px 0 0; min-height:1px; }
+  .fbk-done{ text-align:center; padding:26px 6px 6px; }
+  .fbk-done-ic{ width:64px; height:64px; margin:0 auto 14px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#7bd88f; background:rgba(123,216,143,0.12); border:1px solid rgba(123,216,143,0.4); }
+  .fbk-done b{ display:block; font-size:15px; margin-bottom:18px; }
+  .fbk-done-btns{ display:flex; gap:10px; justify-content:center; }
+  .fbk-empty{ padding:26px 14px; text-align:center; color:var(--text-mute); border:1px dashed var(--border); border-radius:12px; font-size:13px; }
+  .fbk-mine-item{ border:1px solid var(--border); border-radius:12px; padding:12px; margin-bottom:8px; background:rgba(255,255,255,0.02); }
+  .fbk-mine-item.unread{ border-color:var(--gold); }
+  .fbk-mine-top{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .fbk-mine-st{ font-size:11.5px; color:var(--text-dim); font-weight:700; }
+  .fbk-mine-d{ margin-left:auto; font-size:11.5px; color:var(--text-mute); font-family:'Space Mono',monospace; }
+  .fbk-mine-item p{ margin:8px 0 0; font-size:13.5px; color:var(--text-dim); line-height:1.5; white-space:pre-wrap; }
+  .fbk-pill{ font-size:10.5px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; padding:3px 8px; border-radius:999px; border:1px solid var(--border); color:var(--text-dim); }
+  .fbk-pill.t-bug{ color:var(--danger); border-color:rgba(255,107,122,0.45); }
+  .fbk-pill.t-ideia{ color:var(--gold); border-color:rgba(244,183,64,0.45); }
+  .fbk-pill.t-opiniao{ color:var(--cyan); border-color:rgba(57,232,210,0.4); }
+  .fbk-pill.t-contato{ color:#c99bff; border-color:rgba(200,150,255,0.4); }
+  .fbk-reply{ margin-top:10px; padding:10px 12px; border-radius:10px; background:rgba(244,183,64,0.08); border-left:3px solid var(--gold); }
+  .fbk-reply b{ font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--gold); }
+  .fbk-reply p{ margin:4px 0; color:var(--text) !important; }
+  .fbk-reply span{ font-size:11px; color:var(--text-mute); }
+  .adm-tabs{ margin:0 0 16px; max-width:420px; }
+  .adm-kpis4{ grid-template-columns:repeat(4,minmax(0,1fr)); }
+  .adm-fb-avg{ font-size:12.5px; color:var(--text-dim); margin:-4px 0 12px; }
+  #adm-fb-list{ display:grid; grid-template-columns:repeat(auto-fill,minmax(380px,1fr)); gap:12px; align-items:start; }
+  .adm-fb{ border:1px solid var(--border); background:var(--surface); border-radius:var(--radius); padding:14px; display:flex; flex-direction:column; gap:8px; }
+  .adm-fb.st-novo{ border-color:rgba(244,183,64,0.6); }
+  .adm-fb.st-resolvido, .adm-fb.st-arquivado{ opacity:0.65; }
+  .adm-fb-top{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .adm-fb-sev{ font-size:11px; font-weight:700; color:var(--text-dim); }
+  .adm-fb-sev.s-impede{ color:var(--danger); } .adm-fb-sev.s-atrapalha{ color:#e89a5a; }
+  .adm-fb-rate{ font-size:11.5px; font-weight:800; color:var(--gold); }
+  .adm-fb-when{ margin-left:auto; font-size:11.5px; color:var(--text-mute); font-family:'Space Mono',monospace; }
+  .adm-fb-who b{ font-size:14px; margin-right:6px; }
+  .adm-fb-who span{ font-size:12px; color:var(--text-mute); }
+  .adm-fb-text{ margin:0; font-size:14px; line-height:1.55; white-space:pre-wrap; word-break:break-word; }
+  .adm-fb-img img{ max-width:100%; max-height:220px; border-radius:10px; border:1px solid var(--border); display:block; }
+  .adm-fb-ctx{ font-size:11.5px; color:var(--text-mute); line-height:1.6; }
+  .adm-fb-ctx details{ margin-top:4px; } .adm-fb-ctx summary{ cursor:pointer; color:var(--danger); }
+  .adm-fb-ctx ul{ margin:6px 0 0; padding-left:18px; } .adm-fb-ctx i{ color:var(--text-mute); }
+  .adm-fb-pref{ font-size:12px; color:var(--text-dim); }
+  .adm-fb-actions{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .adm-fb-actions select{ padding:9px 10px; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:var(--radius-sm); color:var(--text); }
+  .adm-fb-link{ text-decoration:none; display:inline-flex; align-items:center; }
+  .adm-fb-replybox textarea{ width:100%; min-height:90px; padding:10px; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:var(--radius-sm); color:var(--text); font-family:inherit; font-size:13.5px; }
+  .adm-fb-replybox div{ display:flex; justify-content:flex-end; margin-top:8px; }
+  @media (max-width:640px){
+    #fbk-btn{ left:calc(16px + env(safe-area-inset-left)); bottom:calc(24px + env(safe-area-inset-bottom)); width:48px; height:48px; padding:0; justify-content:center; border-radius:50%; }
+    .fbk-btn-t{ display:none; }
+    .fbk-types{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .fbk-modal{ max-height:92dvh; }
+    #adm-fb-list{ grid-template-columns:1fr; }
+    .adm-kpis4{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .adm-tabs{ max-width:none; }
+    header.top{ transition:transform .25s ease; }
+    header.top.hdr-hide{ transform:translateY(-110%); }
+  }
   /* calendario */
   #view-calendar{ display:none; width:100%; max-width:1180px; margin:0 auto; }
   .cal-modes{ margin-left:auto; min-width:190px; }
@@ -1117,6 +1205,7 @@
       </button>
       <button type="button" class="icon-btn-header" id="open-admin-btn" title="Administração" style="display:none">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        <span class="header-icon-badge" id="adm-badge" style="display:none">0</span>
       </button>
       <button type="button" class="icon-btn-header" id="open-cal-btn" title="Calendário">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
@@ -1275,6 +1364,15 @@
         <div class="frente-title-wrap"><span class="frente-dot" style="background:var(--gold);box-shadow:0 0 10px 1px var(--gold)"></span><h2>Administração</h2></div>
         <button type="button" class="btn-ghost" id="adm-refresh">Atualizar</button>
       </div>
+      <div class="segmented adm-tabs" id="adm-tabs"><button type="button" data-t="users" class="active">Contas</button><button type="button" data-t="fb">Mensagens <span class="adm-tab-n" id="adm-tab-fb-n" style="display:none"></span></button></div>
+      <div id="adm-pane-fb" style="display:none">
+        <div class="adm-kpis adm-kpis4" id="adm-fb-kpis"></div>
+        <div class="adm-fb-avg" id="adm-fb-avg"></div>
+        <div class="adm-filters" id="adm-fb-status"><button type="button" data-f="abertos">Em aberto</button><button type="button" data-f="resolvidos">Resolvidas</button><button type="button" data-f="todas">Todas</button></div>
+        <div class="adm-filters" id="adm-fb-types"><button type="button" data-f="todos">Todos os tipos</button><button type="button" data-f="bug">Bugs</button><button type="button" data-f="ideia">Sugestões</button><button type="button" data-f="opiniao">Feedbacks</button><button type="button" data-f="contato">Contatos</button></div>
+        <div id="adm-fb-list"></div>
+      </div>
+      <div id="adm-pane-users">
       <div class="adm-rules" id="adm-rules" style="display:none">
         <b>Falta um passo para o painel funcionar</b>
         <p>Atualize as regras do banco de dados uma única vez: copie as regras abaixo, abra o console do Firebase, entre em Firestore Database, aba Regras, apague o conteúdo, cole e toque em Publicar.</p>
@@ -1291,6 +1389,7 @@
       </div>
       <div class="adm-filters" id="adm-filters"><button type="button" data-f="todas">Todas</button><button type="button" data-f="ativas">Ativas</button><button type="button" data-f="pendentes">Aguardando</button><button type="button" data-f="bloqueadas">Bloqueadas</button><button type="button" data-f="paradas">Paradas há 14+ dias</button><span class="done-total mono" id="adm-count">0</span></div>
       <div id="adm-list"></div>
+      </div>
       <p class="adm-foot">Por privacidade, o painel mostra só números de uso. O conteúdo das demandas de cada pessoa nunca aparece aqui. <button type="button" class="adm-link" id="adm-copy-rules2">Copiar regras do Firestore</button></p>
     </div>
 
@@ -1470,7 +1569,8 @@
         <div class="field"><label>E-mail da conta</label><div id="pf-email" class="pf-static"></div></div>
         <div class="field"><label>Conta criada em</label><div id="pf-since" class="pf-static"></div></div>
         <div class="pane-actions"><button class="btn-solid" id="pf-save">Salvar alterações</button></div>
-        <div class="set-row" style="margin-top:18px"><div><b>Tour de apresentação</b><span>Um passeio rápido pelas principais funções do Konstela.</span></div><div class="set-row-btns"><button type="button" class="btn-ghost" id="pf-tour">Ver o tour</button></div></div>
+        <div class="set-row" style="margin-top:18px"><div><b>Fale com a gente</b><span>Relate um bug, mande uma sugestão ou tire uma dúvida.</span></div><div class="set-row-btns"><button type="button" class="btn-ghost" id="pf-contact">Enviar mensagem</button></div></div>
+        <div class="set-row"><div><b>Tour de apresentação</b><span>Um passeio rápido pelas principais funções do Konstela.</span></div><div class="set-row-btns"><button type="button" class="btn-ghost" id="pf-tour">Ver o tour</button></div></div>
       </div>
 
       <div class="settings-pane" data-pane="seguranca">
@@ -1571,7 +1671,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
   import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, sendPasswordResetEmail, deleteUser, EmailAuthProvider, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-  import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs, increment } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+  import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs, increment, query, where } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
   var firebaseConfig = {
     apiKey: "AIzaSyCYUY6c00z7PWpwPaBaso2pwi0ZGCZoHJ4",
@@ -1585,11 +1685,43 @@
   var auth = getAuth(fbApp);
   var db = getFirestore(fbApp);
 
-  window.__firebase = { auth:auth, db:db, onAuthStateChanged:onAuthStateChanged, signInWithEmailAndPassword:signInWithEmailAndPassword, createUserWithEmailAndPassword:createUserWithEmailAndPassword, signOut:signOut, sendPasswordResetEmail:sendPasswordResetEmail, doc:doc, getDoc:getDoc, setDoc:setDoc, deleteDoc:deleteDoc, collection:collection, getDocs:getDocs, increment:increment, deleteUser:deleteUser, EmailAuthProvider:EmailAuthProvider, reauthenticateWithCredential:reauthenticateWithCredential };
+  window.__firebase = { auth:auth, db:db, onAuthStateChanged:onAuthStateChanged, signInWithEmailAndPassword:signInWithEmailAndPassword, createUserWithEmailAndPassword:createUserWithEmailAndPassword, signOut:signOut, sendPasswordResetEmail:sendPasswordResetEmail, doc:doc, getDoc:getDoc, setDoc:setDoc, deleteDoc:deleteDoc, collection:collection, getDocs:getDocs, increment:increment, query:query, where:where, deleteUser:deleteUser, EmailAuthProvider:EmailAuthProvider, reauthenticateWithCredential:reauthenticateWithCredential };
   window.dispatchEvent(new Event("firebase-ready"));
 </script>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<button type="button" id="fbk-btn" aria-label="Feedback, bugs e contato" title="Feedback, bugs e contato"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><span class="fbk-btn-t">Feedback</span><span class="fbk-badge" id="fbk-badge" style="display:none">0</span></button>
+<div class="modal-backdrop" id="feedback-modal">
+  <div class="modal fbk-modal">
+    <div class="fbk-head"><div><h3>Fale com a gente</h3><p>O Konstela está em fase de testes. Sua mensagem vai direto para quem cuida dele.</p></div><button type="button" class="gm-x" id="fbk-x" aria-label="Fechar">&times;</button></div>
+    <div class="segmented fbk-tabs" id="fbk-tabs"><button type="button" data-tab="novo" class="active">Nova mensagem</button><button type="button" data-tab="mine">Minhas mensagens <span class="adm-tab-n" id="fbk-tab-mine-n" style="display:none"></span></button></div>
+    <div id="fbk-pane-new">
+      <div id="fbk-form">
+        <div class="fbk-types" id="fbk-types">
+          <button type="button" data-type="bug"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="6" width="8" height="14" rx="4"></rect><path d="M19 7l-3 2M5 7l3 2M19 19l-3-2M5 19l3-2M20 13h-4M4 13h4M10 4l1 2M14 4l-1 2"></path></svg></i><b>Relatar bug</b><span>Algo deu errado</span></button>
+          <button type="button" data-type="ideia"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z"></path></svg></i><b>Sugestão</b><span>Uma ideia nova</span></button>
+          <button type="button" data-type="opiniao"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.1 8.6 22 9.5 17 14.4 18.2 21.4 12 18 5.8 21.4 7 14.4 2 9.5 8.9 8.6"></polygon></svg></i><b>Feedback</b><span>Sua opinião</span></button>
+          <button type="button" data-type="contato"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H5.2L4 17.2V4z"></path><path d="M8 9h8M8 12h5"></path></svg></i><b>Contato</b><span>Falar com a gente</span></button>
+        </div>
+        <div class="field" id="fbk-rate-row"><label>Sua nota para o Konstela</label><div class="fbk-rate" id="fbk-rate"><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button><button type="button" data-v="3">3</button><button type="button" data-v="4">4</button><button type="button" data-v="5">5</button></div></div>
+        <div class="field"><label id="fbk-q" for="fbk-text"></label><textarea id="fbk-text" rows="5" maxlength="4000"></textarea></div>
+        <div class="field" id="fbk-sev-row"><label>Quanto atrapalha?</label><div class="segmented" id="fbk-sev"><button type="button" data-v="leve">Pouco</button><button type="button" data-v="atrapalha">Atrapalha</button><button type="button" data-v="impede">Impede de usar</button></div></div>
+        <div class="field" id="fbk-img-row"><label>Imagem (opcional)</label><button type="button" class="btn-ghost fbk-img-btn" id="fbk-img-btn">+ Anexar uma captura de tela</button><input type="file" id="fbk-img-file" accept="image/*" style="display:none"><div class="fbk-img-prev" id="fbk-img-prev"></div></div>
+        <div class="field" id="fbk-contact-row"><label>Como prefere receber a resposta?</label><div class="segmented" id="fbk-pref"><button type="button" data-v="app">Aqui no app</button><button type="button" data-v="email">E-mail</button><button type="button" data-v="whatsapp">WhatsApp</button></div><input type="tel" id="fbk-phone" placeholder="(00) 00000-0000" style="display:none"><p class="fbk-hint" id="fbk-pref-hint"></p></div>
+        <p class="fbk-hint" id="fbk-ctx"></p>
+        <p class="fbk-hint fbk-warn" id="fbk-guest" style="display:none">No modo demonstração não dá para enviar. Entre com a sua conta.</p>
+        <p class="fbk-err" id="fbk-err"></p>
+        <div class="modal-actions"><button type="button" class="btn-solid" id="fbk-send">Enviar</button></div>
+      </div>
+      <div id="fbk-done" style="display:none" class="fbk-done">
+        <div class="fbk-done-ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+        <b id="fbk-done-t"></b>
+        <div class="fbk-done-btns"><button type="button" class="btn-ghost" id="fbk-again">Enviar outra</button><button type="button" class="btn-solid" id="fbk-close2">Fechar</button></div>
+      </div>
+    </div>
+    <div id="fbk-pane-mine" style="display:none"><div id="fbk-mine"></div></div>
+  </div>
+</div>
 <div id="fab-backdrop"></div>
 <div id="fab-wrap">
   <div class="fab-menu" id="fab-menu" role="menu" aria-label="Criar">
@@ -2755,7 +2887,13 @@ var RULES_TPL = [
 "      allow create: if signedIn() && request.auth.uid == uid && request.resource.data.uid == uid && (",
 "        request.resource.data.status == 'pendente' ||",
 "        (request.resource.data.status == 'ativo' && (isAdmin() || !approvalOn() || hadData(uid))));",
-"      allow update: if isAdmin() || (signedIn() && request.auth.uid == uid && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['email','name','photo','lastSeenAt','lastOpenAt','openCount','loginCount','lastLoginAt','device','logins','activity','stats','saveCount','pdfCount','usageMin','lastActivityAt','onboarded','deletedAt']));",
+"      allow update: if isAdmin() || (signedIn() && request.auth.uid == uid && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['status','statusAt','uid','createdAt']));",
+"      allow delete: if isAdmin();",
+"    }",
+"    match /feedback/{id} {",
+"      allow create: if signedIn() && request.resource.data.uid == request.auth.uid && request.resource.data.status == 'novo' && !('reply' in request.resource.data);",
+"      allow read: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid);",
+"      allow update: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['readAt']));",
 "      allow delete: if isAdmin();",
 "    }",
 "    match /config/{docId} {",
@@ -2931,11 +3069,23 @@ function admMovement(u){
   return ["off","Parada há " + d + " dias"];
 }
 function openAdmin(){ showView("view-admin"); loadAdmin(); }
+function initHeaderAutoHide(){
+  var lastY = window.scrollY || 0, hdr = document.querySelector("header.top");
+  if(!hdr) return;
+  window.addEventListener("scroll", function(){
+    var y = window.scrollY || 0;
+    if(window.innerWidth > 640 || (typeof tourOn!=="undefined" && tourOn)){ hdr.classList.remove("hdr-hide"); lastY = y; return; }
+    if(y > lastY + 8 && y > 120) hdr.classList.add("hdr-hide");
+    else if(y < lastY - 8 || y < 80) hdr.classList.remove("hdr-hide");
+    lastY = y;
+  }, { passive:true });
+}
 function loadAdmin(){
   var fb = window.__firebase, list = document.getElementById("adm-list");
   list.innerHTML = '<div class="adm-empty">Carregando contas...</div>';
   document.getElementById("adm-rules").style.display = "none";
   if(!canRegistry()){ list.innerHTML = '<div class="adm-empty">Recarregue a página para ativar o painel.</div>'; return; }
+  loadAdminFeedback();
   Promise.all([
     fb.getDocs(fb.collection(fb.db, "registry")),
     fb.getDoc(cfgRef()).catch(function(){ return null; })
@@ -3074,6 +3224,244 @@ function initAdmin(){
   document.getElementById("adm-sort").addEventListener("change", function(e){ admSort = e.target.value; renderAdmin(); });
   document.querySelectorAll("#adm-filters button").forEach(function(b){ b.addEventListener("click", function(){ admFilter = b.dataset.f; renderAdmin(); }); });
   document.querySelectorAll("#adm-approval button").forEach(function(b){ b.addEventListener("click", function(){ var on = b.dataset.v==="on"; if(on===!!admCfg.approval) return; admSetApproval(on); }); });
+}
+
+// ---------------- Feedback, bugs, sugestões e contato ----------------
+var APP_VERSION = "2026.10.14";
+var ERR_LOG = [];
+window.addEventListener("error", function(e){ try{ ERR_LOG.push({ t:Date.now(), m:String(e.message||"erro").slice(0,200), s:String(e.filename||"").split("/").pop().slice(0,60)+":"+(e.lineno||0) }); if(ERR_LOG.length>8) ERR_LOG.shift(); }catch(x){} });
+window.addEventListener("unhandledrejection", function(e){ try{ var r = e.reason; ERR_LOG.push({ t:Date.now(), m:String((r && (r.code || r.message)) || r || "promessa rejeitada").slice(0,200), s:"promise" }); if(ERR_LOG.length>8) ERR_LOG.shift(); }catch(x){} });
+var FB_TYPES = {
+  bug:{ label:"Relatar bug", short:"Bug", q:"O que aconteceu?", ph:"Descreva o que você fez e o que deu errado. Quanto mais detalhe, mais rápido resolvemos." },
+  ideia:{ label:"Sugestão", short:"Sugestão", q:"Qual a sua ideia?", ph:"O que poderia existir ou funcionar de outro jeito?" },
+  opiniao:{ label:"Feedback", short:"Feedback", q:"Como está sendo usar o Konstela?", ph:"Do que você gostou, o que achou confuso, o que faria você usar mais." },
+  contato:{ label:"Contato", short:"Contato", q:"Sua mensagem", ph:"Escreva o que precisar. A resposta aparece aqui mesmo, em Minhas mensagens." }
+};
+var fbForm = { type:"bug", sev:"", rating:0, img:"", pref:"app" }, myFeedback = [], fbTab = "novo";
+function fbRef(id){ var fb = window.__firebase; return fb.doc(fb.db, "feedback", id); }
+function fbCanCloud(){ var fb = window.__firebase; return !!(fb && fb.collection && fb.getDocs && fb.query && fb.where) && !guestMode && !!currentUid; }
+function currentContext(){
+  var views = ["view-home","view-frente","view-done","view-stats","view-trash","view-filter","view-calendar","view-admin"], v = "view-home";
+  views.forEach(function(id){ var el = document.getElementById(id); if(el && el.style.display && el.style.display!=="none") v = id; });
+  var names = { "view-home":"Início", "view-frente":"Frente", "view-done":"Concluídas", "view-stats":"Estatísticas", "view-trash":"Lixeira", "view-filter":"Filtrar", "view-calendar":"Calendário", "view-admin":"Administração" };
+  var openModal = document.querySelector(".modal-backdrop.visible:not(#feedback-modal)");
+  var cat = activeCategoryId && data ? catById(activeCategoryId) : null;
+  return { view: names[v] || v, frente: (v==="view-frente" && cat) ? "uma frente" : "", modal: openModal ? openModal.id : "", device: deviceInfo(), viewport: window.innerWidth+"x"+window.innerHeight, version: APP_VERSION, errors: ERR_LOG.slice(-5), online: navigator.onLine };
+}
+function fbUnread(){ return myFeedback.filter(function(f){ return f.reply && (!f.readAt || f.readAt < (f.repliedAt||0)); }).length; }
+function renderFbBadge(){
+  var n = fbUnread(), b = document.getElementById("fbk-badge");
+  if(b){ b.textContent = n; b.style.display = n ? "" : "none"; }
+  var tb = document.getElementById("fbk-tab-mine-n"); if(tb){ tb.textContent = n ? String(n) : ""; tb.style.display = n ? "" : "none"; }
+}
+function loadMyFeedback(){
+  if(!fbCanCloud()) return Promise.resolve();
+  var fb = window.__firebase;
+  return fb.getDocs(fb.query(fb.collection(fb.db, "feedback"), fb.where("uid", "==", currentUid))).then(function(snap){
+    myFeedback = []; snap.forEach(function(s){ var d = s.data() || {}; d.id = s.id; myFeedback.push(d); });
+    myFeedback.sort(function(a,b){ return (b.createdAt||0)-(a.createdAt||0); });
+    renderFbBadge();
+  }).catch(function(e){ console.warn("feedback indisponível", e && e.code); });
+}
+function openFeedback(type, tab){
+  fbForm = { type: type || fbForm.type || "bug", sev:"", rating:0, img:"", pref:"app" };
+  fbTab = tab || "novo";
+  document.getElementById("fbk-text").value = "";
+  document.getElementById("fbk-phone").value = "";
+  document.getElementById("fbk-err").textContent = "";
+  document.getElementById("fbk-done").style.display = "none";
+  document.getElementById("fbk-form").style.display = "";
+  renderFeedback();
+  document.getElementById("feedback-modal").classList.add("visible");
+  if(fbTab==="mine") loadMyFeedback().then(renderFeedback);
+}
+function closeFeedback(){ document.getElementById("feedback-modal").classList.remove("visible"); }
+function renderFeedback(){
+  document.querySelectorAll("#fbk-tabs button").forEach(function(b){ b.classList.toggle("active", b.dataset.tab===fbTab); });
+  document.getElementById("fbk-pane-new").style.display = fbTab==="novo" ? "" : "none";
+  document.getElementById("fbk-pane-mine").style.display = fbTab==="mine" ? "" : "none";
+  var T = FB_TYPES[fbForm.type];
+  document.querySelectorAll("#fbk-types button").forEach(function(b){ b.classList.toggle("active", b.dataset.type===fbForm.type); });
+  document.getElementById("fbk-q").textContent = T.q;
+  document.getElementById("fbk-text").placeholder = T.ph;
+  document.getElementById("fbk-sev-row").style.display = fbForm.type==="bug" ? "" : "none";
+  document.getElementById("fbk-rate-row").style.display = fbForm.type==="opiniao" ? "" : "none";
+  document.getElementById("fbk-img-row").style.display = (fbForm.type==="bug" || fbForm.type==="ideia") ? "" : "none";
+  document.getElementById("fbk-contact-row").style.display = fbForm.type==="contato" ? "" : "none";
+  document.querySelectorAll("#fbk-sev button").forEach(function(b){ b.classList.toggle("active", b.dataset.v===fbForm.sev); });
+  document.querySelectorAll("#fbk-rate button").forEach(function(b){ b.classList.toggle("active", +b.dataset.v <= fbForm.rating); });
+  document.querySelectorAll("#fbk-pref button").forEach(function(b){ b.classList.toggle("active", b.dataset.v===fbForm.pref); });
+  document.getElementById("fbk-phone").style.display = fbForm.pref==="whatsapp" ? "" : "none";
+  document.getElementById("fbk-pref-hint").textContent = fbForm.pref==="email" ? "Resposta para " + (currentEmail || "o seu e-mail") + "." : (fbForm.pref==="whatsapp" ? "Informe o número com DDD." : "A resposta aparece aqui, em Minhas mensagens.");
+  var prev = document.getElementById("fbk-img-prev");
+  prev.innerHTML = fbForm.img ? '<img src="'+fbForm.img+'" alt="Captura anexada"><button type="button" id="fbk-img-rm">Remover</button>' : "";
+  if(fbForm.img) document.getElementById("fbk-img-rm").addEventListener("click", function(){ fbForm.img = ""; renderFeedback(); });
+  document.getElementById("fbk-img-btn").style.display = fbForm.img ? "none" : "";
+  var ctx = currentContext();
+  document.getElementById("fbk-ctx").textContent = "Vamos anexar automaticamente: tela " + ctx.view + ", " + ctx.device.label + ", versão " + APP_VERSION + (ctx.errors.length ? ", e os últimos erros técnicos" : "") + ".";
+  document.getElementById("fbk-guest").style.display = (guestMode || !currentUid) ? "" : "none";
+  document.getElementById("fbk-send").disabled = guestMode || !currentUid;
+  // minhas mensagens
+  var box = document.getElementById("fbk-mine"); box.innerHTML = "";
+  if(!myFeedback.length){ box.innerHTML = '<div class="fbk-empty">Você ainda não enviou nada. Quando enviar, acompanha por aqui e vê as respostas.</div>'; }
+  myFeedback.forEach(function(f){
+    var st = { novo:"Recebido", analise:"Em análise", resolvido:"Resolvido", arquivado:"Encerrado" }[f.status] || "Recebido";
+    var it = document.createElement("div"); it.className = "fbk-mine-item" + (f.reply && (!f.readAt || f.readAt < (f.repliedAt||0)) ? " unread" : "");
+    it.innerHTML = '<div class="fbk-mine-top"><span class="fbk-pill t-'+escapeHtml(f.type||"")+'">'+escapeHtml((FB_TYPES[f.type]||{}).short || "Mensagem")+'</span><span class="fbk-mine-st">'+st+'</span><span class="fbk-mine-d">'+escapeHtml(formatDateBR(f.createdAt||0))+'</span></div><p>'+escapeHtml(f.text||"")+'</p>'+
+      (f.reply ? '<div class="fbk-reply"><b>Resposta</b><p>'+escapeHtml(f.reply)+'</p><span>'+escapeHtml(formatDateBR(f.repliedAt||0, true))+'</span></div>' : '');
+    box.appendChild(it);
+  });
+  renderFbBadge();
+}
+function markRepliesRead(){
+  var fb = window.__firebase, now = Date.now();
+  myFeedback.forEach(function(f){
+    if(f.reply && (!f.readAt || f.readAt < (f.repliedAt||0))){ f.readAt = now; fb.setDoc(fbRef(f.id), { readAt: now }, { merge:true }).catch(function(){}); }
+  });
+  setTimeout(renderFbBadge, 1500);
+}
+function shrinkImage(file, cb){
+  var r = new FileReader();
+  r.onload = function(){
+    var img = new Image();
+    img.onload = function(){
+      function make(max, q){ var sc = Math.min(1, max/Math.max(img.width, img.height)); var cv = document.createElement("canvas"); cv.width = Math.round(img.width*sc); cv.height = Math.round(img.height*sc); var cx = cv.getContext("2d"); cx.fillStyle = "#000"; cx.fillRect(0,0,cv.width,cv.height); cx.drawImage(img, 0, 0, cv.width, cv.height); return cv.toDataURL("image/jpeg", q); }
+      var u = make(1100, 0.72); if(u.length > 600000) u = make(800, 0.6); if(u.length > 600000) u = make(600, 0.5);
+      cb(u);
+    };
+    img.onerror = function(){ cb(""); toast("Não consegui ler essa imagem.", false); };
+    img.src = r.result;
+  };
+  r.readAsDataURL(file);
+}
+function sendFeedback(){
+  var err = document.getElementById("fbk-err"); err.textContent = "";
+  var text = document.getElementById("fbk-text").value.trim();
+  if(fbForm.type==="opiniao" && !fbForm.rating && !text){ err.textContent = "Escolha uma nota ou escreva algo."; return; }
+  if(fbForm.type!=="opiniao" && text.length < 3){ err.textContent = "Escreva um pouco mais para entendermos."; document.getElementById("fbk-text").focus(); return; }
+  var phone = document.getElementById("fbk-phone").value.replace(/[^0-9+]/g, "");
+  if(fbForm.type==="contato" && fbForm.pref==="whatsapp" && phone.replace(/\D/g,"").length < 10){ err.textContent = "Informe o WhatsApp com DDD."; return; }
+  if(!fbCanCloud()){ err.textContent = "Entre na sua conta para enviar."; return; }
+  var btn = document.getElementById("fbk-send"); btn.disabled = true; btn.textContent = "Enviando...";
+  var id = uid(), now = Date.now();
+  var docData = { uid:currentUid, email:currentEmail, name:displayName(), type:fbForm.type, text:text.slice(0,4000), status:"novo", createdAt:now, context: currentContext() };
+  if(fbForm.type==="bug" && fbForm.sev) docData.severity = fbForm.sev;
+  if(fbForm.type==="opiniao" && fbForm.rating) docData.rating = fbForm.rating;
+  if(fbForm.img && (fbForm.type==="bug" || fbForm.type==="ideia")) docData.image = fbForm.img;
+  if(fbForm.type==="contato"){ docData.contactPref = fbForm.pref; if(fbForm.pref==="whatsapp") docData.phone = phone; }
+  window.__firebase.setDoc(fbRef(id), docData).then(function(){
+    docData.id = id; myFeedback.unshift(docData);
+    document.getElementById("fbk-form").style.display = "none";
+    document.getElementById("fbk-done").style.display = "";
+    document.getElementById("fbk-done-t").textContent = fbForm.type==="bug" ? "Bug registrado. Obrigado por avisar." : (fbForm.type==="contato" ? "Mensagem enviada. Você recebe a resposta por aqui." : "Recebido. Obrigado por ajudar a melhorar o Konstela.");
+  }).catch(function(e){
+    console.warn("feedback falhou", e && e.code);
+    err.textContent = (e && e.code==="permission-denied") ? "O envio ainda não está liberado no servidor. Tente de novo mais tarde." : "Não deu para enviar agora. Verifique a conexão e tente de novo.";
+  }).then(function(){ btn.disabled = false; btn.textContent = "Enviar"; });
+}
+function initFeedback(){
+  document.getElementById("fbk-btn").addEventListener("click", function(){ openFeedback(fbUnread() ? null : "bug", fbUnread() ? "mine" : "novo"); if(fbUnread()) setTimeout(markRepliesRead, 600); });
+  document.getElementById("fbk-x").addEventListener("click", closeFeedback);
+  document.querySelectorAll("#fbk-tabs button").forEach(function(b){ b.addEventListener("click", function(){ fbTab = b.dataset.tab; renderFeedback(); if(fbTab==="mine"){ loadMyFeedback().then(function(){ renderFeedback(); markRepliesRead(); }); } }); });
+  document.querySelectorAll("#fbk-types button").forEach(function(b){ b.addEventListener("click", function(){ fbForm.type = b.dataset.type; renderFeedback(); }); });
+  document.querySelectorAll("#fbk-sev button").forEach(function(b){ b.addEventListener("click", function(){ fbForm.sev = fbForm.sev===b.dataset.v ? "" : b.dataset.v; renderFeedback(); }); });
+  document.querySelectorAll("#fbk-rate button").forEach(function(b){ b.addEventListener("click", function(){ fbForm.rating = +b.dataset.v; renderFeedback(); }); });
+  document.querySelectorAll("#fbk-pref button").forEach(function(b){ b.addEventListener("click", function(){ fbForm.pref = b.dataset.v; renderFeedback(); }); });
+  document.getElementById("fbk-img-btn").addEventListener("click", function(){ document.getElementById("fbk-img-file").click(); });
+  document.getElementById("fbk-img-file").addEventListener("change", function(e){ var f = e.target.files[0]; e.target.value = ""; if(f) shrinkImage(f, function(u){ fbForm.img = u; renderFeedback(); }); });
+  document.getElementById("fbk-send").addEventListener("click", sendFeedback);
+  document.getElementById("fbk-again").addEventListener("click", function(){ openFeedback(fbForm.type); });
+  document.getElementById("fbk-close2").addEventListener("click", closeFeedback);
+  var pfc = document.getElementById("pf-contact"); if(pfc) pfc.addEventListener("click", function(){ closeProfile(); openFeedback("contato"); });
+}
+
+// ----- feedback no painel de administração -----
+var admTab = "users", admFb = [], admFbFilter = "abertos", admFbType = "todos", admFbOpen = {};
+function setAdmTab(t){
+  admTab = t;
+  document.querySelectorAll("#adm-tabs button").forEach(function(b){ b.classList.toggle("active", b.dataset.t===t); });
+  document.getElementById("adm-pane-users").style.display = t==="users" ? "" : "none";
+  document.getElementById("adm-pane-fb").style.display = t==="fb" ? "" : "none";
+}
+function loadAdminFeedback(){
+  var fb = window.__firebase, box = document.getElementById("adm-fb-list");
+  if(!fb || !fb.getDocs){ return Promise.resolve(); }
+  return fb.getDocs(fb.collection(fb.db, "feedback")).then(function(snap){
+    admFb = []; snap.forEach(function(s){ var d = s.data() || {}; d.id = s.id; admFb.push(d); });
+    admFb.sort(function(a,b){ return num(b.createdAt) - num(a.createdAt); });
+    renderAdminFeedback(); updateAdminBadge();
+  }).catch(function(e){ console.warn("admin feedback falhou", e && e.code); if(box) box.innerHTML = '<div class="adm-empty">Não foi possível ler as mensagens. Confira se as regras novas do Firestore foram publicadas.</div>'; });
+}
+function updateAdminBadge(){
+  var n = admFb.filter(function(f){ return f.status==="novo"; }).length;
+  var b = document.getElementById("adm-badge"); if(b){ b.textContent = n; b.style.display = n ? "" : "none"; }
+  var t = document.getElementById("adm-tab-fb-n"); if(t){ t.textContent = n ? String(n) : ""; t.style.display = n ? "" : "none"; }
+}
+function renderAdminFeedback(){
+  var box = document.getElementById("adm-fb-list"); if(!box) return;
+  document.querySelectorAll("#adm-fb-status button").forEach(function(b){ b.classList.toggle("active", b.dataset.f===admFbFilter); });
+  document.querySelectorAll("#adm-fb-types button").forEach(function(b){ b.classList.toggle("active", b.dataset.f===admFbType); });
+  var list = admFb.filter(function(f){
+    if(admFbType!=="todos" && f.type!==admFbType) return false;
+    if(admFbFilter==="abertos") return f.status!=="resolvido" && f.status!=="arquivado";
+    if(admFbFilter==="resolvidos") return f.status==="resolvido" || f.status==="arquivado";
+    return true;
+  });
+  box.innerHTML = "";
+  var cnt = { bug:0, ideia:0, opiniao:0, contato:0 }; admFb.forEach(function(f){ if(cnt[f.type]!=null && f.status!=="resolvido" && f.status!=="arquivado") cnt[f.type]++; });
+  document.getElementById("adm-fb-kpis").innerHTML = [["bug","Bugs abertos"],["ideia","Sugestões"],["opiniao","Feedbacks"],["contato","Contatos"]].map(function(k){ return '<div class="adm-kpi"><b>'+cnt[k[0]]+'</b><span>'+k[1]+'</span></div>'; }).join("");
+  var rated = admFb.filter(function(f){ return num(f.rating); });
+  var avg = rated.length ? (rated.reduce(function(s,f){ return s + num(f.rating); }, 0) / rated.length).toFixed(1).replace(".", ",") : "sem notas";
+  document.getElementById("adm-fb-avg").textContent = "Nota média: " + avg + (rated.length ? " (" + rated.length + (rated.length===1 ? " avaliação)" : " avaliações)") : "");
+  if(!list.length){ box.innerHTML = '<div class="adm-empty">Nada por aqui neste filtro.</div>'; return; }
+  list.forEach(function(f){ box.appendChild(renderAdminFbItem(f)); });
+}
+function renderAdminFbItem(f){
+  var T = FB_TYPES[f.type] || { short:"Mensagem" }, ctx = (f.context && typeof f.context==="object") ? f.context : {}, dev = (ctx.device && typeof ctx.device==="object") ? ctx.device : {};
+  var sevL = { leve:"Leve", atrapalha:"Atrapalha", impede:"Impede de usar" }[f.severity] || "";
+  var it = document.createElement("div"); it.className = "adm-fb st-" + escapeHtml(f.status||"novo");
+  var stars = num(f.rating) ? '<span class="adm-fb-rate">'+num(f.rating)+' de 5</span>' : '';
+  var img = safePhoto(f.image) ? '<a class="adm-fb-img" href="'+escapeHtml(f.image)+'" target="_blank" rel="noopener"><img src="'+escapeHtml(f.image)+'" alt="Captura"></a>' : '';
+  var errs = Array.isArray(ctx.errors) ? ctx.errors : [];
+  it.innerHTML =
+    '<div class="adm-fb-top"><span class="fbk-pill t-'+escapeHtml(f.type||"")+'">'+escapeHtml(T.short)+'</span>'+(sevL ? '<span class="adm-fb-sev s-'+escapeHtml(f.severity)+'">'+sevL+'</span>' : '')+stars+'<span class="adm-fb-when">'+escapeHtml(formatDateBR(num(f.createdAt), true))+'</span></div>' +
+    '<div class="adm-fb-who"><b>'+escapeHtml(f.name||"Sem nome")+'</b><span>'+escapeHtml(f.email||"")+'</span></div>' +
+    '<p class="adm-fb-text">'+escapeHtml(f.text||"(sem texto)")+'</p>' + img +
+    (!ctx.view ? '' : '<div class="adm-fb-ctx">Tela: '+escapeHtml(ctx.view||"?")+(ctx.modal ? ' (janela '+escapeHtml(ctx.modal)+')' : '')+' · '+escapeHtml(dev.label||"")+' · '+escapeHtml(ctx.viewport||"")+' · versão '+escapeHtml(ctx.version||"?")+(errs.length ? '<details><summary>'+errs.length+' erro(s) técnico(s)</summary><ul>'+errs.map(function(e){ e = e||{}; return '<li>'+escapeHtml(e.m||"")+' <i>'+escapeHtml(e.s||"")+'</i></li>'; }).join("")+'</ul></details>' : '')+'</div>') +
+    (f.contactPref ? '<div class="adm-fb-pref">Prefere resposta por: <b>'+({ app:"aqui no Konstela", email:"e-mail", whatsapp:"WhatsApp" }[f.contactPref]||"")+'</b>'+(f.phone ? ' '+escapeHtml(f.phone) : '')+'</div>' : '') +
+    (f.reply ? '<div class="fbk-reply"><b>Sua resposta</b><p>'+escapeHtml(f.reply)+'</p><span>'+escapeHtml(formatDateBR(num(f.repliedAt), true))+(f.readAt && num(f.readAt) >= num(f.repliedAt) ? ' · lida' : ' · ainda não lida')+'</span></div>' : '');
+  var row = document.createElement("div"); row.className = "adm-fb-actions";
+  var sel = document.createElement("select");
+  [["novo","Novo"],["analise","Em análise"],["resolvido","Resolvido"],["arquivado","Arquivado"]].forEach(function(o){ var op = document.createElement("option"); op.value = o[0]; op.textContent = o[1]; sel.appendChild(op); });
+  sel.value = f.status || "novo";
+  sel.addEventListener("change", function(){ admFbUpdate(f, { status: sel.value }); });
+  row.appendChild(sel);
+  var rb = document.createElement("button"); rb.type = "button"; rb.className = "btn-ghost"; rb.textContent = f.reply ? "Editar resposta" : "Responder";
+  rb.addEventListener("click", function(){ admFbOpen[f.id] = !admFbOpen[f.id]; renderAdminFeedback(); });
+  row.appendChild(rb);
+  if(f.email){ var ml = document.createElement("a"); ml.className = "btn-ghost adm-fb-link"; ml.textContent = "E-mail"; ml.href = "mailto:" + encodeURIComponent(f.email) + "?subject=" + encodeURIComponent("Konstela: sobre a sua mensagem"); row.appendChild(ml); }
+  if(f.phone){ var wa = document.createElement("a"); wa.className = "btn-ghost adm-fb-link"; wa.textContent = "WhatsApp"; var ph = String(f.phone).replace(/\D/g,""); if(ph.length<=11) ph = "55" + ph; wa.href = "https://wa.me/" + ph; wa.target = "_blank"; wa.rel = "noopener"; row.appendChild(wa); }
+  var del = document.createElement("button"); del.type = "button"; del.className = "btn-ghost adm-danger"; del.textContent = "Excluir";
+  del.addEventListener("click", function(){ showConfirm("Excluir esta mensagem para sempre?", function(){ window.__firebase.deleteDoc(fbRef(f.id)).then(function(){ admFb = admFb.filter(function(x){ return x.id!==f.id; }); renderAdminFeedback(); updateAdminBadge(); }).catch(function(){ toast("Não deu para excluir.", false); }); }, "Excluir"); });
+  row.appendChild(del);
+  it.appendChild(row);
+  if(admFbOpen[f.id]){
+    var rp = document.createElement("div"); rp.className = "adm-fb-replybox";
+    rp.innerHTML = '<textarea maxlength="2000" placeholder="Escreva a resposta. A pessoa vê no Konstela, em Minhas mensagens."></textarea><div><button type="button" class="btn-solid">Enviar resposta</button></div>';
+    var ta = rp.querySelector("textarea"); ta.value = f.reply || "";
+    rp.querySelector("button").addEventListener("click", function(){ var v = ta.value.trim(); if(!v) return; admFbUpdate(f, { reply:v, repliedAt:Date.now(), status: f.status==="novo" ? "analise" : (f.status||"analise") }); admFbOpen[f.id] = false; });
+    it.appendChild(rp);
+  }
+  return it;
+}
+function admFbUpdate(f, patch){
+  window.__firebase.setDoc(fbRef(f.id), patch, { merge:true }).then(function(){ Object.assign(f, patch); renderAdminFeedback(); updateAdminBadge(); toast("Atualizado.", true); })
+    .catch(function(){ toast("Não deu para salvar. Confira as regras do Firestore.", false); });
+}
+function initAdminFeedback(){
+  document.querySelectorAll("#adm-tabs button").forEach(function(b){ b.addEventListener("click", function(){ setAdmTab(b.dataset.t); if(b.dataset.t==="fb") loadAdminFeedback(); }); });
+  document.querySelectorAll("#adm-fb-status button").forEach(function(b){ b.addEventListener("click", function(){ admFbFilter = b.dataset.f; renderAdminFeedback(); }); });
+  document.querySelectorAll("#adm-fb-types button").forEach(function(b){ b.addEventListener("click", function(){ admFbType = b.dataset.f; renderAdminFeedback(); }); });
 }
 
 // ---------------- Progresso das demandas fixas ----------------
@@ -4462,6 +4850,8 @@ function boot(){
   }).then(function(){
     bootUI();
     if(needsOnboarding) openOnboarding(); else maybeInviteTour();
+    loadMyFeedback();
+    if(isAdminUser) loadAdminFeedback();
     makePhotoThumb(profile && profile.photo, function(t){ photoThumb = t; regTouch("profile"); regFlush(); });
   }).catch(function(e){
     if(e==="gate") return;
@@ -5959,6 +6349,9 @@ function bootUI(){
   initAdmin();
   initFab();
   initTour();
+  initFeedback();
+  initAdminFeedback();
+  initHeaderAutoHide();
   document.getElementById("f-due-clear").addEventListener("click", function(){ document.getElementById("f-due").value = ""; });
   document.querySelectorAll("#pf-period-seg button").forEach(function(b){ b.addEventListener("click", function(){ pdfPeriodKind = b.dataset.p; renderPdfPeriod(); }); });
   document.getElementById("goals-collapse-btn").addEventListener("click", function(){ setMetasCollapsed(!metasCollapsed); });
