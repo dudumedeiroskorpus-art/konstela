@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-K/o4yAi+Sjy58InLhSSV0Lo+EPbK9NFrvrEsZUxU1ck=' 'sha256-iOlng/XNUB+qYCVLKMO+7VLWD/WncHpi0IEpM2FseRA=' 'sha256-KmLbJU8Dyu7iIFVoHz7SA6H0y+Woj095VHp87MEbRIQ=' https://www.gstatic.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://tile.openstreetmap.org https://i.ytimg.com; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://*.firebaseapp.com https://www.gstatic.com https://nominatim.openstreetmap.org; frame-src https://konstela-d88fe.firebaseapp.com https://accounts.google.com; worker-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-K/o4yAi+Sjy58InLhSSV0Lo+EPbK9NFrvrEsZUxU1ck=' 'sha256-iOlng/XNUB+qYCVLKMO+7VLWD/WncHpi0IEpM2FseRA=' 'sha256-aHPB2Q5m1K3xa7kF4Q+DOVhjK1nNwdpTOSVS+tCaoNo=' https://www.gstatic.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://tile.openstreetmap.org https://i.ytimg.com; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://*.firebaseapp.com https://www.gstatic.com https://nominatim.openstreetmap.org; frame-src https://konstela-d88fe.firebaseapp.com https://accounts.google.com; worker-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'">
 
 
 
@@ -504,7 +504,7 @@
   .goal-title{ font-size:15px; font-weight:700; line-height:1.35; flex:1; }
   .goal-actions{ opacity:0.6; }
   .goal-card:hover .goal-actions{ opacity:1; }
-  .goal-desc{ margin:8px 0 0 28px; font-size:12.5px; color:var(--text-dim); line-height:1.55; }
+  .goal-desc{ margin:8px 0 0 28px; font-size:12.5px; color:var(--text-dim); line-height:1.55; white-space:pre-wrap; overflow-wrap:anywhere; }
   .goal-meta{ margin:10px 0 0 28px; font-size:11px; color:var(--text-mute); display:flex; flex-wrap:wrap; gap:4px; align-items:center; }
   .goal-cat{ display:inline-flex; align-items:center; gap:5px; color:var(--text-dim); }
   .goal-cat i{ width:8px; height:8px; border-radius:50%; display:inline-block; }
@@ -827,7 +827,7 @@
     padding:14px 16px; margin-bottom:10px;
   }
   .ref-card h4{ margin:0 0 5px; font-size:13.5px; font-weight:700; }
-  .ref-card p{ margin:0; font-size:12.5px; color:var(--text-dim); line-height:1.6; }
+  .ref-card p{ margin:0; font-size:12.5px; color:var(--text-dim); line-height:1.6; white-space:pre-wrap; overflow-wrap:anywhere; }
 
   .columns{ display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x proximity; padding-bottom:6px; -webkit-overflow-scrolling:touch; }
   .column{ scroll-snap-align:start; flex:1 1 0; min-width:270px; display:flex; flex-direction:column; gap:10px; }
@@ -872,7 +872,7 @@
   .status-btn.concluida{ border-color:var(--cyan); background:var(--cyan); }
   .status-btn.concluida::after{ content:'✓'; font-size:10px; font-weight:700; color:#052220; }
   .card-title{ font-size:13.5px; font-weight:600; line-height:1.4; flex:1; letter-spacing:0.005em; }
-  .card-desc{ font-size:12px; color:var(--text-dim); line-height:1.6; margin:0; padding-left:31px; }
+  .card-desc{ font-size:12px; color:var(--text-dim); line-height:1.6; margin:0; padding-left:31px; white-space:pre-wrap; overflow-wrap:anywhere; }
   .card-meta{ font-size:10.5px; color:var(--text-mute); font-family:'Space Mono',monospace; padding-left:31px; margin:-2px 0 0; }
   .card-attach-row{ display:flex; gap:6px; flex-wrap:wrap; padding-left:31px; margin-top:2px; }
   .card-attach-chip{ display:flex; align-items:center; gap:5px; background:rgba(var(--ink-rgb),0.05); border:1px solid var(--border); border-radius:7px; padding:3px 8px 3px 3px; font-size:10.5px; color:var(--text-dim); max-width:150px; }
@@ -4758,7 +4758,7 @@ function ensureSatellites(d){
 }
 function cleanDashes(o){
   if(o==null) return o;
-  if(typeof o==="string") return o.replace(/\s*[\u2014]\s*/g, ", ").replace(/\u2013/g, "-");
+  if(typeof o==="string") return o.replace(/(^|\n)([ \t]*)\u2014[ \t]*/g, "$1$2- ").replace(/[ \t]*\u2014[ \t]*/g, ", ").replace(/\u2013/g, "-");
   if(Array.isArray(o)){ for(var i=0;i<o.length;i++) o[i] = cleanDashes(o[i]); return o; }
   if(typeof o==="object"){ Object.keys(o).forEach(function(k){ if(k==="dataUrl"||k==="photo"||k==="photoOrig") return; o[k] = cleanDashes(o[k]); }); }
   return o;
